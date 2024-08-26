@@ -9,5 +9,6 @@ package models;
  * @author dylan
  */
 public class Artista extends Usuario {
-    
+    private String biografia;
+    private String DireccionWeb;
 }

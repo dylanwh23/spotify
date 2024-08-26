@@ -9,5 +9,6 @@ package models;
  * @author dylan
  */
 public class Cancion {
-    
+    private String nombre;
+    private int duracion;
 }
