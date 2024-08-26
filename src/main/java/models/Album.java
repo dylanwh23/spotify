@@ -12,7 +12,7 @@ import java.util.List;
 public class Album {
     
     private String nombre;
-    private int anio;
+    private int anioo;
     List<Genero> generos;
     
 }
