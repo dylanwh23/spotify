@@ -10,4 +10,5 @@ package models;
  */
 public class Genero {
     
+    private String Nombre;
 }

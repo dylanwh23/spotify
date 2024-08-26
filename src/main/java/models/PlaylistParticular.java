@@ -10,4 +10,6 @@ package models;
  */
 public class PlaylistParticular extends Playlist {
     
+    private Boolean privada;
+    
 }

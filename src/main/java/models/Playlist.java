@@ -10,4 +10,5 @@ package models;
  */
 public class Playlist {
     
+    private String Nombre;
 }
