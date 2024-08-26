@@ -10,6 +10,6 @@ package controllers;
  */
 public class UsuarioController {
     
-    
+    String coso;
     
 }
