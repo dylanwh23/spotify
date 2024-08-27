@@ -4,6 +4,7 @@
  */
 package views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
@@ -24,8 +25,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //Configuraciones manuales
         this.getContentPane().setBackground(Color.black);
         //
-        
         initComponents();
+        this.setLocationRelativeTo(null);
+       
     }
 
     /**
@@ -38,10 +40,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu3 = new javax.swing.JMenu();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
+        contenido = new javax.swing.JPanel();
         jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu4 = new javax.swing.JMenu();
+        registrosBtn = new javax.swing.JMenu();
+        altaUsuarioBtn = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        consultarUsuariosBtn = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -50,23 +54,41 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImage(logo.getImage());
 
-        jInternalFrame1.setVisible(true);
+        contenido.setBackground(new java.awt.Color(60, 121, 40));
 
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 776, Short.MAX_VALUE)
+        javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
+        contenido.setLayout(contenidoLayout);
+        contenidoLayout.setHorizontalGroup(
+            contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 429, Short.MAX_VALUE)
+        contenidoLayout.setVerticalGroup(
+            contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 477, Short.MAX_VALUE)
         );
 
-        jMenu4.setText("Registros");
-        jMenuBar2.add(jMenu4);
+        registrosBtn.setText("Registros");
+
+        altaUsuarioBtn.setLabel("Alta Usuario");
+        altaUsuarioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                altaUsuarioBtnActionPerformed(evt);
+            }
+        });
+        registrosBtn.add(altaUsuarioBtn);
+
+        jMenuBar2.add(registrosBtn);
 
         jMenu5.setText("Consultas");
+
+        consultarUsuariosBtn.setText("Consultar usuarios");
+        consultarUsuariosBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarUsuariosBtnActionPerformed(evt);
+            }
+        });
+        jMenu5.add(consultarUsuariosBtn);
+
         jMenuBar2.add(jMenu5);
 
         setJMenuBar(jMenuBar2);
@@ -75,22 +97,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jInternalFrame1)
-                .addContainerGap())
+            .addComponent(contenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jInternalFrame1)
-                .addContainerGap())
+            .addComponent(contenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
+    private void altaUsuarioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaUsuarioBtnActionPerformed
+        // TODO add your handling code here:
+        AltaUsuario altaUsuario = new AltaUsuario();
+        contenido.add(altaUsuario);
+        altaUsuario.setVisible(true);
+    }//GEN-LAST:event_altaUsuarioBtnActionPerformed
+
+    private void consultarUsuariosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarUsuariosBtnActionPerformed
+        // TODO add your handling code here:
+        ConsultarUsuarios consultaUsuarios = new ConsultarUsuarios();
+        contenido.add(consultaUsuarios);
+        consultaUsuarios.setVisible(true);
+    }//GEN-LAST:event_consultarUsuariosBtnActionPerformed
+ 
    
     
     /**
@@ -129,10 +159,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame jInternalFrame1;
+    protected javax.swing.JMenuItem altaUsuarioBtn;
+    private javax.swing.JMenuItem consultarUsuariosBtn;
+    private javax.swing.JPanel contenido;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenu registrosBtn;
     // End of variables declaration//GEN-END:variables
 }

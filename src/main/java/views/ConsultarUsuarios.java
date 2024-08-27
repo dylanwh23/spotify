@@ -8,12 +8,12 @@ package views;
  *
  * @author dylan
  */
-public class asd extends javax.swing.JInternalFrame {
+public class ConsultarUsuarios extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form asd
+     * Creates new form ConsultaUsuario
      */
-    public asd() {
+    public ConsultarUsuarios() {
         initComponents();
     }
 
@@ -26,15 +26,21 @@ public class asd extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setPreferredSize(new java.awt.Dimension(800, 600));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 788, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGap(0, 564, Short.MAX_VALUE)
         );
 
         pack();
