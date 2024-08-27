@@ -10,10 +10,15 @@ import java.time.*;
  */
 public class Usuario {
     
-    private String Nombre;
-    private String Apellido;
-    private String Contrasenia;
-    private String Nick;
-    private String Mail;
-    private LocalDate FecNac;
+    protected String Nombre;
+    protected String Apellido;
+    protected String Contraseña;
+    protected String Nick;
+    protected String Mail;
+    protected LocalDate FecNac;
+    
+    
+    public String getNickname(){
+        return this.Nick;
+    }
 }

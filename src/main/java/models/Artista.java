@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author dylan
@@ -11,4 +13,17 @@ package models;
 public class Artista extends Usuario {
     private String biografia;
     private String DireccionWeb;
+    
+    
+    public Artista(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String biografia, String link){
+        this.Nick = nick;
+        this.Nombre = nombre;
+        this.Apellido = apellido;
+        //this.Contraseña = contraseña;
+        this.Mail = mail;
+        this.FecNac = FecNac;
+        this.biografia = biografia;
+        this.DireccionWeb = link;
+    }
+    
 }
