@@ -46,6 +46,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         registrosBtn = new javax.swing.JMenu();
         altaUsuarioBtn = new javax.swing.JMenuItem();
         AltaGenero = new javax.swing.JMenuItem();
+        altaListaBtn = new javax.swing.JMenuItem();
+        altaTemaListabtn = new javax.swing.JMenuItem();
+        bajaTemaListabtn = new javax.swing.JMenuItem();
+        altaAlbumBtn = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         consultarUsuariosBtn = new javax.swing.JMenuItem();
 
@@ -72,6 +76,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         registrosBtn.setText("Registros");
+        registrosBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrosBtnActionPerformed(evt);
+            }
+        });
 
         altaUsuarioBtn.setLabel("Alta Usuario");
         altaUsuarioBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +102,38 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         registrosBtn.add(AltaGenero);
+
+        altaListaBtn.setText("Alta Lista");
+        altaListaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                altaListaBtnActionPerformed(evt);
+            }
+        });
+        registrosBtn.add(altaListaBtn);
+
+        altaTemaListabtn.setText("Alta Tema/Lista");
+        altaTemaListabtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                altaTemaListabtnActionPerformed(evt);
+            }
+        });
+        registrosBtn.add(altaTemaListabtn);
+
+        bajaTemaListabtn.setText("Baja Tema/Lista");
+        bajaTemaListabtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bajaTemaListabtnActionPerformed(evt);
+            }
+        });
+        registrosBtn.add(bajaTemaListabtn);
+
+        altaAlbumBtn.setText("Alta Album");
+        altaAlbumBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                altaAlbumBtnActionPerformed(evt);
+            }
+        });
+        registrosBtn.add(altaAlbumBtn);
 
         jMenuBar2.add(registrosBtn);
 
@@ -148,8 +189,41 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contenido.add(altaGenero);
         altaGenero.setVisible(true);
     }//GEN-LAST:event_AltaGeneroActionPerformed
- 
-   
+
+    private void altaListaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaListaBtnActionPerformed
+        // TODO add your handling code here:
+        AltaLista altaLista = new AltaLista();
+        contenido.add(altaLista);
+        altaLista.setVisible(true);
+    }//GEN-LAST:event_altaListaBtnActionPerformed
+
+    private void registrosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrosBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrosBtnActionPerformed
+
+    private void altaTemaListabtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaTemaListabtnActionPerformed
+        AltaTemaLista altaTemaLista = new AltaTemaLista();
+        contenido.add(altaTemaLista);
+        altaTemaLista.setVisible(true);
+    }//GEN-LAST:event_altaTemaListabtnActionPerformed
+
+    private void bajaTemaListabtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bajaTemaListabtnActionPerformed
+        // TODO add your handling code here:
+        BajaTemaLista bajaTemaLista = new BajaTemaLista();
+        contenido.add(bajaTemaLista);
+        bajaTemaLista.setVisible(true);
+    }//GEN-LAST:event_bajaTemaListabtnActionPerformed
+
+    private void altaAlbumBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaAlbumBtnActionPerformed
+        // TODO add your handling code here:
+        
+        AltaAlbum altaAlbum = new AltaAlbum();
+        contenido.add(altaAlbum);
+        altaAlbum.setVisible(true);
+        
+    }//GEN-LAST:event_altaAlbumBtnActionPerformed
+    
+        
     
     /**
      * @param args the command line arguments
@@ -188,7 +262,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AltaGenero;
+    private javax.swing.JMenuItem altaAlbumBtn;
+    private javax.swing.JMenuItem altaListaBtn;
+    private javax.swing.JMenuItem altaTemaListabtn;
     protected javax.swing.JMenuItem altaUsuarioBtn;
+    private javax.swing.JMenuItem bajaTemaListabtn;
     private javax.swing.JMenuItem consultarUsuariosBtn;
     private javax.swing.JPanel contenido;
     private javax.swing.JMenu jMenu3;
