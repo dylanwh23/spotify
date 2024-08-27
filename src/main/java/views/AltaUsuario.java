@@ -311,8 +311,8 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate();
         String tipoSeleccionado = (String) tipoSelect.getSelectedItem();
-        IUsuarioController asd = new IUsuarioController() {};
-        asd.registroUsuario(nickField.getText(), nombreField.getText(), apellidoField.getText(), correoField.getText(), localDate, biografiaField.getText(), linkField.getText(), tipoSeleccionado);
+        //IUsuarioController asd = new IUsuarioController() {};
+        //asd.registroUsuario(nickField.getText(), nombreField.getText(), apellidoField.getText(), correoField.getText(), localDate, biografiaField.getText(), linkField.getText(), tipoSeleccionado);
         
         
     }//GEN-LAST:event_registrarBtnActionPerformed

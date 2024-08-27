@@ -40,14 +40,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         contenido = new javax.swing.JPanel();
         jMenuBar2 = new javax.swing.JMenuBar();
         registrosBtn = new javax.swing.JMenu();
         altaUsuarioBtn = new javax.swing.JMenuItem();
+        AltaGenero = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         consultarUsuariosBtn = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administración");
@@ -76,6 +80,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         registrosBtn.add(altaUsuarioBtn);
+
+        AltaGenero.setText("Alta Genero");
+        AltaGenero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AltaGeneroMouseClicked(evt);
+            }
+        });
+        AltaGenero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AltaGeneroActionPerformed(evt);
+            }
+        });
+        registrosBtn.add(AltaGenero);
 
         jMenuBar2.add(registrosBtn);
 
@@ -120,6 +137,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contenido.add(consultaUsuarios);
         consultaUsuarios.setVisible(true);
     }//GEN-LAST:event_consultarUsuariosBtnActionPerformed
+
+    private void AltaGeneroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AltaGeneroMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AltaGeneroMouseClicked
+
+    private void AltaGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AltaGeneroActionPerformed
+        // TODO add your handling code here:
+        AltaGenero altaGenero = new AltaGenero();
+        contenido.add(altaGenero);
+        altaGenero.setVisible(true);
+    }//GEN-LAST:event_AltaGeneroActionPerformed
  
    
     
@@ -159,12 +187,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem AltaGenero;
     protected javax.swing.JMenuItem altaUsuarioBtn;
     private javax.swing.JMenuItem consultarUsuariosBtn;
     private javax.swing.JPanel contenido;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu registrosBtn;
     // End of variables declaration//GEN-END:variables
 }
