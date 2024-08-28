@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package views;
 
 import controllers.IUsuarioController;
@@ -27,14 +23,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author dylan
  */
 public class AltaUsuario extends javax.swing.JInternalFrame {
-    private IUsuarioController controlUsr;
+    private IUsuarioController controladorUsr;
 
     /**
      * Creates new form AltaUsuario
      */
-    public AltaUsuario() {
-        initComponents();
+    public AltaUsuario(IUsuarioController icu) {
         
+        initComponents();
+        controladorUsr = icu;
         //dejar panel de opciones extras de artista como no visible por default
         jPanel1.setVisible(false);
 
@@ -311,8 +308,8 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate();
         String tipoSeleccionado = (String) tipoSelect.getSelectedItem();
-        //IUsuarioController asd = new IUsuarioController() {};
-        //asd.registroUsuario(nickField.getText(), nombreField.getText(), apellidoField.getText(), correoField.getText(), localDate, biografiaField.getText(), linkField.getText(), tipoSeleccionado);
+        
+        controladorUsr.registroUsuario(nickField.getText(), nombreField.getText(), apellidoField.getText(), correoField.getText(), localDate, biografiaField.getText(), linkField.getText(), tipoSeleccionado);
         
         
     }//GEN-LAST:event_registrarBtnActionPerformed

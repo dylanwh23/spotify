@@ -4,6 +4,8 @@
  */
 package views;
 
+import controllers.Fabrica;
+import controllers.IUsuarioController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -15,6 +17,8 @@ import javax.swing.ImageIcon;
 
 
 public class VentanaPrincipal extends javax.swing.JFrame {
+    private IUsuarioController ICU;
+    
     
     //logo del frame
     ImageIcon logo = new ImageIcon("src/main/java/includes/logo.png");
@@ -27,6 +31,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        //inicio Controlador Usuario
+        Fabrica fabrica = Fabrica.getInstance();
+        ICU = fabrica.getIUsuarioController();
        
     }
 
@@ -167,7 +175,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void altaUsuarioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaUsuarioBtnActionPerformed
         // TODO add your handling code here:
-        AltaUsuario altaUsuario = new AltaUsuario();
+        AltaUsuario altaUsuario = new AltaUsuario(ICU);
         contenido.add(altaUsuario);
         altaUsuario.setVisible(true);
     }//GEN-LAST:event_altaUsuarioBtnActionPerformed
