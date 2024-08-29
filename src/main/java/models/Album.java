@@ -5,13 +5,16 @@
 package models;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 /**
  *
  * @author dylan
  */
+@Entity
 public class Album {
     
-    private String nombre;
+    @Id private String nombre;
     private int anioo;
     List<Genero> generos;
     

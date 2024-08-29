@@ -12,7 +12,7 @@ public class Usuario {
     
     protected String Nombre;
     protected String Apellido;
-    protected String Contraseña;
+    
     protected String Nick;
     protected String Mail;
     protected LocalDate FecNac;
