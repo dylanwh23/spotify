@@ -11,4 +11,16 @@ package models;
 public class Genero {
     
     private String Nombre;
+    
+    
+    public String getNombre(){
+    
+    return this.Nombre;
+}
+
+    
+    public void setNombre(String nombre){
+        this.Nombre = nombre;
+    }
+    
 }

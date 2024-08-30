@@ -4,9 +4,12 @@
  */
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import models.Genero;
 import models.Usuario;
 
 /**
@@ -15,6 +18,7 @@ import models.Usuario;
  */
 public class Manejador {
      private Map<String, Usuario> usuariosNickname;
+     private List<Genero> generos = new ArrayList<>();
     private static Manejador instancia = null;
 
     private Manejador() {
@@ -50,4 +54,22 @@ public class Manejador {
             return usuarios;
         }
     }
+    
+    public void agregarGenero(String nombre){
+        Genero gen = new Genero();
+        gen.setNombre(nombre);
+        generos.add(gen);
+ 
+    }
+    
+    public boolean buscarGenero(String nombre) {
+    for (Genero gen : generos) {
+        String Gen = gen.getNombre();
+        if (Gen.equals(nombre)) {  // Comparación de cadenas usando .equals()
+            return true;  // Si encuentra el género, retorna true
+        }
+    }
+    return false;  // Si no encuentra el género después de recorrer toda la lista, retorna false
+}
+    
 }

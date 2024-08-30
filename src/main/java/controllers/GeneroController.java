@@ -4,10 +4,33 @@
  */
 package controllers;
 
+import models.Genero;
+
 /**
  *
  * @author Machichu
  */
-public class GeneroController {
+public class GeneroController implements IGeneroController {
+
     
-}
+    public void registrarGenero(String nombre) {
+        Manejador m =  Manejador.getinstance();
+        Genero gen = new Genero();
+        gen.setNombre(nombre);
+        
+        if(m.buscarGenero(nombre) == false){
+            m.agregarGenero(nombre);
+            System.out.println(nombre);
+        }else{
+            System.out.println("Genero ya ingresado");
+        }
+ 
+    }
+        
+        
+    }
+    
+    
+    
+    
+

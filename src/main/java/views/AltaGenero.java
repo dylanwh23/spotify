@@ -4,6 +4,8 @@
  */
 package views;
 
+import controllers.GeneroController;
+
 /**
  *
  * @author Machichu
@@ -29,9 +31,9 @@ public class AltaGenero extends javax.swing.JInternalFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        textoIngresado = new javax.swing.JTextField();
+        AceptarBtn = new javax.swing.JButton();
+        CancelarBtn = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -48,12 +50,23 @@ public class AltaGenero extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nombre: ");
 
-        jButton1.setText("Aceptar");
-
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        textoIngresado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                textoIngresadoActionPerformed(evt);
+            }
+        });
+
+        AceptarBtn.setText("Aceptar");
+        AceptarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AceptarBtnActionPerformed(evt);
+            }
+        });
+
+        CancelarBtn.setText("Cancelar");
+        CancelarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarBtnActionPerformed(evt);
             }
         });
 
@@ -67,12 +80,12 @@ public class AltaGenero extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textoIngresado, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(187, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(AceptarBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(CancelarBtn)
                         .addGap(38, 38, 38))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -80,12 +93,12 @@ public class AltaGenero extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(63, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoIngresado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(CancelarBtn)
+                    .addComponent(AceptarBtn))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
@@ -106,18 +119,31 @@ public class AltaGenero extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void CancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarBtnActionPerformed
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_CancelarBtnActionPerformed
+
+    private void AceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarBtnActionPerformed
+        // TODO add your handling code here:
+       GeneroController GenController = new GeneroController();
+       String texto = textoIngresado.getText();
+       
+       GenController.registrarGenero(texto);
+        
+    }//GEN-LAST:event_AceptarBtnActionPerformed
+
+    private void textoIngresadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoIngresadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoIngresadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton AceptarBtn;
+    private javax.swing.JButton CancelarBtn;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField textoIngresado;
     // End of variables declaration//GEN-END:variables
 }
