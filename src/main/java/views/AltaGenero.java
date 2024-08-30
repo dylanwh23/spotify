@@ -121,7 +121,7 @@ public class AltaGenero extends javax.swing.JInternalFrame {
 
     private void CancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarBtnActionPerformed
         // TODO add your handling code here:
-        dispose();
+        
     }//GEN-LAST:event_CancelarBtnActionPerformed
 
     private void AceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarBtnActionPerformed
@@ -129,7 +129,7 @@ public class AltaGenero extends javax.swing.JInternalFrame {
        GeneroController GenController = new GeneroController();
        String texto = textoIngresado.getText();
        GenController.registrarGenero(texto);
-        
+       dispose(); 
     }//GEN-LAST:event_AceptarBtnActionPerformed
 
     private void textoIngresadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoIngresadoActionPerformed

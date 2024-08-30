@@ -42,8 +42,9 @@ public class GeneroJpaController implements Serializable {
             genero = em.merge(genero);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findGenero(genero.getId()) == null) {
-                throw new EntityNotFoundException("El género con id " + genero.getId() + " no existe.");
+            String nombre = genero.getNombre();
+            if (findGenero(nombre) == null) {
+                throw new EntityNotFoundException("El género con nombre " + nombre + " no existe.");
             }
             throw ex;
         } finally {
@@ -53,17 +54,17 @@ public class GeneroJpaController implements Serializable {
         }
     }
 
-    public void destroy(int id) throws Exception {
+    public void destroy(String nombre) throws Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             Genero genero;
             try {
-                genero = em.getReference(Genero.class, id);
-                genero.getId();
+                genero = em.getReference(Genero.class, nombre);
+                genero.getNombre(); // Verificar si la entidad existe
             } catch (EntityNotFoundException enfe) {
-                throw new EntityNotFoundException("El género con id " + id + " no existe.");
+                throw new EntityNotFoundException("El género con nombre " + nombre + " no existe.");
             }
             em.remove(genero);
             em.getTransaction().commit();
@@ -96,10 +97,10 @@ public class GeneroJpaController implements Serializable {
         }
     }
 
-    public Genero findGenero(int id) {
+    public Genero findGenero(String nombre) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Genero.class, id);
+            return em.find(Genero.class, nombre);
         } finally {
             em.close();
         }
