@@ -56,10 +56,10 @@ public class Manejador {
     }
     
     public void agregarGenero(String nombre){
-        Genero gen = new Genero();
+      /*  Genero gen = new Genero();
         gen.setNombre(nombre);
-        generos.add(gen);
- 
+        .add(gen);
+*/
     }
     
     public boolean buscarGenero(String nombre) {
