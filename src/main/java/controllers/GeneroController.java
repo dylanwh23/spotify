@@ -5,20 +5,20 @@
 package controllers;
 
 import models.Genero;
-import persistences.HandlerGeneroPersistencia;
+import persistences.ManejadorGeneroPersistencia;
 
 /**
  *
  * @author Machichu
  */
 public class GeneroController implements IGeneroController {
-    HandlerGeneroPersistencia aux = new HandlerGeneroPersistencia();
+    ManejadorGeneroPersistencia aux = new ManejadorGeneroPersistencia();
     public void registrarGenero(String nombre) {
         Genero gen = new Genero();
         gen.setNombre(nombre);
         aux.crearGenero(gen);
     }
-        
+       
         
         
         
