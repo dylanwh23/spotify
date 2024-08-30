@@ -11,4 +11,6 @@ package models;
 public class Cancion {
     private String nombre;
     private int duracion;
+    private String direccion_archivo_de_audio;
+    private String direccion_imagen;
 }
