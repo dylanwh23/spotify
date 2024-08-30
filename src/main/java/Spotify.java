@@ -25,7 +25,6 @@ public class Spotify {
         }
         VentanaPrincipal v = new VentanaPrincipal();
         v.setVisible(true);
-         HandlerGeneroPersistencia aux = new HandlerGeneroPersistencia();
         
     }
 }
