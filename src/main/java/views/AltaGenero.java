@@ -128,7 +128,6 @@ public class AltaGenero extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
        GeneroController GenController = new GeneroController();
        String texto = textoIngresado.getText();
-       
        GenController.registrarGenero(texto);
         
     }//GEN-LAST:event_AceptarBtnActionPerformed

@@ -5,17 +5,18 @@
 package controllers;
 
 import models.Genero;
-import persistences.ControladoraPersistencia;
+import persistences.HandlerGeneroPersistencia;
 
 /**
  *
  * @author Machichu
  */
 public class GeneroController implements IGeneroController {
-    
-    ControladoraPersistencia aux = new ControladoraPersistencia();
-    public void registrarGenero(Genero genero) {
-        aux.crearGenero(genero);
+    HandlerGeneroPersistencia aux = new HandlerGeneroPersistencia();
+    public void registrarGenero(String nombre) {
+        Genero gen = new Genero();
+        gen.setNombre(nombre);
+        aux.crearGenero(gen);
     }
         
         
@@ -34,11 +35,6 @@ public class GeneroController implements IGeneroController {
             System.out.println("Genero ya ingresado");
         }
  */
-
-    @Override
-    public void registrarGenero(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
         
         

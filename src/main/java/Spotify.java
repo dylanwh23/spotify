@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import views.VentanaPrincipal;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
-import persistences.ControladoraPersistencia;
+import persistences.HandlerGeneroPersistencia;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -25,7 +25,7 @@ public class Spotify {
         }
         VentanaPrincipal v = new VentanaPrincipal();
         v.setVisible(true);
-         ControladoraPersistencia aux = new ControladoraPersistencia();
+         HandlerGeneroPersistencia aux = new HandlerGeneroPersistencia();
         
     }
 }

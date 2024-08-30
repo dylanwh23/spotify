@@ -14,9 +14,9 @@ import models.Usuario;
  * @author Machichu
  */
 public class UsuarioController implements IUsuarioController{
-    
+  
     public void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String biografia, String link, String tipo){
-       Manejador m =  Manejador.getinstance();
+     /*    Manejador m =  Manejador.getinstance();
        if(m.obtenerUsuario(nickname) == null){
            if(tipo == "Artista"){
                Usuario nuevoUsuario = new Artista(nickname, nombre, apellido, mail, FecNac, biografia, link);
@@ -26,8 +26,8 @@ public class UsuarioController implements IUsuarioController{
                m.addUsuario(nuevoUsuario);
            }         
        }     
-    }
+   */  }
     
-    
+   
     
 }
