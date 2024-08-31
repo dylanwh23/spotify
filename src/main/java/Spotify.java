@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import views.VentanaPrincipal;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
-import persistences.ManejadorGeneroPersistencia;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

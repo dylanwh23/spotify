@@ -4,10 +4,13 @@
  */
 package models;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author dylan
  */
+@Entity
 public class PlaylistPorDefecto extends Playlist {
     
 }

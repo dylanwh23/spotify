@@ -5,6 +5,9 @@
 package models;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,36 +21,43 @@ import javax.persistence.InheritanceType;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Playlist implements Serializable {
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String nombre;
+    protected String nick;
+    protected String nombre;
+    protected String apellido;
+    protected LocalDate fecNac;
+    protected String mail;
+    protected String imagen;
+    
 
-    public String getNombre() {
-        return nombre;
+    public String getNick() {
+        return nick;
     }
 
-    public void setNombre(String id) {
-        this.nombre = id;
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (nombre != null ? nombre.hashCode() : 0);
+        hash += (nick != null ? nick.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Playlist)) {
+        if (!(object instanceof Usuario)) {
             return false;
         }
-        Playlist other = (Playlist) object;
-        if ((this.nombre == null && other.nombre != null) || (this.nombre != null && !this.nombre.equals(other.nombre))) {
+        Usuario other = (Usuario) object;
+        if ((this.nick == null && other.nick != null) || (this.nick != null && !this.nick.equals(other.nick))) {
             return false;
         }
         return true;
@@ -55,7 +65,7 @@ public class Playlist implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Playlistt[ id=" + nombre + " ]";
+        return "persistences.Usuario[ id=" + nick + " ]";
     }
     
 }

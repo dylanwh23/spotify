@@ -4,10 +4,13 @@
  */
 package models;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author dylan
  */
+@Entity
 public class PlaylistParticular extends Playlist {
     
     private Boolean privada;
