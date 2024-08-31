@@ -3,6 +3,10 @@
   <persistence-unit name="grupo6_Spotify" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>models.Genero</class>
+    <class>models.NewEntity</class>
+    <class>persistences.Usuario</class>
+    <class>models.Newentity_1</class>
+    <class>models.Asd</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Spotify?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
