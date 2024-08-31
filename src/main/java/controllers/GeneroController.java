@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import javax.persistence.EntityManager;
-import models.Cliente;
 import models.Genero;
 import persistences.GeneroJpaController;
 /**
@@ -19,13 +17,15 @@ import persistences.GeneroJpaController;
 public class GeneroController implements IGeneroController {
     GeneroJpaController aux = new GeneroJpaController();
     
-    public void registrarGenero(String nombre) {
+    public boolean registrarGenero(String nombre) {
         Genero gen = new Genero();
         gen.setNombre(nombre);
         try {
             aux.create(gen);
+            return true;
         } catch (Exception ex) {
-            Logger.getLogger(GeneroController.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(GeneroController.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
     public List<String> obtenerNombresGeneros() {

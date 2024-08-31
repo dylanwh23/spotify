@@ -10,5 +10,7 @@ package controllers;
  */
 public interface IGeneroController {
     
-    public abstract void registrarGenero(String nombre);
+    public abstract boolean registrarGenero(String nombre);
+    
+   
 }
