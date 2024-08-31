@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import models.Playlist;
@@ -17,10 +18,12 @@ import persistences.exceptions.NonexistentEntityException;
 
 /**
  *
- * @author dylan
+ * @author diego
  */
 public class PlaylistJpaController implements Serializable {
-
+    public PlaylistJpaController() {
+        this.emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+    }
     public PlaylistJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
@@ -54,7 +57,7 @@ public class PlaylistJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = playlist.getNombre();
+                int id = playlist.getId();
                 if (findPlaylist(id) == null) {
                     throw new NonexistentEntityException("The playlist with id " + id + " no longer exists.");
                 }
@@ -67,7 +70,7 @@ public class PlaylistJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -75,7 +78,7 @@ public class PlaylistJpaController implements Serializable {
             Playlist playlist;
             try {
                 playlist = em.getReference(Playlist.class, id);
-                playlist.getNombre();
+                playlist.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The playlist with id " + id + " no longer exists.", enfe);
             }
@@ -112,7 +115,7 @@ public class PlaylistJpaController implements Serializable {
         }
     }
 
-    public Playlist findPlaylist(String id) {
+    public Playlist findPlaylist(int id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Playlist.class, id);

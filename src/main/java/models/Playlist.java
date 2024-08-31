@@ -5,57 +5,71 @@
 package models;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author dylan
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Playlist implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String nombre;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    protected int id;
+    
+    protected String Nombre;
+    protected String rutaImagen;
+    @OneToMany 
+    protected LinkedList<Cancion>canciones;
+
+    public Playlist() {
+    }
+
+    public Playlist(int id, String Nombre, String rutaImagen, LinkedList<Cancion> canciones) {
+        this.id = id;
+        this.Nombre = Nombre;
+        this.rutaImagen = rutaImagen;
+        this.canciones = canciones;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNombre() {
-        return nombre;
+        return Nombre;
     }
 
-    public void setNombre(String id) {
-        this.nombre = id;
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (nombre != null ? nombre.hashCode() : 0);
-        return hash;
+    public String getRutaImagen() {
+        return rutaImagen;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Playlist)) {
-            return false;
-        }
-        Playlist other = (Playlist) object;
-        if ((this.nombre == null && other.nombre != null) || (this.nombre != null && !this.nombre.equals(other.nombre))) {
-            return false;
-        }
-        return true;
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
     }
 
-    @Override
-    public String toString() {
-        return "models.Playlistt[ id=" + nombre + " ]";
+    public LinkedList<Cancion> getCanciones() {
+        return canciones;
+    }
+
+    public void setCanciones(LinkedList<Cancion> canciones) {
+        this.canciones = canciones;
     }
     
 }

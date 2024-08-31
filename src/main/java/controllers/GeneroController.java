@@ -4,6 +4,8 @@
  */
 package controllers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Genero;
 import persistences.GeneroJpaController;
 /**
@@ -15,7 +17,11 @@ public class GeneroController implements IGeneroController {
     public void registrarGenero(String nombre) {
         Genero gen = new Genero();
         gen.setNombre(nombre);
-        aux.create(gen);
+        try {
+            aux.create(gen);
+        } catch (Exception ex) {
+            Logger.getLogger(GeneroController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
        
         

@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import models.PlaylistPorDefecto;
@@ -17,10 +18,13 @@ import persistences.exceptions.NonexistentEntityException;
 
 /**
  *
- * @author dylan
+ * @author diego
  */
 public class PlaylistPorDefectoJpaController implements Serializable {
-
+    
+     public PlaylistPorDefectoJpaController() {
+        this.emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+    }
     public PlaylistPorDefectoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
@@ -54,7 +58,7 @@ public class PlaylistPorDefectoJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = playlistPorDefecto.getNombre();
+                int id = playlistPorDefecto.getId();
                 if (findPlaylistPorDefecto(id) == null) {
                     throw new NonexistentEntityException("The playlistPorDefecto with id " + id + " no longer exists.");
                 }
@@ -67,7 +71,7 @@ public class PlaylistPorDefectoJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -75,7 +79,7 @@ public class PlaylistPorDefectoJpaController implements Serializable {
             PlaylistPorDefecto playlistPorDefecto;
             try {
                 playlistPorDefecto = em.getReference(PlaylistPorDefecto.class, id);
-                playlistPorDefecto.getNombre();
+                playlistPorDefecto.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The playlistPorDefecto with id " + id + " no longer exists.", enfe);
             }
@@ -112,7 +116,7 @@ public class PlaylistPorDefectoJpaController implements Serializable {
         }
     }
 
-    public PlaylistPorDefecto findPlaylistPorDefecto(String id) {
+    public PlaylistPorDefecto findPlaylistPorDefecto(int id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(PlaylistPorDefecto.class, id);
