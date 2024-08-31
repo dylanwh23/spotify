@@ -14,13 +14,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author dylan
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,9 +32,10 @@ public class Usuario implements Serializable {
     protected String nick;
     protected String nombre;
     protected String apellido;
-    protected LocalDate fecNac;
     protected String mail;
     protected String imagen;
+    
+    protected LocalDate fecNac;
     
 
     public String getNick() {

@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import models.Usuario;
@@ -18,12 +19,15 @@ import persistences.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author dylan
+ * @author diego
  */
 public class UsuarioJpaController implements Serializable {
-
+    
     public UsuarioJpaController(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+    public UsuarioJpaController() {
+        this.emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
     }
     private EntityManagerFactory emf = null;
 

@@ -28,6 +28,10 @@ public class Artista extends Usuario {
         this.DireccionWeb = link;
     }
 
+    public Artista() {
+       
+    }
+
     public String getBiografia() {
         return biografia;
     }

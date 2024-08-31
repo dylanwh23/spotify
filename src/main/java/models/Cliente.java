@@ -13,6 +13,10 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Cliente extends Usuario {
+
+    public Cliente() {
+    }
+    
     public Cliente(String nick, String nombre, String apellido, String mail, LocalDate FecNac){
         this.nick = nick;
         this.nombre = nombre;
@@ -21,5 +25,6 @@ public class Cliente extends Usuario {
         this.mail = mail;
         this.fecNac = FecNac;
     }
+    
 }
 

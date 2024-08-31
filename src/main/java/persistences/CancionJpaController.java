@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import models.Cancion;
@@ -20,7 +21,10 @@ import persistences.exceptions.NonexistentEntityException;
  * @author dylan
  */
 public class CancionJpaController implements Serializable {
-
+    
+    public CancionJpaController() {
+        this.emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+    }
     public CancionJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
