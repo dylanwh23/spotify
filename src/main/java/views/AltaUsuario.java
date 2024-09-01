@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -303,15 +304,20 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
     private void registrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarBtnActionPerformed
         // TODO add your handling code here:
         //conversion date a localdate
-        Date fechaSeleccinada = fechaNac.getDate();
-        LocalDate localDate = fechaSeleccinada.toInstant()
-                    .atZone(ZoneId.systemDefault())
-                    .toLocalDate();
-        String tipoSeleccionado = (String) tipoSelect.getSelectedItem();
-        
-        controladorUsr.registroUsuario(nickField.getText(), nombreField.getText(), apellidoField.getText(), correoField.getText(), localDate, biografiaField.getText(), linkField.getText(), tipoSeleccionado);
-        
-        
+        if (nickField.getText().trim().isEmpty() ||
+            nombreField.getText().trim().isEmpty() ||
+            apellidoField.getText().trim().isEmpty() ||
+            correoField.getText().trim().isEmpty() ||   
+            fechaNac == null) {
+
+        // Muestra un mensaje de advertencia
+            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Date fechaSeleccinada = fechaNac.getDate();
+            LocalDate localDate = fechaSeleccinada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String tipoSeleccionado = (String) tipoSelect.getSelectedItem();
+            controladorUsr.registroUsuario(nickField.getText(), nombreField.getText(), apellidoField.getText(), correoField.getText(), localDate, txtFile.getText(), biografiaField.getText(), linkField.getText() ,tipoSeleccionado);
+        } 
     }//GEN-LAST:event_registrarBtnActionPerformed
 
 

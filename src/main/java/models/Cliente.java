@@ -5,7 +5,11 @@
 package models;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -13,17 +17,19 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Cliente extends Usuario {
-
+    @OneToMany(mappedBy = "cliente")
+    private List<PlaylistParticular> playlists;
     public Cliente() {
     }
     
-    public Cliente(String nick, String nombre, String apellido, String mail, LocalDate FecNac){
+    public Cliente(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String imagen){
         this.nick = nick;
         this.nombre = nombre;
         this.apellido = apellido;
         //this.Contraseña = contraseña;
         this.mail = mail;
         this.fecNac = FecNac;
+        this.imagen = imagen;
     }
     
 }

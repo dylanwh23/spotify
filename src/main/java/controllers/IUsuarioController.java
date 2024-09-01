@@ -11,6 +11,6 @@ import java.time.LocalDate;
  * @author dylan
  */
 public interface IUsuarioController {
-    public abstract void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String biografia, String link, String tipo);
+    public abstract void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link, String tipo);
     
 }

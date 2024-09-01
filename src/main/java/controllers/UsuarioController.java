@@ -12,8 +12,11 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import models.Artista;
 import models.Cliente;
 import models.Usuario;
+import persistences.ArtistaJpaController;
+import persistences.ClienteJpaController;
 import persistences.UsuarioJpaController;
 /*
 import models.Artista;
@@ -26,19 +29,30 @@ import models.Usuario;
  * @author Machichu
  */
 public class UsuarioController implements IUsuarioController{
-    UsuarioJpaController aux = new UsuarioJpaController();
+    
+    
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
     
-    public void crearUser(Usuario usuario) {
+    public void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link, String tipo){
+        
+        if(tipo == "Artista"){
+            Artista nuevoUsuario = new Artista(nickname, nombre, apellido, mail, FecNac, imagen, biografia, link);
+            ArtistaJpaController aux = new ArtistaJpaController(emf);
+            try {               
+                aux.create(nuevoUsuario);
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            ClienteJpaController aux = new ClienteJpaController(emf);
+            Cliente nuevoUsuario = new Cliente(nickname, nombre, apellido, mail, FecNac, imagen);
             try {
-             aux.create(usuario);
-         } catch (Exception ex) {
-             Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-    }
+                aux.create(nuevoUsuario);
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-    public void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String biografia, String link, String tipo){
-           
+        }  
      }
    /*Manejador m =  Manejador.getinstance();
        if(m.obtenerUsuario(nickname) == null){
