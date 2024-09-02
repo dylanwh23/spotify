@@ -17,7 +17,20 @@ import persistences.GeneroJpaController;
 public class GeneroController implements IGeneroController {
     GeneroJpaController aux = new GeneroJpaController();
     
-    public boolean registrarGenero(String nombre) {
+    public boolean registrarGenero(String nombre, Genero padre) {
+        Genero gen = new Genero();
+        gen.setNombre(nombre);
+        gen.setPadreNombre(padre);
+        try {
+            aux.create(gen);
+            return true;
+        } catch (Exception ex) {
+            //Logger.getLogger(GeneroController.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+        public boolean registrarGenero2(String nombre) {
         Genero gen = new Genero();
         gen.setNombre(nombre);
         try {
@@ -28,6 +41,7 @@ public class GeneroController implements IGeneroController {
             return false;
         }
     }
+    
     public List<String> obtenerNombresGeneros() {
             List<Genero> generos = aux.findGeneroEntities();
             return generos.stream()
@@ -37,7 +51,11 @@ public class GeneroController implements IGeneroController {
     }
        
    
+    public Genero findGenero(String nombre){
         
+        return aux.findGenero(nombre);
+        
+    }
         
         
         

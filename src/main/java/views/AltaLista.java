@@ -126,6 +126,12 @@ public class AltaLista extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Genero");
 
+        GeneroBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GeneroBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelPorDefectoLayout = new javax.swing.GroupLayout(PanelPorDefecto);
         PanelPorDefecto.setLayout(PanelPorDefectoLayout);
         PanelPorDefectoLayout.setHorizontalGroup(
@@ -270,7 +276,7 @@ public class AltaLista extends javax.swing.JInternalFrame {
     private void crearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearBtnMouseClicked
         try {
             if ("Por Defecto".equals(TipoLista.getSelectedItem())) {
-                controladorPlaylist.crearPlaylistPorDefecto(NombreLista.getText(),txtFile.getText(),GeneroBox.getSelectedItem().toString());
+                controladorPlaylist.crearPlaylistPorDefecto(NombreLista.getText(),GeneroBox.getSelectedItem().toString(),txtFile.getText());
                 JOptionPane.showMessageDialog(this,"Playlist por defecto creada exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
             } else {
                 controladorPlaylist.crearPlaylistParticular(NombreLista.getText(),txtFile.getText(),ClienteBox.getSelectedItem().toString());
@@ -280,6 +286,10 @@ public class AltaLista extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this,"Ocurrió un error: " + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_crearBtnMouseClicked
+
+    private void GeneroBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneroBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GeneroBoxActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
