@@ -204,7 +204,6 @@ public class AltaGenero extends javax.swing.JInternalFrame {
        String texto = textoIngresado.getText();
        String generoPadre = GeneroPadreBox.getSelectedItem().toString();
        Genero padre = new Genero();
-       System.out.println(GeneroPadreBox.getName());
 
        List<String> listaGeneros = GenController.obtenerNombresGeneros();
         boolean generoExiste = false;
@@ -225,10 +224,10 @@ public class AltaGenero extends javax.swing.JInternalFrame {
     }
 
     // Si no existe, añade el string a la lista
-    if (!generoExiste && GeneroPadreBox.getName() == "Ninguno") {
+    if (!generoExiste && GeneroPadreBox.getName() == "Ninguno" && texto != " ") {
         GenController.registrarGenero2(texto);
         JOptionPane.showMessageDialog(this,"Genero creado exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
-    } else if (!generoExiste && GeneroPadreBox.getName() != "Ninguno") {
+    } else if (!generoExiste && GeneroPadreBox.getName() != "Ninguno" && texto != " ") {
         GenController.registrarGenero(texto, padre);
         JOptionPane.showMessageDialog(this,"Genero creado exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
     }else{

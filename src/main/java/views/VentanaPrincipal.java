@@ -59,7 +59,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         bajaTemaListabtn = new javax.swing.JMenuItem();
         altaAlbumBtn = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        consultarUsuariosBtn = new javax.swing.JMenuItem();
+        consultarClientesBtn = new javax.swing.JMenuItem();
+        consultarPlaylistBtn = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -147,13 +148,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu5.setText("Consultas");
 
-        consultarUsuariosBtn.setText("Consultar usuarios");
-        consultarUsuariosBtn.addActionListener(new java.awt.event.ActionListener() {
+        consultarClientesBtn.setText("Consultar clientes");
+        consultarClientesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultarUsuariosBtnActionPerformed(evt);
+                consultarClientesBtnActionPerformed(evt);
             }
         });
-        jMenu5.add(consultarUsuariosBtn);
+        jMenu5.add(consultarClientesBtn);
+
+        consultarPlaylistBtn.setText("Consultar Playlist");
+        consultarPlaylistBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarPlaylistBtnActionPerformed(evt);
+            }
+        });
+        jMenu5.add(consultarPlaylistBtn);
 
         jMenuBar2.add(jMenu5);
 
@@ -180,12 +189,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         altaUsuario.setVisible(true);
     }//GEN-LAST:event_altaUsuarioBtnActionPerformed
 
-    private void consultarUsuariosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarUsuariosBtnActionPerformed
+    private void consultarClientesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarClientesBtnActionPerformed
         // TODO add your handling code here:
-        ConsultarUsuarios consultaUsuarios = new ConsultarUsuarios();
-        contenido.add(consultaUsuarios);
-        consultaUsuarios.setVisible(true);
-    }//GEN-LAST:event_consultarUsuariosBtnActionPerformed
+        ConsultaClientes consultaClientes = new ConsultaClientes();
+        contenido.add(consultaClientes);
+        consultaClientes.setVisible(true);
+    }//GEN-LAST:event_consultarClientesBtnActionPerformed
 
     private void AltaGeneroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AltaGeneroMouseClicked
         // TODO add your handling code here:
@@ -230,6 +239,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         altaAlbum.setVisible(true);
         
     }//GEN-LAST:event_altaAlbumBtnActionPerformed
+
+    private void consultarPlaylistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarPlaylistBtnActionPerformed
+        // TODO add your handling code here:
+        ConsultarPlaylist consultarPlaylist = new ConsultarPlaylist();
+        contenido.add(consultarPlaylist);
+        consultarPlaylist.setVisible(true);
+    }//GEN-LAST:event_consultarPlaylistBtnActionPerformed
     
         
     
@@ -275,7 +291,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem altaTemaListabtn;
     protected javax.swing.JMenuItem altaUsuarioBtn;
     private javax.swing.JMenuItem bajaTemaListabtn;
-    private javax.swing.JMenuItem consultarUsuariosBtn;
+    private javax.swing.JMenuItem consultarClientesBtn;
+    private javax.swing.JMenuItem consultarPlaylistBtn;
     private javax.swing.JPanel contenido;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
