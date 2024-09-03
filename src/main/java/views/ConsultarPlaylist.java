@@ -245,19 +245,20 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
             String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "DTYPE", "GENERO"};
             NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
             ListaPlaylist.setModel(tableModel);
-        } else if ("Cliente".equals(GeneroCliente.getSelectedItem())){
-            Object[][] datos = controladorP.obtenerDatosPlaylistCliente(DatosCliente.getSelectedItem().toString());
-            String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "DTYPE", "PRIVADA"};
-            NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
-            ListaPlaylist.setModel(tableModel);
-            
-        } else {
+        
         }
  
     }//GEN-LAST:event_DatosGeneroActionPerformed
 
     private void DatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DatosClienteActionPerformed
-        // TODO add your handling code here:
+
+        if ("Cliente".equals(GeneroCliente.getSelectedItem())){
+            Object[][] datos = controladorP.obtenerDatosPlaylistCliente(DatosCliente.getSelectedItem().toString());
+            String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "DTYPE", "PRIVADA"};
+            NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
+            ListaPlaylist.setModel(tableModel);
+            
+        }
     }//GEN-LAST:event_DatosClienteActionPerformed
 
     private void ListaPlaylistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaPlaylistMouseClicked

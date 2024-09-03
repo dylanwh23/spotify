@@ -4,6 +4,8 @@
  */
 package controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import models.Cancion;
 import persistences.CancionJpaController;
 
@@ -27,6 +29,13 @@ public class CancionController implements ICancionController  {
 
             return false;
         }
+    }
+
+   public List<String> obtenerNombresCanciones() {
+            List<Cancion> canciones = cancionJpaController.findCancionEntities();
+            return canciones.stream()
+                           .map(cancion -> cancion.getId()+" - "+cancion.getNombre())
+                           .collect(Collectors.toList());
     }
 }
 

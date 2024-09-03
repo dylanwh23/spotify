@@ -17,6 +17,7 @@ import models.Genero;
 import models.Playlist;
 import models.PlaylistParticular;
 import models.PlaylistPorDefecto;
+import persistences.CancionJpaController;
 import persistences.GeneroJpaController;
 import persistences.PlaylistJpaController;
 
@@ -25,9 +26,11 @@ import persistences.PlaylistJpaController;
  * @author Machichu
  */
 public class PlaylistController {
-     PlaylistJpaController aux = new PlaylistJpaController();
+     PlaylistJpaController auxPlay = new PlaylistJpaController();
      GeneroJpaController auxGen = new GeneroJpaController();
+     CancionJpaController auxCan = new CancionJpaController();
      private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+     
     public void crearPlaylistPorDefecto(String nombre ,String genero,String rutaImagen){
             PlaylistPorDefecto playlist = new PlaylistPorDefecto();
             playlist.setGenero(auxGen.findGenero(genero));
@@ -35,7 +38,7 @@ public class PlaylistController {
             
             playlist.setRutaImagen(rutaImagen);
         try {
-             aux.create(playlist);
+             auxPlay.create(playlist);
             } 
             catch (Exception ex) {
              Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,7 +50,7 @@ public class PlaylistController {
     }
 
     public Object[][] obtenerPlaylistLista() {
-        List<Playlist> playlists = aux.findPlaylistEntities();
+        List<Playlist> playlists = auxPlay.findPlaylistEntities();
         Object[][] data = new Object[playlists.size()][6]; 
 
         for (int i = 0; i < playlists.size(); i++) {
@@ -107,10 +110,10 @@ public class PlaylistController {
             em.close();
         }
     }
-    public Object[][] obtenerDatosPlaylistCliente(String cliente) {
+    public Object[][] obtenerDatosPlaylistCliente(String nick) {
         EntityManager em = emf.createEntityManager();
         try {
-            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistPorDefecto p ", Playlist.class).setParameter("generoNombre", cliente).getResultList();
+            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.cliente.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
             Object[][] data = new Object[playlists.size()][6];
             for (int i = 0; i < playlists.size(); i++) {
                 Playlist playlist = playlists.get(i);
@@ -131,25 +134,90 @@ public class PlaylistController {
     }
     
     public void crearPlaylist(Playlist playlist) {
-        aux.create(playlist);
+        auxPlay.create(playlist);
     }
 
     public Object[][] obtenerDatosPlaylist(int id) {
-         // Obtener la playlist por ID
-    Playlist playlist = aux.findPlaylist(id);
-    
-    if (playlist == null) {
-        return new Object[0][0]; // Si no se encuentra la playlist, devolver una matriz vacía
-    }
-    LinkedList<Cancion> canciones = playlist.getCanciones(); 
-    Object[][] datos = new Object[canciones.size()][5];
+        // Obtener la playlist por ID
+        Playlist playlist = auxPlay.findPlaylist(id);
 
-    for (int i = 0; i < canciones.size(); i++) {
-        Cancion cancion = canciones.get(i);
-        datos[i][0] = cancion.getId();        
-        datos[i][1] = cancion.getNombre();    
-        datos[i][2] = cancion.getDuracion(); 
+        if (playlist == null) {
+            return new Object[0][0]; // Si no se encuentra la playlist, devolver una matriz vacía
+        }
+        LinkedList<Cancion> canciones = playlist.getCanciones();
+        Object[][] datos = new Object[canciones.size()][5];
+
+        for (int i = 0; i < canciones.size(); i++) {
+            Cancion cancion = canciones.get(i);
+            datos[i][0] = cancion.getId();
+            datos[i][1] = cancion.getNombre();
+            datos[i][2] = cancion.getDuracion();
+        }
+        return datos;
     }
-    return datos;
+    public List<String> obtenerNombresPlaylistPorDefecto() {
+        List<Playlist> playlists = auxPlay.findPlaylistEntities();
+        return playlists.stream()
+                .filter(playlist -> playlist instanceof PlaylistPorDefecto) // Filtrar por el tipo de playlist
+                .map(playlist -> playlist.getId()+ " - " + playlist.getNombre()) // Obtener solo el nombre
+                .collect(Collectors.toList());
+    }
+
+    public List<String> obtenerNombresPlaylistParticularCliente(String nick) {
+        
+        EntityManager em = emf.createEntityManager();
+        try {
+            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.cliente.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
+            return playlists.stream()
+                    .filter(playlist -> playlist instanceof PlaylistParticular) // Filtrar solo las playlists particulares
+                    .map(playlist -> playlist.getId()+ " - " + playlist.getNombre())
+                    .collect(Collectors.toList());
+        } finally {
+            em.close();
+        }
+    }
+
+    public void crearRelacionPlaylistCancion( String stringPlaylist, String stringCancion) throws Exception {
+        stringPlaylist = stringPlaylist.trim();
+        int indicePlay = stringPlaylist.indexOf('-');
+        String idPlayString = stringPlaylist.substring(0, indicePlay).trim();
+        int idPlaylist = Integer.parseInt(idPlayString); 
+        Playlist playlist = auxPlay.findPlaylist(idPlaylist);
+        
+        stringCancion = stringCancion.trim();
+        int indiceCan = stringCancion.indexOf('-');
+        String idCanString = stringCancion.substring(0, indiceCan).trim();
+        int idCancion = Integer.parseInt(idCanString); 
+        
+        playlist.getCanciones().add(auxCan.findCancion(idCancion));
+        auxPlay.edit(playlist);
+    }
+
+    public List<String> obtenerNombresPlaylistCanciones(String stringPlaylist) {
+        stringPlaylist = stringPlaylist.trim();
+        int indicePlay = stringPlaylist.indexOf('-');
+        String idPlayString = stringPlaylist.substring(0, indicePlay).trim();
+        int idPlaylist = Integer.parseInt(idPlayString); 
+        Playlist playlist = auxPlay.findPlaylist(idPlaylist);
+        List<Cancion> canciones = playlist.getCanciones();
+        return canciones.stream()
+                           .map(cancion -> cancion.getId()+" - "+cancion.getNombre())
+                           .collect(Collectors.toList());
+    }
+
+    public void borrarRelacionPlaylistCancion(String stringPlaylist, String stringCancion) throws Exception {
+        stringPlaylist = stringPlaylist.trim();
+        int indicePlay = stringPlaylist.indexOf('-');
+        String idPlayString = stringPlaylist.substring(0, indicePlay).trim();
+        int idPlaylist = Integer.parseInt(idPlayString); 
+        Playlist playlist = auxPlay.findPlaylist(idPlaylist);
+        
+        stringCancion = stringCancion.trim();
+        int indiceCan = stringCancion.indexOf('-');
+        String idCanString = stringCancion.substring(0, indiceCan).trim();
+        int idCancion = Integer.parseInt(idCanString); 
+        
+        playlist.getCanciones().remove(auxCan.findCancion(idCancion));
+        auxPlay.edit(playlist);
     }
 }
