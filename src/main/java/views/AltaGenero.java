@@ -21,9 +21,7 @@ public class AltaGenero extends javax.swing.JInternalFrame {
      */
     public AltaGenero() {
         initComponents();
-        GeneroController GenController = new GeneroController();
-        VentanaError.setVisible(false);
-        
+        GeneroController GenController = new GeneroController();        
         List<String> nombresGenero = GenController.obtenerNombresGeneros();
             for (String nombreG : nombresGenero) {
                 GeneroPadreBox.addItem(nombreG);
@@ -44,9 +42,6 @@ public class AltaGenero extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         AceptarBtn = new javax.swing.JButton();
         CancelarBtn = new javax.swing.JButton();
-        VentanaError = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        AceptarErrorBtn = new javax.swing.JButton();
         GeneroPadreBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -79,38 +74,6 @@ public class AltaGenero extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("ERROR: El genero ingresado ya existe");
-
-        AceptarErrorBtn.setText("OK");
-        AceptarErrorBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AceptarErrorBtnActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout VentanaErrorLayout = new javax.swing.GroupLayout(VentanaError);
-        VentanaError.setLayout(VentanaErrorLayout);
-        VentanaErrorLayout.setHorizontalGroup(
-            VentanaErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VentanaErrorLayout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(51, 51, 51))
-            .addGroup(VentanaErrorLayout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(AceptarErrorBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        VentanaErrorLayout.setVerticalGroup(
-            VentanaErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(VentanaErrorLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(AceptarErrorBtn)
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-
         GeneroPadreBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno" }));
         GeneroPadreBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,17 +92,12 @@ public class AltaGenero extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(GeneroPadreBox, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(44, Short.MAX_VALUE)
-                        .addComponent(VentanaError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(AceptarBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(CancelarBtn)))
+                .addGap(38, 38, 38)
+                .addComponent(AceptarBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(CancelarBtn)
                 .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,13 +107,11 @@ public class AltaGenero extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(GeneroPadreBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(VentanaError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CancelarBtn)
                     .addComponent(AceptarBtn))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         jLabel1.setText("Nombre: ");
@@ -181,7 +137,7 @@ public class AltaGenero extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(textoIngresado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -224,14 +180,14 @@ public class AltaGenero extends javax.swing.JInternalFrame {
     }
 
     // Si no existe, añade el string a la lista
-    if (!generoExiste && GeneroPadreBox.getName() == "Ninguno" && texto != " ") {
+    if (!generoExiste && GeneroPadreBox.getName() == "Ninguno" && texto != null && !texto.trim().isEmpty()) {
         GenController.registrarGenero2(texto);
         JOptionPane.showMessageDialog(this,"Genero creado exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
-    } else if (!generoExiste && GeneroPadreBox.getName() != "Ninguno" && texto != " ") {
+    } else if (!generoExiste && GeneroPadreBox.getName() != "Ninguno" && texto != null && !texto.trim().isEmpty()) {
         GenController.registrarGenero(texto, padre);
         JOptionPane.showMessageDialog(this,"Genero creado exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
     }else{
-        JOptionPane.showMessageDialog(this,"Ocurrió un error: El genero ingresado ya existe","Error",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this,"Ocurrió un error: El genero ingresado ya existe y/o es vacío" ,"Error",JOptionPane.ERROR_MESSAGE);
     }
 
     
@@ -257,10 +213,6 @@ public class AltaGenero extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textoIngresadoActionPerformed
 
-    private void AceptarErrorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarErrorBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AceptarErrorBtnActionPerformed
-
     private void GeneroPadreBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneroPadreBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GeneroPadreBoxActionPerformed
@@ -268,13 +220,10 @@ public class AltaGenero extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AceptarBtn;
-    private javax.swing.JButton AceptarErrorBtn;
     private javax.swing.JButton CancelarBtn;
     private javax.swing.JComboBox<String> GeneroPadreBox;
-    private javax.swing.JPanel VentanaError;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField textoIngresado;
