@@ -15,6 +15,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import persistences.exceptions.PreexistingEntityException;
 
 
 
@@ -300,24 +301,30 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
     private void linkFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_linkFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_linkFieldActionPerformed
-
+    
     private void registrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarBtnActionPerformed
         // TODO add your handling code here:
-        //conversion date a localdate
-        if (nickField.getText().trim().isEmpty() ||
-            nombreField.getText().trim().isEmpty() ||
-            apellidoField.getText().trim().isEmpty() ||
-            correoField.getText().trim().isEmpty() ||   
-            fechaNac == null) {
+        //apronto datos para hacer el alta
+        Date fechaSeleccinada = fechaNac.getDate();
+        LocalDate localDate = fechaSeleccinada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String tipoSeleccionado = (String) tipoSelect.getSelectedItem();
 
-        // Muestra un mensaje de advertencia
+        if (nickField.getText().trim().isEmpty() || nombreField.getText().trim().isEmpty() || apellidoField.getText().trim().isEmpty() || correoField.getText().trim().isEmpty() || fechaNac == null) {
+            // Solicita la usuario llenar todos los campos
             JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
         } else {
-            Date fechaSeleccinada = fechaNac.getDate();
-            LocalDate localDate = fechaSeleccinada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            String tipoSeleccionado = (String) tipoSelect.getSelectedItem();
-            controladorUsr.registroUsuario(nickField.getText(), nombreField.getText(), apellidoField.getText(), correoField.getText(), localDate, txtFile.getText(), biografiaField.getText(), linkField.getText() ,tipoSeleccionado);
-        } 
+            try {
+                controladorUsr.registroUsuario(nickField.getText(), nombreField.getText(), apellidoField.getText(), correoField.getText(), localDate, txtFile.getText(), biografiaField.getText(), linkField.getText(), tipoSeleccionado);
+                JOptionPane.showMessageDialog(this, "Usuario creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                //formatear campos
+                nickField.setText("");
+                nombreField.setText("");
+                apellidoField.setText("");
+                correoField.setText("");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_registrarBtnActionPerformed
 
 

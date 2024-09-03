@@ -40,7 +40,7 @@ public class UsuarioJpaController implements Serializable {
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findUsuario(usuario.getNick()) != null) {
-                throw new PreexistingEntityException("Usuario " + usuario + " already exists.", ex);
+                throw new PreexistingEntityException("El usuario con el nickname '" + usuario.getNick() + "' ya existe.", ex);
             }
             throw ex;
         } finally {

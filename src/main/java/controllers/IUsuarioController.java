@@ -5,12 +5,13 @@
 package controllers;
 
 import java.time.LocalDate;
+import persistences.exceptions.PreexistingEntityException;
 
 /**
  *
  * @author dylan
  */
 public interface IUsuarioController {
-    public abstract void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link, String tipo);
+    public abstract void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link, String tipo) throws Exception;
     
 }
