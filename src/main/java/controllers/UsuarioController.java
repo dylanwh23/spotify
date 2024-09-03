@@ -54,16 +54,7 @@ public class UsuarioController implements IUsuarioController{
 
         }  
      }
-   /*Manejador m =  Manejador.getinstance();
-       if(m.obtenerUsuario(nickname) == null){
-           if(tipo == "Artista"){
-               Usuario nuevoUsuario = new Artista(nickname, nombre, apellido, mail, FecNac, biografia, link);
-               m.addUsuario(nuevoUsuario);
-           }else{
-               Usuario nuevoUsuario = new Cliente(nickname, nombre, apellido, mail, FecNac);
-               m.addUsuario(nuevoUsuario);
-           }         
-       } */ 
+ 
        public List<String> obtenerNombresClientes() {
         EntityManager em = emf.createEntityManager();
         try {
@@ -78,5 +69,51 @@ public class UsuarioController implements IUsuarioController{
         }
     }
     
+
+
+public Object[][] obtenerDatosCliente(String nick) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        System.out.print(nick);
+        List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.nick = :nick", Cliente.class).setParameter("nick", nick).getResultList();
+        Object[][] data = new Object[clientes.size()][6];
+
+        for (int i = 0; i < clientes.size(); i++) {
+            Cliente cliente = clientes.get(i);  // Obtener el cliente individual
+
+            data[i][0] = cliente.getNick();     // Asignar valores al arreglo
+            data[i][1] = cliente.getNombre();
+            data[i][2] = cliente.getApellido();
+            data[i][3] = cliente.getMail();
+            data[i][4] = cliente.getFecNac();
+            data[i][5] = cliente.getImagen();
+        }
+        return data;
+
+    } finally {
+        em.close();
+    }
 }
 
+public Object[][] obtenerDatosClientes() {
+    EntityManager em = emf.createEntityManager();
+    try {
+        List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c", Cliente.class).getResultList();
+        Object[][] data = new Object[clientes.size()][6];
+
+        for (int i = 0; i < clientes.size(); i++) {
+            Cliente cliente = clientes.get(i);  // Obtener el cliente individual
+
+                 // Asignar valores al arreglo
+            data[i][0] = cliente.getNombre();
+            data[i][1] = cliente.getNick();
+        }
+        return data;
+
+    } finally {
+        em.close();
+    }
+}
+
+
+}

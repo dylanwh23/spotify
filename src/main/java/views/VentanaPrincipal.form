@@ -87,7 +87,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="consultarClientesBtn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar clientes"/>
+                <Property name="text" type="java.lang.String" value="Consultar Clientes"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultarClientesBtnActionPerformed"/>

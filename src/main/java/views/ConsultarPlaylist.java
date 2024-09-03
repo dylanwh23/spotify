@@ -7,11 +7,7 @@ package views;
 import controllers.GeneroController;
 import controllers.PlaylistController;
 import controllers.UsuarioController;
-import java.awt.event.MouseEvent;
 import java.util.List;
-import javax.swing.DefaultListModel;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,7 +18,7 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
     PlaylistController controladorP = new PlaylistController();
     UsuarioController controladorUsuario = new UsuarioController();
     GeneroController controladorGenero = new GeneroController();
-     List<String> nombresGenero = controladorGenero.obtenerNombresGeneros();
+    
     /**
      * Creates new form ConsultaUsuario
      */
@@ -74,6 +70,7 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
+        jFrame2.setTitle("Canciones");
         jFrame2.setLocation(new java.awt.Point(500, 500));
         jFrame2.setMinimumSize(new java.awt.Dimension(300, 300));
         jFrame2.setSize(new java.awt.Dimension(300, 300));
@@ -238,19 +235,7 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
             DatosCliente.setVisible(false);
         }
         
-        /*ListaPlaylist.setVisible(false);
-        DatosClienteGenero.removeAllItems();
-        if ("Genero".equals(GeneroCliente.getSelectedItem())) {
-            for (String nombreG : nombresGenero) {
-                DatosClienteGenero.addItem(nombreG);
-            }
-        } else {
-            List<String> nombresClientes = controladorUsuario.obtenerNombresClientes();
-            for (String nombreC : nombresClientes) {
-                DatosClienteGenero.addItem(nombreC);
-            }
-
-        }*/
+        
     }//GEN-LAST:event_GeneroCliente
 
     private void DatosGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DatosGeneroActionPerformed
@@ -283,7 +268,7 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
                 int id = (int) ListaPlaylist.getValueAt(row, 0); // Cambia 1 al índice de la columna deseada
                 jFrame2.setVisible(true);
                 Object[][] datos = controladorP.obtenerDatosPlaylist(id);
-                String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "DTYPE", "GENERO"};
+                String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "GENERO"};
                 NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
                 canciones.setModel(tableModel);
             }

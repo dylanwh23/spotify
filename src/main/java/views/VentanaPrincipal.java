@@ -148,7 +148,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu5.setText("Consultas");
 
-        consultarClientesBtn.setText("Consultar clientes");
+        consultarClientesBtn.setText("Consultar Clientes");
         consultarClientesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 consultarClientesBtnActionPerformed(evt);

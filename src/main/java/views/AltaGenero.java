@@ -187,7 +187,7 @@ public class AltaGenero extends javax.swing.JInternalFrame {
         GenController.registrarGenero(texto, padre);
         JOptionPane.showMessageDialog(this,"Genero creado exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
     }else{
-        JOptionPane.showMessageDialog(this,"Ocurrió un error: El genero ingresado ya existe y/o es vacío" ,"Error",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this,"Ocurrió un error: El genero ingresado ya existe o es vacío" ,"Error",JOptionPane.ERROR_MESSAGE);
     }
 
     
