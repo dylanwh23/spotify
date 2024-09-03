@@ -32,29 +32,7 @@ public class UsuarioController implements IUsuarioController{
     
     
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
-    
-    public void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link, String tipo){
-        
-        if(tipo == "Artista"){
-            Artista nuevoUsuario = new Artista(nickname, nombre, apellido, mail, FecNac, imagen, biografia, link);
-            ArtistaJpaController aux = new ArtistaJpaController(emf);
-            try {               
-                aux.create(nuevoUsuario);
-            } catch (Exception ex) {
-                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else{
-            ClienteJpaController aux = new ClienteJpaController(emf);
-            Cliente nuevoUsuario = new Cliente(nickname, nombre, apellido, mail, FecNac, imagen);
-            try {
-                aux.create(nuevoUsuario);
-            } catch (Exception ex) {
-                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }  
-     }
- 
+     
        public List<String> obtenerNombresClientes() {
         EntityManager em = emf.createEntityManager();
         try {
@@ -115,5 +93,21 @@ public Object[][] obtenerDatosClientes() {
     }
 }
 
+
+public void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link, String tipo) throws Exception{
+        UsuarioJpaController aux = new UsuarioJpaController(emf);
+        Usuario usr;
+        if(tipo == "Artista"){
+            usr = new Artista(nickname, nombre, apellido, mail, FecNac, imagen, biografia, link);
+        }else{//si es cliente
+            usr = new Cliente(nickname, nombre, apellido, mail, FecNac, imagen);
+        }
+        try{
+            aux.create(usr);
+        }catch(Exception ex){
+            System.out.print(ex);
+            throw ex;
+        }
+     }
 
 }
