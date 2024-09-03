@@ -4,10 +4,29 @@
  */
 package controllers;
 
+import models.Cancion;
+import persistences.CancionJpaController;
+
 /**
  *
  * @author Machichu
  */
-public class CancionController {
-    
+public class CancionController implements ICancionController  {
+     CancionJpaController cancionJpaController = new CancionJpaController();
+  public boolean CrearCancion(String nombre, int duracion){
+
+     Cancion nuevaCancion = new Cancion();
+        nuevaCancion.setNombre(nombre);
+        nuevaCancion.setDuracion(duracion);
+
+        try {
+            cancionJpaController.create(nuevaCancion);
+
+            return true;
+        } catch (Exception ex) {
+
+            return false;
+        }
+    }
 }
+
