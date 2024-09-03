@@ -7,6 +7,7 @@ package views;
 import controllers.CancionController;
 import controllers.PlaylistController;
 import controllers.UsuarioController;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -296,19 +297,38 @@ public class BajaTemaLista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_PlaylistBoxPActionPerformed
 
     private void ClienteBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteBoxActionPerformed
-        //PlaylistBoxP.removeAllItems();
-        //PlaylistBoxP.addItem("Seleccione Playlist");
-        //temasBox.removeAllItems();
-        //temasBox.addItem("Seleccione Tema");
-        PlaylistBoxP.setVisible(true);
-        PanelPlaylist.setVisible(true);
-        PlaylistBoxD.setVisible(false);
-        System.out.println(ClienteBox.getSelectedItem().toString());
-        List<String> nombresPlaylistP = controladorP.obtenerNombresPlaylistParticularCliente(ClienteBox.getSelectedItem().toString());
+// Verificar si hay algo seleccionado en ClienteBox antes de cualquier operación
+        if (ClienteBox.getSelectedItem() == null) {
+            System.out.println("No se seleccionó ningún cliente.");
+            return;
+        }
+
+        String selectedCliente = ClienteBox.getSelectedItem().toString();
+
+        // Limpieza de PlaylistBoxP, desactivando temporalmente el listener para evitar problemas
+        ActionListener[] listeners = PlaylistBoxP.getActionListeners();
+        for (ActionListener listener : listeners) {
+            PlaylistBoxP.removeActionListener(listener);
+        }
+
+        PlaylistBoxP.removeAllItems();
+        PlaylistBoxP.addItem("Seleccione Playlist");
+
+        List<String> nombresPlaylistP = controladorP.obtenerNombresPlaylistParticularCliente(selectedCliente);
+
+        // Añadir las playlists al JComboBox
         for (String nombreP : nombresPlaylistP) {
             PlaylistBoxP.addItem(nombreP);
         }
-        PanelTema.setVisible(true);
+
+        // Reactivar los listeners
+        for (ActionListener listener : listeners) {
+            PlaylistBoxP.addActionListener(listener);
+        }
+
+        PlaylistBoxP.setVisible(true);
+        PanelPlaylist.setVisible(true);
+        PlaylistBoxD.setVisible(false);
     }//GEN-LAST:event_ClienteBoxActionPerformed
 
     private void crearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearBtnMouseClicked
