@@ -6,6 +6,9 @@ package models;
 
 import java.time.LocalDate;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+import java.util.LinkedList;
 
 /**
  *
@@ -16,7 +19,8 @@ public class Cliente extends Usuario {
 
     public Cliente() {
     }
-    
+    @OneToMany(mappedBy="Propietario")
+    private LinkedList<PlaylistParticular> sus_listas;
     public Cliente(String nick, String nombre, String apellido, String mail, LocalDate FecNac){
         this.nick = nick;
         this.nombre = nombre;
@@ -26,5 +30,8 @@ public class Cliente extends Usuario {
         this.fecNac = FecNac;
     }
     
+    public void Agregar_Lista_Particular(PlaylistParticular la_nueva_lista){
+    	this.sus_listas.add(la_nueva_lista);
+    }
 }
 

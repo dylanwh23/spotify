@@ -33,8 +33,7 @@ public class Playlist implements Serializable {
     public Playlist() {
     }
 
-    public Playlist(int id, String Nombre, String rutaImagen, LinkedList<Cancion> canciones) {
-        this.id = id;
+    public Playlist(String Nombre, String rutaImagen, LinkedList<Cancion> canciones) {
         this.Nombre = Nombre;
         this.rutaImagen = rutaImagen;
         this.canciones = canciones;

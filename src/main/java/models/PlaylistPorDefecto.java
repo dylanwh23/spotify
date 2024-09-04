@@ -22,8 +22,8 @@ public class PlaylistPorDefecto extends Playlist {
     public PlaylistPorDefecto() {
     }
 
-    public PlaylistPorDefecto(Genero genero, int id, String Nombre, String rutaImagen, LinkedList<Cancion> canciones) {
-        super(id, Nombre, rutaImagen, canciones);
+    public PlaylistPorDefecto(Genero genero, String Nombre, String rutaImagen, LinkedList<Cancion> canciones) {
+        super(Nombre, rutaImagen, canciones);
         this.genero = genero;
     }
 
