@@ -6,8 +6,12 @@ package models;
 
 import java.util.LinkedList;
 import javax.persistence.Entity;
+
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+
+import javax.persistence.JoinColumn;
+
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -15,7 +19,9 @@ import javax.persistence.ManyToOne;
 public class PlaylistParticular extends Playlist {
 
     private Boolean privada;
-	@ManyToOne
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_nick")
     private Cliente Propietario;
 
     public PlaylistParticular() {

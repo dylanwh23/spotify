@@ -4,17 +4,11 @@
  */
 package controllers;
 
-import models.Genero;
-
 /**
  *
- * @author Machichu
+ * @author F0liver4
  */
-public interface IGeneroController {
+public interface IAlbumController {
     
-    public abstract boolean registrarGenero(String nombre, Genero padre);
     
-    public abstract boolean registrarGenero2(String nombre);
-    
-   
 }
