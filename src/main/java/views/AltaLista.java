@@ -100,6 +100,7 @@ public class AltaLista extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Cliente");
 
+        ClienteBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione cliente" }));
         ClienteBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClienteBoxActionPerformed(evt);
@@ -125,6 +126,13 @@ public class AltaLista extends javax.swing.JInternalFrame {
         );
 
         jLabel3.setText("Genero");
+
+        GeneroBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione genero" }));
+        GeneroBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GeneroBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelPorDefectoLayout = new javax.swing.GroupLayout(PanelPorDefecto);
         PanelPorDefecto.setLayout(PanelPorDefectoLayout);
@@ -269,17 +277,24 @@ public class AltaLista extends javax.swing.JInternalFrame {
 
     private void crearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearBtnMouseClicked
         try {
-            if ("Por Defecto".equals(TipoLista.getSelectedItem())) {
-                controladorPlaylist.crearPlaylistPorDefecto(NombreLista.getText(),txtFile.getText(),GeneroBox.getSelectedItem().toString());
+            if ("Por Defecto".equals(TipoLista.getSelectedItem())&(!NombreLista.getText().isEmpty() & !"Seleccione genero".equals(GeneroBox.getSelectedItem().toString())& !txtFile.getText().isEmpty())) {
+                controladorPlaylist.crearPlaylistPorDefecto(NombreLista.getText(),GeneroBox.getSelectedItem().toString(),txtFile.getText());
                 JOptionPane.showMessageDialog(this,"Playlist por defecto creada exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
-            } else {
+            } else if ("Particular".equals(TipoLista.getSelectedItem())&(!NombreLista.getText().isEmpty() & !"Seleccione cliente".equals(ClienteBox.getSelectedItem().toString())& !txtFile.getText().isEmpty())) {
                 controladorPlaylist.crearPlaylistParticular(NombreLista.getText(),txtFile.getText(),ClienteBox.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(this,"Playlist particular creada exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Porfavor complete los campos", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,"Ocurrió un error: " + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_crearBtnMouseClicked
+
+    private void GeneroBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneroBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GeneroBoxActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

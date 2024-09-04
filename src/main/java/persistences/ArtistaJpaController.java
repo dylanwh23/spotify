@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import models.Artista;
@@ -19,12 +18,10 @@ import persistences.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author diego
+ * @author dylan
  */
 public class ArtistaJpaController implements Serializable {
-    public ArtistaJpaController() {
-        this.emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
-    }
+
     public ArtistaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }

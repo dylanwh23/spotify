@@ -4,10 +4,28 @@
  */
 package controllers;
 
+import models.Album;
+import persistences.AlbumJpaController;
+
 /**
  *
  * @author Machichu
  */
-public class AlbumController {
+public class AlbumController implements IAlbumController {
+
+    AlbumJpaController aux = new AlbumJpaController();
     
+    public boolean registrarAlbum(String nombre) {
+        Album A = new Album();
+        A.setNombre(nombre);
+        
+        try {
+            aux.create(A);
+            return true;
+        } catch (Exception ex) {
+            
+            return false;
+        }
+    }
 }
+

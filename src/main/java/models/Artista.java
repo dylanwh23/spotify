@@ -17,7 +17,7 @@ public class Artista extends Usuario {
     private String DireccionWeb;
     
     
-    public Artista(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String biografia, String link){
+    public Artista(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link){
         this.nick = nick;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -26,6 +26,7 @@ public class Artista extends Usuario {
         this.fecNac = FecNac;
         this.biografia = biografia;
         this.DireccionWeb = link;
+        this.imagen = imagen;
     }
 
     public Artista() {

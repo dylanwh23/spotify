@@ -12,8 +12,11 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import models.Artista;
 import models.Cliente;
 import models.Usuario;
+import persistences.ArtistaJpaController;
+import persistences.ClienteJpaController;
 import persistences.UsuarioJpaController;
 /*
 import models.Artista;
@@ -26,30 +29,10 @@ import models.Usuario;
  * @author Machichu
  */
 public class UsuarioController implements IUsuarioController{
-    UsuarioJpaController aux = new UsuarioJpaController();
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
     
-    public void crearUser(Usuario usuario) {
-            try {
-             aux.create(usuario);
-         } catch (Exception ex) {
-             Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-    }
-
-    public void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String biografia, String link, String tipo){
-           
-     }
-   /*Manejador m =  Manejador.getinstance();
-       if(m.obtenerUsuario(nickname) == null){
-           if(tipo == "Artista"){
-               Usuario nuevoUsuario = new Artista(nickname, nombre, apellido, mail, FecNac, biografia, link);
-               m.addUsuario(nuevoUsuario);
-           }else{
-               Usuario nuevoUsuario = new Cliente(nickname, nombre, apellido, mail, FecNac);
-               m.addUsuario(nuevoUsuario);
-           }         
-       } */ 
+    
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+     
        public List<String> obtenerNombresClientes() {
         EntityManager em = emf.createEntityManager();
         try {
@@ -64,5 +47,67 @@ public class UsuarioController implements IUsuarioController{
         }
     }
     
+
+
+public Object[][] obtenerDatosCliente(String nick) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        System.out.print(nick);
+        List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.nick = :nick", Cliente.class).setParameter("nick", nick).getResultList();
+        Object[][] data = new Object[clientes.size()][6];
+
+        for (int i = 0; i < clientes.size(); i++) {
+            Cliente cliente = clientes.get(i);  // Obtener el cliente individual
+
+            data[i][0] = cliente.getNick();     // Asignar valores al arreglo
+            data[i][1] = cliente.getNombre();
+            data[i][2] = cliente.getApellido();
+            data[i][3] = cliente.getMail();
+            data[i][4] = cliente.getFecNac();
+            data[i][5] = cliente.getImagen();
+        }
+        return data;
+
+    } finally {
+        em.close();
+    }
 }
 
+public Object[][] obtenerDatosClientes() {
+    EntityManager em = emf.createEntityManager();
+    try {
+        List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c", Cliente.class).getResultList();
+        Object[][] data = new Object[clientes.size()][6];
+
+        for (int i = 0; i < clientes.size(); i++) {
+            Cliente cliente = clientes.get(i);  // Obtener el cliente individual
+
+                 // Asignar valores al arreglo
+            data[i][0] = cliente.getNombre();
+            data[i][1] = cliente.getNick();
+        }
+        return data;
+
+    } finally {
+        em.close();
+    }
+}
+
+
+public void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link, String tipo) throws Exception{
+        UsuarioJpaController aux = new UsuarioJpaController(emf);
+        Usuario usr;
+        if(tipo == "Artista"){
+            usr = new Artista(nickname, nombre, apellido, mail, FecNac, imagen, biografia, link);
+        }else{//si es cliente
+            usr = new Cliente(nickname, nombre, apellido, mail, FecNac, imagen);
+        }
+        try{
+            aux.create(usr);
+        }catch(Exception ex){
+            System.out.print(ex);
+            throw ex;
+        }
+     }
+
+}

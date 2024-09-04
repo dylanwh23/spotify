@@ -85,12 +85,20 @@
             <Property name="text" type="java.lang.String" value="Consultas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="consultarUsuariosBtn">
+            <MenuItem class="javax.swing.JMenuItem" name="consultarClientesBtn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Consultar usuarios"/>
+                <Property name="text" type="java.lang.String" value="Consultar Clientes"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultarUsuariosBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultarClientesBtnActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="consultarPlaylistBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar Playlist"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consultarPlaylistBtnActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
