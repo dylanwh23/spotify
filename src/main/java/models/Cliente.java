@@ -8,8 +8,12 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+
 import javax.persistence.OneToMany;
+
+import java.util.LinkedList;
+
+
 
 /**
  *
@@ -17,10 +21,10 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Cliente extends Usuario {
-    @OneToMany(mappedBy = "cliente")
-    private List<PlaylistParticular> playlists;
-    public Cliente() {
-    }
+
+    @OneToMany(mappedBy="Propietario")
+    private LinkedList<PlaylistParticular> sus_listas;
+
 
     public String getNick() {
         return nick;
@@ -71,6 +75,7 @@ public class Cliente extends Usuario {
     }
     
     public Cliente(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String imagen){
+
         this.nick = nick;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -80,6 +85,9 @@ public class Cliente extends Usuario {
         this.imagen = imagen;
     }
     
+    public void Agregar_Lista_Particular(PlaylistParticular la_nueva_lista){
+    	this.sus_listas.add(la_nueva_lista);
+    }
 }
 
  

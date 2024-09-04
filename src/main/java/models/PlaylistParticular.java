@@ -6,22 +6,35 @@ package models;
 
 import java.util.LinkedList;
 import javax.persistence.Entity;
+
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import javax.persistence.JoinColumn;
+
 import javax.persistence.ManyToOne;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class PlaylistParticular extends Playlist {
 
     private Boolean privada;
+
     @ManyToOne
     @JoinColumn(name = "cliente_nick")
-    private Cliente cliente;
+    private Cliente Propietario;
+
     public PlaylistParticular() {
     }
 
-    public PlaylistParticular(Boolean privada, int id, String Nombre, String rutaImagen, LinkedList<Cancion> canciones) {
-        super(id, Nombre, rutaImagen, canciones);
+    public PlaylistParticular(Boolean privada, String Nombre, String rutaImagen, LinkedList<Cancion> canciones, Cliente Propietario) {
+        super(Nombre, rutaImagen, canciones);
         this.privada = privada;
+	this.Propietario =Propietario;
+	Propietario.Agregar_Lista_Particular(this);
+    }
+    public Cliente getPropietario(){
+    	return this.Propietario;
     }
 
     public Boolean getPrivada() {

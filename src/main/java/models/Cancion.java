@@ -23,6 +23,10 @@ public class Cancion implements Serializable {
     private int id;
     private String nombre;
     private int duracion;
+//<<<<<<< HEAD
+    private String direccion_archivo_de_audio;
+    private String direccion_imagen;
+//=======
 
     public int getId() {
         return id;
@@ -73,4 +77,5 @@ public class Cancion implements Serializable {
         return "models.Cancionn[ id=" + id + " ]";
     }
     
+//>>>>>>> 7a2084fa622101ddd7415abaaf7ae1550f9afdf9
 }

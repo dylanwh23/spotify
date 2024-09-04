@@ -1,3 +1,5 @@
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -46,7 +48,17 @@ public class PlaylistController {
     }
 
     public void crearPlaylistParticular(String text, String text0, String toString) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        	Cliente el_usr = usr_ctr.findCliente(nick_usuario);
+PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaImagen, new LinkedList<Cancion>(),el_usr);
+	try{
+	aux.create(la_nueva_lista);
+	usr_ctr.edit(el_usr);
+	} catch(Exception ex){
+		Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE,null,ex);
+	}
+    }
+ 
+}
     }
 
     public Object[][] obtenerPlaylistLista() {
@@ -221,3 +233,4 @@ public class PlaylistController {
         auxPlay.edit(playlist);
     }
 }
+
