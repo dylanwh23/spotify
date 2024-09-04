@@ -4,20 +4,35 @@
  */
 package views;
 
+import controllers.GeneroController;
+import controllers.PlaylistController;
+import controllers.UsuarioController;
 import java.io.File;
+import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class AltaLista extends javax.swing.JInternalFrame {
-
+        UsuarioController controladorUsuario = new UsuarioController();
+        PlaylistController controladorPlaylist = new PlaylistController();
+        GeneroController controladorGenero = new GeneroController();
     /**
      * Creates new form ConsultaUsuario
      */
     public AltaLista() {
         initComponents();
         PanelParticular.setVisible(false);
+        List<String> nombresClientes = controladorUsuario.obtenerNombresClientes();
+            for (String nombreC : nombresClientes) {
+                ClienteBox.addItem(nombreC);
+            }
+        List<String> nombresGenero = controladorGenero.obtenerNombresGeneros();
+            for (String nombreG : nombresGenero) {
+                GeneroBox.addItem(nombreG);
+            }
     }
 
     /**
@@ -38,10 +53,10 @@ public class AltaLista extends javax.swing.JInternalFrame {
         btnFile = new javax.swing.JButton();
         PanelParticular = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        ClienteLista = new javax.swing.JTextField();
+        ClienteBox = new javax.swing.JComboBox<>();
         PanelPorDefecto = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        GeneroLista = new javax.swing.JTextField();
+        GeneroBox = new javax.swing.JComboBox<>();
         crearBtn = new javax.swing.JButton();
 
         setClosable(true);
@@ -85,9 +100,9 @@ public class AltaLista extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Cliente");
 
-        ClienteLista.addActionListener(new java.awt.event.ActionListener() {
+        ClienteBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClienteListaActionPerformed(evt);
+                ClienteBoxActionPerformed(evt);
             }
         });
 
@@ -98,24 +113,18 @@ public class AltaLista extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelParticularLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel4)
-                .addGap(34, 34, 34)
-                .addComponent(ClienteLista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(ClienteBox, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(130, Short.MAX_VALUE))
         );
         PanelParticularLayout.setVerticalGroup(
             PanelParticularLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelParticularLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(ClienteLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel4))
+                .addComponent(jLabel4)
+                .addComponent(ClienteBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabel3.setText("Genero");
-
-        GeneroLista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GeneroListaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout PanelPorDefectoLayout = new javax.swing.GroupLayout(PanelPorDefecto);
         PanelPorDefecto.setLayout(PanelPorDefectoLayout);
@@ -124,18 +133,23 @@ public class AltaLista extends javax.swing.JInternalFrame {
             .addGroup(PanelPorDefectoLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel3)
-                .addGap(36, 36, 36)
-                .addComponent(GeneroLista, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(GeneroBox, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         PanelPorDefectoLayout.setVerticalGroup(
             PanelPorDefectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPorDefectoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(GeneroLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel3))
+                .addComponent(jLabel3)
+                .addComponent(GeneroBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         crearBtn.setText("Crear");
+        crearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                crearBtnMouseClicked(evt);
+            }
+        });
         crearBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 crearBtnActionPerformed(evt);
@@ -157,7 +171,7 @@ public class AltaLista extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TipoLista, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NombreLista, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 925, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
@@ -166,12 +180,13 @@ public class AltaLista extends javax.swing.JInternalFrame {
                         .addComponent(btnFile)
                         .addGap(481, 481, 481))))
             .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(crearBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelPorDefecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PanelParticular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(crearBtn)))
+                    .addComponent(PanelPorDefecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -196,20 +211,27 @@ public class AltaLista extends javax.swing.JInternalFrame {
                 .addComponent(PanelParticular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(crearBtn)
-                .addContainerGap(330, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void TipoListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoListaActionPerformed
+        
+        //ClienteBox.removeAllItems();
+        //GeneroBox.removeAllItems();
+        
         if ("Por Defecto".equals(TipoLista.getSelectedItem())) {
-          PanelParticular.setVisible(false);
-          PanelPorDefecto.setVisible(true);
+            PanelParticular.setVisible(false);
+            PanelPorDefecto.setVisible(true);
+
         } else {
-          PanelPorDefecto.setVisible(false);
-          PanelParticular.setVisible(true);
+            PanelPorDefecto.setVisible(false);
+            PanelParticular.setVisible(true);
+
         }
+
     }//GEN-LAST:event_TipoListaActionPerformed
 
     private void NombreListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreListaActionPerformed
@@ -233,22 +255,36 @@ public class AltaLista extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFileActionPerformed
 
-    private void GeneroListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneroListaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GeneroListaActionPerformed
-
-    private void ClienteListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteListaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ClienteListaActionPerformed
-
     private void crearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_crearBtnActionPerformed
 
+    private void ClienteBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteBoxActionPerformed
+         List<String> nombresClientes = controladorUsuario.obtenerNombresClientes();
+            for (String nombreC : nombresClientes) {
+                ClienteBox.addItem(nombreC);
+               // System.out.println(nombreC);
+            }
+    }//GEN-LAST:event_ClienteBoxActionPerformed
+
+    private void crearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearBtnMouseClicked
+        try {
+            if ("Por Defecto".equals(TipoLista.getSelectedItem())) {
+                controladorPlaylist.crearPlaylistPorDefecto(NombreLista.getText(),txtFile.getText(),GeneroBox.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(this,"Playlist por defecto creada exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                controladorPlaylist.crearPlaylistParticular(NombreLista.getText(),txtFile.getText(),ClienteBox.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(this,"Playlist particular creada exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,"Ocurrió un error: " + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_crearBtnMouseClicked
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ClienteLista;
-    private javax.swing.JTextField GeneroLista;
+    private javax.swing.JComboBox<String> ClienteBox;
+    private javax.swing.JComboBox<String> GeneroBox;
     private javax.swing.JTextField NombreLista;
     private javax.swing.JPanel PanelParticular;
     private javax.swing.JPanel PanelPorDefecto;

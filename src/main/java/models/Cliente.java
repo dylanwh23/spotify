@@ -5,18 +5,26 @@
 package models;
 
 import java.time.LocalDate;
+import javax.persistence.Entity;
 
 /**
  *
  * @author dylan
  */
+@Entity
 public class Cliente extends Usuario {
-    public Cliente(String nick, String nombre, String apellido, String mail, LocalDate FecNac){
-        this.Nick = nick;
-        this.Nombre = nombre;
-        this.Apellido = apellido;
-        //this.Contraseña = contraseña;
-        this.Mail = mail;
-        this.FecNac = FecNac;
+
+    public Cliente() {
     }
+    
+    public Cliente(String nick, String nombre, String apellido, String mail, LocalDate FecNac){
+        this.nick = nick;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        //this.Contraseña = contraseña;
+        this.mail = mail;
+        this.fecNac = FecNac;
+    }
+    
 }
+

@@ -26,4 +26,8 @@ public class Fabrica {
         return new UsuarioController();
     }
 
+    
+    public IGeneroController getIGeneroController(){
+        return new GeneroController();
+    }
 }

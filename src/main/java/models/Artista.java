@@ -5,25 +5,48 @@
 package models;
 
 import java.time.LocalDate;
+import javax.persistence.Entity;
 
 /**
  *
  * @author dylan
  */
+@Entity
 public class Artista extends Usuario {
     private String biografia;
     private String DireccionWeb;
     
     
     public Artista(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String biografia, String link){
-        this.Nick = nick;
-        this.Nombre = nombre;
-        this.Apellido = apellido;
+        this.nick = nick;
+        this.nombre = nombre;
+        this.apellido = apellido;
         //this.Contraseña = contraseña;
-        this.Mail = mail;
-        this.FecNac = FecNac;
+        this.mail = mail;
+        this.fecNac = FecNac;
         this.biografia = biografia;
         this.DireccionWeb = link;
     }
+
+    public Artista() {
+       
+    }
+
+    public String getBiografia() {
+        return biografia;
+    }
+
+    public void setBiografia(String biografia) {
+        this.biografia = biografia;
+    }
+
+    public String getDireccionWeb() {
+        return DireccionWeb;
+    }
+
+    public void setDireccionWeb(String DireccionWeb) {
+        this.DireccionWeb = DireccionWeb;
+    }
     
 }
+
