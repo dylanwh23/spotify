@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import models.Cliente;	
 import models.Cancion;
 import models.Genero;
 import models.Playlist;
@@ -22,6 +23,7 @@ import models.PlaylistPorDefecto;
 import persistences.CancionJpaController;
 import persistences.GeneroJpaController;
 import persistences.PlaylistJpaController;
+import persistences.ClienteJpaController;
 
 /**
  *
@@ -32,6 +34,7 @@ public class PlaylistController {
      GeneroJpaController auxGen = new GeneroJpaController();
      CancionJpaController auxCan = new CancionJpaController();
      private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+     ClienteJpaController usr_ctr = new ClienteJpaController(emf);
      
     public void crearPlaylistPorDefecto(String nombre ,String genero,String rutaImagen){
             PlaylistPorDefecto playlist = new PlaylistPorDefecto();
@@ -47,19 +50,17 @@ public class PlaylistController {
          }
     }
 
-    public void crearPlaylistParticular(String text, String text0, String toString) {
+    public void crearPlaylistParticular(String nick_usuario, String rutaImagen, String Nombre) {
         	Cliente el_usr = usr_ctr.findCliente(nick_usuario);
 PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaImagen, new LinkedList<Cancion>(),el_usr);
 	try{
-	aux.create(la_nueva_lista);
+	auxPlay.create(la_nueva_lista);
 	usr_ctr.edit(el_usr);
 	} catch(Exception ex){
 		Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE,null,ex);
 	}
     }
  
-}
-    }
 
     public Object[][] obtenerPlaylistLista() {
         List<Playlist> playlists = auxPlay.findPlaylistEntities();
