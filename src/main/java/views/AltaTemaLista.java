@@ -306,10 +306,10 @@ public class AltaTemaLista extends javax.swing.JInternalFrame {
             
             if (CheckPorDefecto.isSelected()&((!"Seleccione Playlist".equals(PlaylistBoxD.getSelectedItem()))&(!"Seleccione Tema".equals(temasBox.getSelectedItem())))) {
                 controladorP.crearRelacionPlaylistCancion(PlaylistBoxD.getSelectedItem().toString(), temasBox.getSelectedItem().toString());
-                JOptionPane.showMessageDialog(this, "Playlist por defecto creada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Alta de Cancion en Playlist.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } else if(!CheckPorDefecto.isSelected()&((!"Seleccione Usuario".equals(ClienteBox.getSelectedItem()))&(!"Seleccione Playlist".equals(PlaylistBoxP.getSelectedItem()))&(!"Seleccione Tema".equals(temasBox.getSelectedItem())))) {
                 controladorP.crearRelacionPlaylistCancion(PlaylistBoxP.getSelectedItem().toString(), temasBox.getSelectedItem().toString());
-                JOptionPane.showMessageDialog(this, "Playlist particular creada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Alta de Cancion en Playlist creada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             }
             else{
                 JOptionPane.showMessageDialog(this, "Porfavor complete los campos", "Error", JOptionPane.ERROR_MESSAGE);

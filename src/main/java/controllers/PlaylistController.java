@@ -51,16 +51,16 @@ public class PlaylistController {
     }
 
     public void crearPlaylistParticular(String nick_usuario, String rutaImagen, String Nombre) {
-        	Cliente el_usr = usr_ctr.findCliente(nick_usuario);
-PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaImagen, new LinkedList<Cancion>(),el_usr);
-	try{
-	auxPlay.create(la_nueva_lista);
-	usr_ctr.edit(el_usr);
-	} catch(Exception ex){
-		Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE,null,ex);
-	}
+        Cliente el_usr = usr_ctr.findCliente(nick_usuario);
+        PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaImagen, new LinkedList<Cancion>(), el_usr);
+        try {
+            auxPlay.create(la_nueva_lista);
+            usr_ctr.edit(el_usr);
+        } catch (Exception ex) {
+            Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
- 
+
 
     public Object[][] obtenerPlaylistLista() {
         List<Playlist> playlists = auxPlay.findPlaylistEntities();
