@@ -40,7 +40,6 @@ public class PlaylistController {
             PlaylistPorDefecto playlist = new PlaylistPorDefecto();
             playlist.setGenero(auxGen.findGenero(genero));
             playlist.setNombre(nombre);
-            
             playlist.setRutaImagen(rutaImagen);
         try {
              auxPlay.create(playlist);
@@ -55,7 +54,8 @@ public class PlaylistController {
         PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaImagen, new LinkedList<Cancion>(), el_usr);
         try {
             auxPlay.create(la_nueva_lista);
-            usr_ctr.edit(el_usr);
+            //usr_ctr.edit(el_usr);
+            //el propetario solo se aclara en la lista de reproduccion Particular, el list de cliente es para listas de reproduccion favoritas
         } catch (Exception ex) {
             Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE, null, ex);
         }
