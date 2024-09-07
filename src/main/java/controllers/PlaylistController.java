@@ -50,7 +50,7 @@ public class PlaylistController {
          }
     }
 
-    public void crearPlaylistParticular(String nick_usuario, String rutaImagen, String Nombre) {
+    public void crearPlaylistParticular(String Nombre, String rutaImagen, String nick_usuario) {
         	Cliente el_usr = usr_ctr.findCliente(nick_usuario);
 PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaImagen, new LinkedList<Cancion>(),el_usr);
 	try{

@@ -88,6 +88,7 @@ public class Cliente extends Usuario {
     public void Agregar_Lista_Particular(PlaylistParticular la_nueva_lista){
     	this.sus_listas.add(la_nueva_lista);
     }
+    public Cliente(){}
 }
 
  
