@@ -40,7 +40,6 @@ public class PlaylistController {
             PlaylistPorDefecto playlist = new PlaylistPorDefecto();
             playlist.setGenero(auxGen.findGenero(genero));
             playlist.setNombre(nombre);
-            
             playlist.setRutaImagen(rutaImagen);
         try {
              auxPlay.create(playlist);
@@ -59,8 +58,9 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
 	} catch(Exception ex){
 		Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE,null,ex);
 	}
+
     }
- 
+
 
     public Object[][] obtenerPlaylistLista() {
         List<Playlist> playlists = auxPlay.findPlaylistEntities();

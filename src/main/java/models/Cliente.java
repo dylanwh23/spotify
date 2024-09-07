@@ -25,6 +25,8 @@ public class Cliente extends Usuario {
     @OneToMany(mappedBy="Propietario")
     private LinkedList<PlaylistParticular> sus_listas;
 
+    public Cliente() {
+    }
 
     public String getNick() {
         return nick;
