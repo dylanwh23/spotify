@@ -41,6 +41,16 @@ public class Cliente extends Usuario {
     )
     
     private List<Cancion> cancionesFavoritas;
+    
+        @ManyToMany
+    @JoinTable(
+        name = "cliente_albumesFavoritos", 
+        joinColumns = @JoinColumn(name = "cliente_id"), 
+        inverseJoinColumns = @JoinColumn(name = "album_id") 
+    )
+    
+    private List<Cancion> albumesFavoritos;
+    
 
     public Cliente() {
     }

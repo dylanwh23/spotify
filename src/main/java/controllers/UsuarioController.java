@@ -52,7 +52,6 @@ public class UsuarioController implements IUsuarioController{
 public Object[][] obtenerDatosCliente(String nick) {
     EntityManager em = emf.createEntityManager();
     try {
-        System.out.print(nick);
         List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.nick = :nick", Cliente.class).setParameter("nick", nick).getResultList();
         Object[][] data = new Object[clientes.size()][6];
 

@@ -253,4 +253,14 @@ public class PlaylistController {
                 .map(cancion -> cancion.getId() + " - " + cancion.getNombre())
                 .collect(Collectors.toList());
     }
+    
+    
+   public List<String> obtenerNombresPlaylists() {
+    List<Playlist> playlists = auxPlay.findPlaylistEntities();
+    return playlists.stream()
+                    .map(playlist -> playlist.getNombre())
+                    .collect(Collectors.toList());
+}
+
+    
 }

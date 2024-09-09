@@ -58,6 +58,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         altaTemaListabtn = new javax.swing.JMenuItem();
         bajaTemaListabtn = new javax.swing.JMenuItem();
         altaAlbumBtn = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         consultarClientesBtn = new javax.swing.JMenuItem();
         consultarPlaylistBtn = new javax.swing.JMenuItem();
@@ -143,6 +144,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         registrosBtn.add(altaAlbumBtn);
+
+        jMenuItem2.setText("Guardar Tema/Lista/Album");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        registrosBtn.add(jMenuItem2);
 
         jMenuBar2.add(registrosBtn);
 
@@ -246,6 +255,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contenido.add(consultarPlaylist);
         consultarPlaylist.setVisible(true);
     }//GEN-LAST:event_consultarPlaylistBtnActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        GuardarTemaListaAlbum guardarTemaListaAlbum = new GuardarTemaListaAlbum();
+        contenido.add(guardarTemaListaAlbum);
+        guardarTemaListaAlbum.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     
         
     
@@ -298,6 +314,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu registrosBtn;
     // End of variables declaration//GEN-END:variables
 }

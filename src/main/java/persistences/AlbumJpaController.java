@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import models.Album;
@@ -20,14 +21,15 @@ import persistences.exceptions.NonexistentEntityException;
  * @author dylan
  */
 public class AlbumJpaController implements Serializable {
-
+    private EntityManagerFactory emf = null;
+    
     public AlbumJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = null;
+    
 
     public AlbumJpaController() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
     }
 
     public EntityManager getEntityManager() {

@@ -4,6 +4,8 @@
  */
 package controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import models.Album;
 import persistences.AlbumJpaController;
 
@@ -27,5 +29,16 @@ public class AlbumController implements IAlbumController {
             return false;
         }
     }
+    
+    public List<String> obtenerNombresAlbums() {
+    List<Album> albums = aux.findAlbumEntities();
+    return albums.stream()
+                 .map(album -> album.getNombre())
+                 .collect(Collectors.toList());
+}
+
+    
+    
+    
 }
 

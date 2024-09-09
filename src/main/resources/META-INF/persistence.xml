@@ -10,6 +10,7 @@
     <class>models.Usuario</class>
     <class>models.Artista</class>
     <class>models.Cliente</class>
+    <class>models.Album</class>
     <properties>
       <property name="javax.persistence.schema-generation.create-script-source" value="1"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Spotify?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
