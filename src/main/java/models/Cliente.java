@@ -12,6 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import java.util.LinkedList;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 
 
@@ -22,8 +25,22 @@ import java.util.LinkedList;
 @Entity
 public class Cliente extends Usuario {
 
-    @OneToMany(mappedBy="Propietario")
-    private LinkedList<PlaylistParticular> sus_listas;
+    @ManyToMany
+    @JoinTable(
+            name = "cliente_playlistFavoritas",
+            joinColumns = @JoinColumn(name = "cliente_id"), 
+            inverseJoinColumns = @JoinColumn(name = "playlist_particular_id") 
+    )
+    private List<PlaylistParticular> PlaylistFavoritos;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "cliente_cancionesFavoritas", 
+        joinColumns = @JoinColumn(name = "cliente_id"), 
+        inverseJoinColumns = @JoinColumn(name = "cancion_id") 
+    )
+    
+    private List<Cancion> cancionesFavoritas;
 
     public Cliente() {
     }
@@ -87,10 +104,8 @@ public class Cliente extends Usuario {
         this.imagen = imagen;
     }
     
-    public void Agregar_Lista_Particular(PlaylistParticular la_nueva_lista){
-    	this.sus_listas.add(la_nueva_lista);
-    }
-    public Cliente(){}
+    
+    
 }
 
  

@@ -36,6 +36,7 @@ public class PlaylistController {
      private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
      ClienteJpaController usr_ctr = new ClienteJpaController(emf);
      
+     
     public void crearPlaylistPorDefecto(String nombre ,String genero,String rutaImagen){
             PlaylistPorDefecto playlist = new PlaylistPorDefecto();
             playlist.setGenero(auxGen.findGenero(genero));
@@ -50,14 +51,15 @@ public class PlaylistController {
     }
 
     public void crearPlaylistParticular(String Nombre, String rutaImagen, String nick_usuario) {
-        	Cliente el_usr = usr_ctr.findCliente(nick_usuario);
-PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaImagen, new LinkedList<Cancion>(),el_usr);
-	try{
-	auxPlay.create(la_nueva_lista);
-	usr_ctr.edit(el_usr);
-	} catch(Exception ex){
-		Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE,null,ex);
-	}
+        Cliente el_usr = usr_ctr.findCliente(nick_usuario);
+        PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaImagen, new LinkedList<Cancion>(), el_usr);
+        try {
+            auxPlay.create(la_nueva_lista);
+            //usr_ctr.edit(el_usr);
+            //no se necesita
+        } catch (Exception ex) {
+            Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -126,7 +128,7 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
     public Object[][] obtenerDatosPlaylistCliente(String nick) {
         EntityManager em = emf.createEntityManager();
         try {
-            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.cliente.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
+            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.Propietario.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
             Object[][] data = new Object[playlists.size()][6];
             for (int i = 0; i < playlists.size(); i++) {
                 Playlist playlist = playlists.get(i);
@@ -157,7 +159,7 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
         if (playlist == null) {
             return new Object[0][0]; // Si no se encuentra la playlist, devolver una matriz vacía
         }
-        LinkedList<Cancion> canciones = playlist.getCanciones();
+        List<Cancion> canciones = playlist.getCanciones();
         Object[][] datos = new Object[canciones.size()][5];
 
         for (int i = 0; i < canciones.size(); i++) {
@@ -177,10 +179,9 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
     }
 
     public List<String> obtenerNombresPlaylistParticularCliente(String nick) {
-        
         EntityManager em = emf.createEntityManager();
         try {
-            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.cliente.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
+            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.Propietario.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
             return playlists.stream()
                     .filter(playlist -> playlist instanceof PlaylistParticular) // Filtrar solo las playlists particulares
                     .map(playlist -> playlist.getId()+ " - " + playlist.getNombre())
@@ -196,12 +197,10 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
         String idPlayString = stringPlaylist.substring(0, indicePlay).trim();
         int idPlaylist = Integer.parseInt(idPlayString); 
         Playlist playlist = auxPlay.findPlaylist(idPlaylist);
-        
         stringCancion = stringCancion.trim();
         int indiceCan = stringCancion.indexOf('-');
         String idCanString = stringCancion.substring(0, indiceCan).trim();
         int idCancion = Integer.parseInt(idCanString); 
-        
         playlist.getCanciones().add(auxCan.findCancion(idCancion));
         auxPlay.edit(playlist);
     }
@@ -233,5 +232,25 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
         playlist.getCanciones().remove(auxCan.findCancion(idCancion));
         auxPlay.edit(playlist);
     }
-}
 
+    public List<String> obtenerNombresDeCancionesNoPresentesPlaylist(String stringPlaylist) {
+        EntityManager em = emf.createEntityManager();
+        stringPlaylist = stringPlaylist.trim();
+        int indicePlay = stringPlaylist.indexOf('-');
+        String idPlayString = stringPlaylist.substring(0, indicePlay).trim();
+        int idPlaylist = Integer.parseInt(idPlayString);
+        Playlist playlist = auxPlay.findPlaylist(idPlaylist);
+        List<Integer> idsCancionesEnPlaylist = playlist.getCanciones().stream()
+                .map(Cancion::getId)
+                .collect(Collectors.toList());
+        List<Cancion> canciones;
+        if (idsCancionesEnPlaylist.isEmpty()) {
+            canciones = auxCan.findCancionEntities();
+        } else {
+            canciones = em.createQuery("SELECT c FROM Cancion c WHERE c.id NOT IN :ids", Cancion.class).setParameter("ids", idsCancionesEnPlaylist).getResultList();;
+        }
+        return canciones.stream()
+                .map(cancion -> cancion.getId() + " - " + cancion.getNombre())
+                .collect(Collectors.toList());
+    }
+}

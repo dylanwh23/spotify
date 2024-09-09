@@ -255,6 +255,15 @@ public class BajaTemaLista extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void recargarTemas(String Box){
+        temasBox.removeAllItems();
+        temasBox.addItem("Seleccione Tema");
+        System.out.println("views.BajaTemaLista.recargarTemas()papdpad");
+        List<String> nombresCancion = controladorP.obtenerNombresPlaylistCanciones(Box);
+            for (String nombreC : nombresCancion) {
+                temasBox.addItem(nombreC);
+            }
+    }
     private void CheckPorDefectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckPorDefectoActionPerformed
          if (CheckPorDefecto.isSelected()) {
              PanelUsuario.setVisible(false);
@@ -277,51 +286,34 @@ public class BajaTemaLista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_crearBtnActionPerformed
 
     private void PlaylistBoxDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlaylistBoxDActionPerformed
-        temasBox.removeAllItems();
-        temasBox.addItem("Seleccione Tema");
-        PanelTema.setVisible(true);
-        List<String> nombresCancion = controladorP.obtenerNombresPlaylistCanciones(PlaylistBoxD.getSelectedItem().toString());
-            for (String nombreC :  nombresCancion) {
-                temasBox.addItem(nombreC);
-            } 
+        if (!"Seleccione Playlist".equals(PlaylistBoxD.getSelectedItem())) {
+            PanelTema.setVisible(true);
+            recargarTemas(PlaylistBoxD.getSelectedItem().toString());
+        }
     }//GEN-LAST:event_PlaylistBoxDActionPerformed
 
     private void PlaylistBoxPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlaylistBoxPActionPerformed
-        temasBox.removeAllItems();
-        temasBox.addItem("Seleccione Tema");
-        PanelTema.setVisible(true);
-        List<String> nombresCancion = controladorP.obtenerNombresPlaylistCanciones(PlaylistBoxP.getSelectedItem().toString());
-            for (String nombreC :  nombresCancion) {
-                temasBox.addItem(nombreC);
-            } 
-    }//GEN-LAST:event_PlaylistBoxPActionPerformed
-
-    private void ClienteBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteBoxActionPerformed
-// Verificar si hay algo seleccionado en ClienteBox antes de cualquier operación
-        if (ClienteBox.getSelectedItem() == null) {
-            System.out.println("No se seleccionó ningún cliente.");
-            return;
+        if (!"Seleccione Playlist".equals(PlaylistBoxP.getSelectedItem())) {
+            PanelTema.setVisible(true);
+            recargarTemas(PlaylistBoxP.getSelectedItem().toString());
         }
+    }//GEN-LAST:event_PlaylistBoxPActionPerformed
+    
+    private void ClienteBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteBoxActionPerformed
 
         String selectedCliente = ClienteBox.getSelectedItem().toString();
-
-        // Limpieza de PlaylistBoxP, desactivando temporalmente el listener para evitar problemas
         ActionListener[] listeners = PlaylistBoxP.getActionListeners();
         for (ActionListener listener : listeners) {
             PlaylistBoxP.removeActionListener(listener);
         }
-
         PlaylistBoxP.removeAllItems();
         PlaylistBoxP.addItem("Seleccione Playlist");
-
         List<String> nombresPlaylistP = controladorP.obtenerNombresPlaylistParticularCliente(selectedCliente);
-
-        // Añadir las playlists al JComboBox
+     
         for (String nombreP : nombresPlaylistP) {
             PlaylistBoxP.addItem(nombreP);
         }
 
-        // Reactivar los listeners
         for (ActionListener listener : listeners) {
             PlaylistBoxP.addActionListener(listener);
         }
@@ -329,6 +321,7 @@ public class BajaTemaLista extends javax.swing.JInternalFrame {
         PlaylistBoxP.setVisible(true);
         PanelPlaylist.setVisible(true);
         PlaylistBoxD.setVisible(false);
+        PanelTema.setVisible(false);
     }//GEN-LAST:event_ClienteBoxActionPerformed
 
     private void crearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearBtnMouseClicked
@@ -337,9 +330,11 @@ public class BajaTemaLista extends javax.swing.JInternalFrame {
             if (CheckPorDefecto.isSelected()&((!"Seleccione Playlist".equals(PlaylistBoxD.getSelectedItem()))&(!"Seleccione Tema".equals(temasBox.getSelectedItem())))) {
                 controladorP.borrarRelacionPlaylistCancion(PlaylistBoxD.getSelectedItem().toString(), temasBox.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(this, "Cancion de Playlist por defecto borrada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                recargarTemas(PlaylistBoxD.getSelectedItem().toString());
             } else if(!CheckPorDefecto.isSelected()&((!"Seleccione Usuario".equals(ClienteBox.getSelectedItem()))&(!"Seleccione Playlist".equals(PlaylistBoxP.getSelectedItem()))&(!"Seleccione Tema".equals(temasBox.getSelectedItem())))) {
                 controladorP.borrarRelacionPlaylistCancion(PlaylistBoxP.getSelectedItem().toString(), temasBox.getSelectedItem().toString());
                 JOptionPane.showMessageDialog(this, "Cancion de Playlist particular borrada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                recargarTemas(PlaylistBoxP.getSelectedItem().toString());
             }
             else{
                 JOptionPane.showMessageDialog(this, "Porfavor complete los campos", "Error", JOptionPane.ERROR_MESSAGE);
