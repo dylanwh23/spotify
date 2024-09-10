@@ -17,7 +17,7 @@ public class CancionController implements ICancionController  {
      CancionJpaController cancionJpaController = new CancionJpaController();
   public boolean CrearCancion(String nombre, int duracion){
 
-     Cancion nuevaCancion = new Cancion();
+        Cancion nuevaCancion = new Cancion();
         nuevaCancion.setNombre(nombre);
         nuevaCancion.setDuracion(duracion);
 

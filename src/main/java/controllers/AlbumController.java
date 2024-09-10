@@ -5,6 +5,7 @@
 package controllers;
 
 import controllers.IAlbumController;
+import java.util.ArrayList;
 import models.Album;
 import persistences.AlbumJpaController;
 import javax.persistence.EntityManager;
@@ -15,15 +16,20 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.Persistence;
 import models.Artista;
+import models.Cancion;
 import models.Genero;
+import persistences.ArtistaJpaController;
+import persistences.ClienteJpaController;
+import persistences.GeneroJpaController;
 /**
  *
  * @author Machichu
  */
 public class AlbumController implements IAlbumController {
  private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
-    AlbumJpaController aux = new AlbumJpaController();
-
+ ArtistaJpaController usr_ctr = new ArtistaJpaController(emf);
+ AlbumJpaController auxAL = new AlbumJpaController();
+ GeneroJpaController auxG = new GeneroJpaController();
     public AlbumController() {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -72,11 +78,6 @@ public class AlbumController implements IAlbumController {
         }
     }
 
-//    @Override
-//    public boolean buscarAlbumPorNombre(String nombre) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-
 
 public boolean buscarAlbum(String nombreAl) {
     EntityManager em = getEntityManager();
@@ -98,13 +99,13 @@ public boolean buscarAlbum(String nombreAl) {
 
 
 public boolean registrarAlbum(String nombre, int anio,List<Genero> generos) {
- Album al = new Album();
+        Album al = new Album();
         al.setNombre(nombre);
         al.setAnioo(anio);
         al.setGeneros(generos);
     
         try {
-            aux.create(al);
+            auxAL.create(al);
             return true;
         } catch (Exception ex) {
             //Logger.getLogger(GeneroController.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,10 +114,23 @@ public boolean registrarAlbum(String nombre, int anio,List<Genero> generos) {
     }
 
 public List<String> obtenerNombresAlbums() {
-    List<Album> albums = aux.findAlbumEntities();
+    List<Album> albums = auxAL.findAlbumEntities();
     return albums.stream()
                  .map(album -> album.getNombre())
                  .collect(Collectors.toList());
 }
+
+    public void CrearAlbum(String text, int parseInt, String strArtista, List<Cancion> canciones, List<String> generos) {
+        Artista artista = usr_ctr.findArtista(strArtista);
+        List<Genero> generosSeleccionados = new ArrayList<>();
+        for (String nombre : generos) {
+            Genero genero = auxG.findGenero(nombre); // Método que busca el Genero por su nombre
+            if (genero != null) {
+                generosSeleccionados.add(genero); // Añadir a la lista si se encontró
+            }
+        }
+        Album album = new Album(text, parseInt, artista, generosSeleccionados, canciones);
+        auxAL.create(album);
+    }
 
 }
