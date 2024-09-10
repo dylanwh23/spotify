@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *hoal
@@ -19,12 +20,16 @@ import javax.persistence.Id;
 public class Album implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    protected int id;
     
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id private String nombre;
+     private String nombre;
     private int anioo;
+    @OneToMany
     List<Genero> generos;
-
+    @OneToMany
+    List<Cancion> canciones;
     public String getNombre() {
         return nombre;
     }
