@@ -15,22 +15,23 @@ import java.util.List;
  * @author Machichu
  */
 public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
-
+    AlbumController albmController = new AlbumController();
+    CancionController canController = new CancionController();
+    PlaylistController playController = new PlaylistController();
     /**
      * Creates new form GuardarTemaListaAlbum
      */
     public GuardarTemaListaAlbum() {
         initComponents();
         UsuarioController usrController = new UsuarioController();
-       
-        List<String> nombresClientes = usrController.obtenerNombresClientes();
-            for (String nombreC : nombresClientes) {
-                UsuariosBox.addItem(nombreC);
-            }
 
-         
-        
-        
+        List<String> nombresClientes = usrController.obtenerNombresClientes();
+        for (String nombreC : nombresClientes) {
+            UsuariosBox.addItem(nombreC);
+        }
+
+        recargarPlaylists();
+
     }
 
     /**
@@ -99,18 +100,17 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(UsuariosBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(SeleccionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 64, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AgregarBtn)
-                    .addComponent(TipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                        .addComponent(SeleccionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AgregarBtn))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,19 +143,12 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UsuariosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuariosBoxActionPerformed
-
-    private void SeleccionBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeleccionBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SeleccionBoxActionPerformed
-
-    private void TipoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoBoxActionPerformed
-        // TODO add your handling code here:
-        AlbumController albmController = new AlbumController();
+    private void recargarPlaylists(){
+         SeleccionBox.removeAllItems();
+         AlbumController albmController = new AlbumController();
         CancionController canController = new CancionController();
         PlaylistController playController = new PlaylistController();
+        String usuario = UsuariosBox.getSelectedItem().toString();
                     
               if(TipoBox.getSelectedItem().toString().equals("Cancion")){
             SeleccionBox.removeAllItems();
@@ -171,16 +164,40 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
             }
         }else if(TipoBox.getSelectedItem().toString().equals("Playlist")){
             SeleccionBox.removeAllItems();
-            List<String> nombresPlaylist = playController.obtenerNombresPlaylists();
+            List<String> nombresPlaylist = playController.obtenerNombresPlaylistParticularCliente(usuario);
             for (String nombreC : nombresPlaylist) {
                 SeleccionBox.addItem(nombreC);
             }
-        }
+            
+            List<String> nombresPlaylist2 = playController.obtenerNombresPlaylistPublicas();
+            for (String nombreC : nombresPlaylist2) {
+                SeleccionBox.addItem(nombreC);
+            }
+            
+            List<String> nombresPlaylist3 = playController.obtenerNombresPlaylistPorDefecto();
+            for (String nombreC : nombresPlaylist3){
+                SeleccionBox.addItem(nombreC);
+            }
+    }
+}
+    private void UsuariosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosBoxActionPerformed
+        // TODO add your handling code here:
+        recargarPlaylists();
         
+    }//GEN-LAST:event_UsuariosBoxActionPerformed
+
+    private void SeleccionBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeleccionBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SeleccionBoxActionPerformed
+
+    private void TipoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoBoxActionPerformed
+        // TODO add your handling code here:
+           recargarPlaylists();      
     }//GEN-LAST:event_TipoBoxActionPerformed
 
     private void AgregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBtnActionPerformed
         // TODO add your handling code here:
+        recargarPlaylists();
     }//GEN-LAST:event_AgregarBtnActionPerformed
 
 

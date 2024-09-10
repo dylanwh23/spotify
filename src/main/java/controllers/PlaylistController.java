@@ -262,5 +262,20 @@ public class PlaylistController {
                     .collect(Collectors.toList());
 }
 
+    public List<String> obtenerNombresPlaylistPublicas() {
+     EntityManager em = emf.createEntityManager();
+        try {
+           List<PlaylistParticular> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.privada = false", PlaylistParticular.class).getResultList();
+            return playlists.stream()
+                    .filter(playlist -> playlist instanceof PlaylistParticular) // Filtrar solo las playlists particulares
+                    .map(playlist -> playlist.getId()+ " - " + playlist.getNombre())
+                    .collect(Collectors.toList());
+        } finally {
+            em.close();
+        }
+    }
+
+   
+   
     
 }
