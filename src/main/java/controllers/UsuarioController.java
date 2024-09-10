@@ -14,9 +14,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import models.Artista;
 import models.Cliente;
+import models.Playlist;
 import models.Usuario;
 import persistences.ArtistaJpaController;
 import persistences.ClienteJpaController;
+import persistences.PlaylistJpaController;
 import persistences.UsuarioJpaController;
 /*
 import models.Artista;
@@ -29,8 +31,8 @@ import models.Usuario;
  * @author Machichu
  */
 public class UsuarioController implements IUsuarioController{
-    
-    
+    PlaylistJpaController auxPlay = new PlaylistJpaController();
+
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
      
        public List<String> obtenerNombresClientes() {
@@ -108,5 +110,52 @@ public void registroUsuario(String nickname, String nombre, String apellido, Str
             throw ex;
         }
      }
+
+
+public void registrarPlaylistFavorita(String nick, String nombrePlaylist) throws Exception{
+    UsuarioJpaController aux = new UsuarioJpaController(emf);
+    String playlistid = nombrePlaylist.trim();
+        int indicePlay = playlistid.indexOf('-');
+        String idPlayString = playlistid.substring(0, indicePlay).trim();
+        int idPlaylist = Integer.parseInt(idPlayString); 
+        Playlist playlist = auxPlay.findPlaylist(idPlaylist);
+        Cliente cliente = (Cliente) aux.findUsuario(nick);
+        cliente.getPlaylistFavoritos().add(playlist);
+        aux.edit(cliente);
+      
+}
+
+
+public List<String> obtenerNombresDePlaylistsNoFavoritas(String clienteNick) {
+    EntityManager em = emf.createEntityManager();
+    UsuarioJpaController aux = new UsuarioJpaController(emf);
+    // Encuentra al cliente por su nick
+    Cliente cliente = (Cliente) aux.findUsuario(clienteNick);
+
+    // Obtén los IDs de las playlists favoritas del cliente
+    List<Integer> idsPlaylistsFavoritas = cliente.getPlaylistFavoritos().stream()
+            .map(Playlist::getId)
+            .collect(Collectors.toList());
+
+    // Encuentra todas las playlists que no están en los favoritos del cliente
+    List<Playlist> playlistsNoFavoritas;
+    if (idsPlaylistsFavoritas.isEmpty()) {
+        playlistsNoFavoritas = auxPlay.findPlaylistEntities(); // Si no hay favoritas, devuelve todas las playlists
+    } else {
+        playlistsNoFavoritas = em.createQuery("SELECT p FROM Playlist p WHERE p.id NOT IN :ids", Playlist.class)
+                .setParameter("ids", idsPlaylistsFavoritas)
+                .getResultList();
+    }
+
+    // Retorna los nombres de las playlists no favoritas
+    return playlistsNoFavoritas.stream()
+            .map(playlist -> playlist.getId() + " - " + playlist.getNombre())
+            .collect(Collectors.toList());
+}
+
+
+
+
+
 
 }

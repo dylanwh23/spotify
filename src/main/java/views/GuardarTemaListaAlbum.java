@@ -9,6 +9,9 @@ import controllers.CancionController;
 import controllers.PlaylistController;
 import controllers.UsuarioController;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,6 +21,7 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
     AlbumController albmController = new AlbumController();
     CancionController canController = new CancionController();
     PlaylistController playController = new PlaylistController();
+    UsuarioController usrController = new UsuarioController();
     /**
      * Creates new form GuardarTemaListaAlbum
      */
@@ -144,10 +148,12 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void recargarPlaylists(){
-         SeleccionBox.removeAllItems();
-         AlbumController albmController = new AlbumController();
-        CancionController canController = new CancionController();
-        PlaylistController playController = new PlaylistController();
+        SeleccionBox.removeAllItems();
+//        AlbumController albmController = new AlbumController();
+//        CancionController canController = new CancionController();
+//        PlaylistController playController = new PlaylistController();
+       
+        
         String usuario = UsuariosBox.getSelectedItem().toString();
                     
               if(TipoBox.getSelectedItem().toString().equals("Cancion")){
@@ -163,23 +169,54 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
                 SeleccionBox.addItem(nombreC);
             }
         }else if(TipoBox.getSelectedItem().toString().equals("Playlist")){
-            SeleccionBox.removeAllItems();
-            List<String> nombresPlaylist = playController.obtenerNombresPlaylistParticularCliente(usuario);
-            for (String nombreC : nombresPlaylist) {
+//            SeleccionBox.removeAllItems();
+//            List<String> nombresPlaylist = playController.obtenerNombresPlaylistParticularCliente(usuario);
+//            for (String nombreC : nombresPlaylist) {
+//                SeleccionBox.addItem(nombreC);
+//            }
+//            
+//            List<String> nombresPlaylist2 = playController.obtenerNombresPlaylistPublicas();
+//            for (String nombreC : nombresPlaylist2) {
+//                SeleccionBox.addItem(nombreC);
+//            }
+//            
+//            List<String> nombresPlaylist3 = playController.obtenerNombresPlaylistPorDefecto();
+//            for (String nombreC : nombresPlaylist3){
+//                SeleccionBox.addItem(nombreC);
+//            }
+             
+                SeleccionBox.removeAllItems();
+
+        // Obtener las playlists favoritas del cliente
+        List<String> nombresPlaylistsFavoritas = playController.obtenerNombresDePlaylistsFavoritas(usuario);
+
+        // Obtener y agregar playlists particulares (excluyendo favoritas)
+        List<String> nombresPlaylistParticulares = playController.obtenerNombresPlaylistParticularCliente(usuario);
+        for (String nombreC : nombresPlaylistParticulares) {
+            if (!nombresPlaylistsFavoritas.contains(nombreC)) {
                 SeleccionBox.addItem(nombreC);
             }
-            
-            List<String> nombresPlaylist2 = playController.obtenerNombresPlaylistPublicas();
-            for (String nombreC : nombresPlaylist2) {
+        }
+
+        // Obtener y agregar playlists públicas (excluyendo favoritas)
+        List<String> nombresPlaylistPublicas = playController.obtenerNombresPlaylistPublicas();
+        for (String nombreC : nombresPlaylistPublicas) {
+            if (!nombresPlaylistsFavoritas.contains(nombreC)) {
                 SeleccionBox.addItem(nombreC);
             }
-            
-            List<String> nombresPlaylist3 = playController.obtenerNombresPlaylistPorDefecto();
-            for (String nombreC : nombresPlaylist3){
+        }
+
+        // Obtener y agregar playlists por defecto (excluyendo favoritas)
+        List<String> nombresPlaylistPorDefecto = playController.obtenerNombresPlaylistPorDefecto();
+        for (String nombreC : nombresPlaylistPorDefecto) {
+            if (!nombresPlaylistsFavoritas.contains(nombreC)) {
                 SeleccionBox.addItem(nombreC);
             }
+
+        }
     }
 }
+    
     private void UsuariosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosBoxActionPerformed
         // TODO add your handling code here:
         recargarPlaylists();
@@ -197,6 +234,35 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
 
     private void AgregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBtnActionPerformed
         // TODO add your handling code here:
+        recargarPlaylists();
+         String usuario = UsuariosBox.getSelectedItem().toString();
+          String tipo = TipoBox.getSelectedItem().toString();
+
+         
+         try{
+             String nombre = SeleccionBox.getSelectedItem().toString();
+             if (tipo.equals("Cancion")) {
+
+             } else if (tipo.equals("Album")) {
+
+             } else if (tipo.equals("Playlist")) {
+                 try {
+                     usrController.registrarPlaylistFavorita(usuario, nombre);
+                     JOptionPane.showMessageDialog(this, "Playlist guardada en favoritos .", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                 } catch (Exception ex) {
+                     JOptionPane.showMessageDialog(this, "Ocurrió un error: Playlist ya añadida", "Error", JOptionPane.ERROR_MESSAGE);
+                     //Logger.getLogger(GuardarTemaListaAlbum.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+
+             }
+         }catch(Exception ex){
+             JOptionPane.showMessageDialog(this, "Ocurrió un error: Playlist vacia" , "Error", JOptionPane.ERROR_MESSAGE);
+         }
+         
+         
+             
+      
+
         recargarPlaylists();
     }//GEN-LAST:event_AgregarBtnActionPerformed
 

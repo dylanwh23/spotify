@@ -31,7 +31,7 @@ public class Cliente extends Usuario {
             joinColumns = @JoinColumn(name = "cliente_id"), 
             inverseJoinColumns = @JoinColumn(name = "playlist_particular_id") 
     )
-    private List<PlaylistParticular> PlaylistFavoritos;
+    private List<Playlist> PlaylistFavoritos;
     
     @ManyToMany
     @JoinTable(
@@ -49,7 +49,21 @@ public class Cliente extends Usuario {
         inverseJoinColumns = @JoinColumn(name = "album_id") 
     )
     
-    private List<Cancion> albumesFavoritos;
+    private List<Album> albumesFavoritos;
+
+    public List<Playlist> getPlaylistFavoritos() {
+        return PlaylistFavoritos;
+    }
+
+    public List<Cancion> getCancionesFavoritas() {
+        return cancionesFavoritas;
+    }
+
+    public List<Album> getAlbumesFavoritos() {
+        return albumesFavoritos;
+    }
+    
+        
     
 
     public Cliente() {
