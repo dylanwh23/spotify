@@ -62,6 +62,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         consultarClientesBtn = new javax.swing.JMenuItem();
         consultarPlaylistBtn = new javax.swing.JMenuItem();
+        Consultarartista = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -173,6 +174,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jMenu5.add(consultarPlaylistBtn);
 
+        Consultarartista.setText("Consultar Artista");
+        Consultarartista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultarartistaActionPerformed(evt);
+            }
+        });
+        jMenu5.add(Consultarartista);
+
         jMenuBar2.add(jMenu5);
 
         setJMenuBar(jMenuBar2);
@@ -262,6 +271,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contenido.add(guardarTemaListaAlbum);
         guardarTemaListaAlbum.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void ConsultarartistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarartistaActionPerformed
+        // TODO add your handling code here:
+        ConsultarArtista ConsultarArtista = new ConsultarArtista();
+        contenido.add(ConsultarArtista);
+        ConsultarArtista.setVisible(true);
+    }//GEN-LAST:event_ConsultarartistaActionPerformed
     
         
     
@@ -302,6 +318,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AltaGenero;
+    private javax.swing.JMenuItem Consultarartista;
     private javax.swing.JMenuItem altaAlbumBtn;
     private javax.swing.JMenuItem altaListaBtn;
     private javax.swing.JMenuItem altaTemaListabtn;

@@ -154,8 +154,49 @@ public List<String> obtenerNombresDePlaylistsNoFavoritas(String clienteNick) {
 }
 
 
+public Object[][] obtenerDatosArtista(String nick) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        List<Artista> artistas = em.createQuery("SELECT a FROM Artista a WHERE a.nick = :nick", Artista.class).setParameter("nick", nick).getResultList();
+        Object[][] data = new Object[artistas.size()][8];
 
+        for (int i = 0; i < artistas.size(); i++) {
+            Artista artista = artistas.get(i);  // Obtener el cliente individual
 
+            data[i][0] = artista.getNick();     // Asignar valores al arreglo
+            data[i][1] = artista.getNombre();
+            data[i][2] = artista.getApellido();
+            data[i][3] = artista.getMail();
+            data[i][4] = artista.getFecNac();
+            data[i][5] = artista.getImagen();
+            data[i][6] = artista.getBiografia();
+            data[i][7] = artista.getDireccionWeb();
+        }
+        return data;
+
+    } finally {
+        em.close();
+    }
+}
+public Object[][] obtenerDatosArtistas() {
+    EntityManager em = emf.createEntityManager();
+    try {
+        List<Artista> artistas = em.createQuery("SELECT a FROM Artista a", Artista.class).getResultList();
+        Object[][] data = new Object[artistas.size()][8];
+
+        for (int i = 0; i < artistas.size(); i++) {
+            Artista artista = artistas.get(i);  // Obtener el cliente individual
+
+                 // Asignar valores al arreglo
+            data[i][0] = artista.getNombre();
+            data[i][1] = artista.getNick();
+        }
+        return data;
+
+    } finally {
+        em.close();
+    }
+}
 
 
 }
