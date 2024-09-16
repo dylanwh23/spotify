@@ -210,8 +210,8 @@ public void registrarAlbumFavorito(String nick, String nombreAlbum) throws Excep
          String albumid = nombreAlbum.trim();
         int indicePlay = albumid.indexOf('-');
         String idAlbumString = albumid.substring(0, indicePlay).trim();
-        //int idAlbum = Integer.parseInt(idAlbumString); 
-        Album album = auxAlbum.findAlbum(idAlbumString);
+        int idAlbum = Integer.parseInt(idAlbumString); 
+        Album album = auxAlbum.findAlbum(idAlbum);
         Cliente cliente = (Cliente) aux.findUsuario(nick);
         cliente.getAlbumesFavoritos().add(album);
         aux.edit(cliente);

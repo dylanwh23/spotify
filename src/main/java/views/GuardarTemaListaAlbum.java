@@ -9,6 +9,8 @@ import controllers.CancionController;
 import controllers.PlaylistController;
 import controllers.UsuarioController;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -164,9 +166,12 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
         }else if(TipoBox.getSelectedItem().toString().equals("Album")){
             SeleccionBox.removeAllItems();
             List<String> nombresAlbumes = albmController.obtenerNombresAlbums();
+            List<String> nombresAlbumesFavoritos = albmController.obtenerNombresAlbumsFavoritos(usuario);
             for (String nombreC : nombresAlbumes) {
-                SeleccionBox.addItem(nombreC);
-            }
+                 if (!nombresAlbumesFavoritos.contains(nombreC)) {
+                 SeleccionBox.addItem(nombreC);
+                }
+             }
         }else if(TipoBox.getSelectedItem().toString().equals("Playlist")){            
                 SeleccionBox.removeAllItems();
 
