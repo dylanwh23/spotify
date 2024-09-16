@@ -116,7 +116,7 @@ public boolean registrarAlbum(String nombre, int anio,List<Genero> generos) {
 public List<String> obtenerNombresAlbums() {
     List<Album> albums = auxAL.findAlbumEntities();
     return albums.stream()
-                 .map(album -> album.getNombre())
+                 .map(album ->album.getId() +" - "+ album.getNombre())
                  .collect(Collectors.toList());
 }
 

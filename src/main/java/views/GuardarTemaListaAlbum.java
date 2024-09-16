@@ -9,8 +9,6 @@ import controllers.CancionController;
 import controllers.PlaylistController;
 import controllers.UsuarioController;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -149,42 +147,27 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
 
     private void recargarPlaylists(){
         SeleccionBox.removeAllItems();
-//        AlbumController albmController = new AlbumController();
-//        CancionController canController = new CancionController();
-//        PlaylistController playController = new PlaylistController();
+
        
-        
-        String usuario = UsuariosBox.getSelectedItem().toString();
-                    
-              if(TipoBox.getSelectedItem().toString().equals("Cancion")){
+        try{
+            String usuario = UsuariosBox.getSelectedItem().toString();
+            
+                  if(TipoBox.getSelectedItem().toString().equals("Cancion")){
             SeleccionBox.removeAllItems();
             List<String> nombresCanciones = canController.obtenerNombresCanciones();
+            List<String> nombresCancionesFavoritas = canController.obtenerNombresCancionesFavoritas(usuario);
             for (String nombreC : nombresCanciones) {
-                SeleccionBox.addItem(nombreC);
-            }
+                  if (!nombresCancionesFavoritas.contains(nombreC)) {
+                  SeleccionBox.addItem(nombreC);
+                }
+             }
         }else if(TipoBox.getSelectedItem().toString().equals("Album")){
             SeleccionBox.removeAllItems();
             List<String> nombresAlbumes = albmController.obtenerNombresAlbums();
             for (String nombreC : nombresAlbumes) {
                 SeleccionBox.addItem(nombreC);
             }
-        }else if(TipoBox.getSelectedItem().toString().equals("Playlist")){
-//            SeleccionBox.removeAllItems();
-//            List<String> nombresPlaylist = playController.obtenerNombresPlaylistParticularCliente(usuario);
-//            for (String nombreC : nombresPlaylist) {
-//                SeleccionBox.addItem(nombreC);
-//            }
-//            
-//            List<String> nombresPlaylist2 = playController.obtenerNombresPlaylistPublicas();
-//            for (String nombreC : nombresPlaylist2) {
-//                SeleccionBox.addItem(nombreC);
-//            }
-//            
-//            List<String> nombresPlaylist3 = playController.obtenerNombresPlaylistPorDefecto();
-//            for (String nombreC : nombresPlaylist3){
-//                SeleccionBox.addItem(nombreC);
-//            }
-             
+        }else if(TipoBox.getSelectedItem().toString().equals("Playlist")){            
                 SeleccionBox.removeAllItems();
 
         // Obtener las playlists favoritas del cliente
@@ -215,6 +198,12 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
 
         }
     }
+            
+        }catch(Exception ex){
+        JOptionPane.showMessageDialog(this, "Ocurrió un error: No hay usuario ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
 }
     
     private void UsuariosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuariosBoxActionPerformed
@@ -235,16 +224,33 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
     private void AgregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarBtnActionPerformed
         // TODO add your handling code here:
         recargarPlaylists();
-         String usuario = UsuariosBox.getSelectedItem().toString();
-          String tipo = TipoBox.getSelectedItem().toString();
 
-         
-         try{
+          String tipo = TipoBox.getSelectedItem().toString();
+          
+          try{
+              String usuario = UsuariosBox.getSelectedItem().toString();
+              
+            try{
+             
              String nombre = SeleccionBox.getSelectedItem().toString();
              if (tipo.equals("Cancion")) {
-
+                 try {
+                     usrController.registrarCancionFavorita(usuario, nombre);
+                     JOptionPane.showMessageDialog(this, "Cancion guardada en favoritos .", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                 } catch (Exception ex) {
+                     JOptionPane.showMessageDialog(this, "Ocurrió un error: Cancion ya añadida", "Error", JOptionPane.ERROR_MESSAGE);
+                     //Logger.getLogger(GuardarTemaListaAlbum.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+                 recargarPlaylists();
              } else if (tipo.equals("Album")) {
-
+                  try {
+                     usrController.registrarAlbumFavorito(usuario, nombre);
+                     JOptionPane.showMessageDialog(this, "Album guardado en favoritos .", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                 } catch (Exception ex) {
+                     JOptionPane.showMessageDialog(this, "Ocurrió un error: Album ya añadido", "Error", JOptionPane.ERROR_MESSAGE);
+                     //Logger.getLogger(GuardarTemaListaAlbum.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+                recargarPlaylists();
              } else if (tipo.equals("Playlist")) {
                  try {
                      usrController.registrarPlaylistFavorita(usuario, nombre);
@@ -253,17 +259,23 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
                      JOptionPane.showMessageDialog(this, "Ocurrió un error: Playlist ya añadida", "Error", JOptionPane.ERROR_MESSAGE);
                      //Logger.getLogger(GuardarTemaListaAlbum.class.getName()).log(Level.SEVERE, null, ex);
                  }
-
+                recargarPlaylists();
              }
-         }catch(Exception ex){
-             JOptionPane.showMessageDialog(this, "Ocurrió un error: Playlist vacia" , "Error", JOptionPane.ERROR_MESSAGE);
+            }catch(Exception ex){
+             JOptionPane.showMessageDialog(this, "Ocurrió un error: Seleccion vacia" , "Error", JOptionPane.ERROR_MESSAGE);
          }
+          }catch(Exception ex){
+            //JOptionPane.showMessageDialog(this, "Ocurrió un error: No existe usuario" , "Error", JOptionPane.ERROR_MESSAGE);   
+          }
+          
+         
+         
          
          
              
       
 
-        recargarPlaylists();
+        
     }//GEN-LAST:event_AgregarBtnActionPerformed
 
 

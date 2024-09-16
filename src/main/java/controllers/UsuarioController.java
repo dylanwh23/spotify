@@ -12,11 +12,15 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import models.Album;
 import models.Artista;
+import models.Cancion;
 import models.Cliente;
 import models.Playlist;
 import models.Usuario;
+import persistences.AlbumJpaController;
 import persistences.ArtistaJpaController;
+import persistences.CancionJpaController;
 import persistences.ClienteJpaController;
 import persistences.PlaylistJpaController;
 import persistences.UsuarioJpaController;
@@ -32,6 +36,8 @@ import models.Usuario;
  */
 public class UsuarioController implements IUsuarioController{
     PlaylistJpaController auxPlay = new PlaylistJpaController();
+    AlbumJpaController auxAlbum = new AlbumJpaController();
+    CancionJpaController auxCan = new CancionJpaController();
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
      
@@ -196,6 +202,33 @@ public Object[][] obtenerDatosArtistas() {
     } finally {
         em.close();
     }
+}
+
+
+public void registrarAlbumFavorito(String nick, String nombreAlbum) throws Exception{
+         UsuarioJpaController aux = new UsuarioJpaController(emf);
+         String albumid = nombreAlbum.trim();
+        int indicePlay = albumid.indexOf('-');
+        String idAlbumString = albumid.substring(0, indicePlay).trim();
+        //int idAlbum = Integer.parseInt(idAlbumString); 
+        Album album = auxAlbum.findAlbum(idAlbumString);
+        Cliente cliente = (Cliente) aux.findUsuario(nick);
+        cliente.getAlbumesFavoritos().add(album);
+        aux.edit(cliente);
+      
+}
+
+public void registrarCancionFavorita(String nick, String nombreCancion) throws Exception{
+    UsuarioJpaController aux = new UsuarioJpaController(emf);
+    String cancionid = nombreCancion.trim();
+        int indicePlay = cancionid.indexOf('-');
+        String idPlayString = cancionid.substring(0, indicePlay).trim();
+        int idCancion = Integer.parseInt(idPlayString); 
+        Cancion cancion = auxCan.findCancion(idCancion);
+        Cliente cliente = (Cliente) aux.findUsuario(nick);
+        cliente.getCancionesFavoritas().add(cancion);
+        aux.edit(cliente);
+      
 }
 
 
