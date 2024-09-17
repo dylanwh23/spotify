@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,21 +29,21 @@ public class Album implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="id")
     private int id;
     
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="nombre")
-    @Id private String nombre;
+     private String nombre;
     @Column(name="anioo")
     private int anioo;
-    @Column(name="generos")
+    @JoinColumn(name="generos")
     @OneToMany
     List<Genero> generos;
     @ManyToOne
-    @Column(name="artista")
+    @JoinColumn(name="artista")
     private Artista artista;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @Column(name="canciones")
+    @JoinColumn(name="canciones")
     List<Cancion> canciones;
 
     public Album(String nombre, int anioo, Artista artista, List<Genero> generos, List<Cancion> canciones) {
