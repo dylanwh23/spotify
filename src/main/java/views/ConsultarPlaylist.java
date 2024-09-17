@@ -9,11 +9,8 @@ import controllers.PlaylistController;
 import controllers.UsuarioController;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import views.ImageRenderer;
 
-/**
- *
- * @author dylan
- */
 public class ConsultarPlaylist extends javax.swing.JInternalFrame {
     PlaylistController controladorP = new PlaylistController();
     UsuarioController controladorUsuario = new UsuarioController();
@@ -220,6 +217,7 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
             String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "DTYPE","PRIVADA","GENERO"};
             NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
             ListaPlaylist.setModel(tableModel);
+            ListaPlaylist.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer());
          
         } 
         else if ("Genero".equals(GeneroCliente.getSelectedItem())) {
@@ -245,6 +243,7 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
             String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "DTYPE", "GENERO"};
             NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
             ListaPlaylist.setModel(tableModel);
+            ListaPlaylist.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer());
         
         }
  
@@ -257,6 +256,7 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
             String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "DTYPE", "PRIVADA"};
             NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
             ListaPlaylist.setModel(tableModel);
+            ListaPlaylist.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer());
             
         }
     }//GEN-LAST:event_DatosClienteActionPerformed
@@ -269,9 +269,10 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
                 int id = (int) ListaPlaylist.getValueAt(row, 0); // Cambia 1 al índice de la columna deseada
                 jFrame2.setVisible(true);
                 Object[][] datos = controladorP.obtenerDatosPlaylist(id);
-                String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "GENERO"};
+                String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN","RUTA MP3","DURACION", "GENERO"};
                 NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
                 canciones.setModel(tableModel);
+                canciones.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer());
             }
         }
     }//GEN-LAST:event_ListaPlaylistMouseClicked

@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -23,9 +25,12 @@ public class Cancion implements Serializable {
     private int id;
     private String nombre;
     private int duracion;
-//<<<<<<< HEAD
     private String direccion_archivo_de_audio;
     private String direccion_imagen;
+    @ManyToOne
+    @JoinColumn(name = "genero_nombre")
+    private Genero genero;
+    
 //=======
 
     public Cancion(String nombre, int duracion, String direccion_archivo_de_audio, String direccion_imagen) {
@@ -37,6 +42,14 @@ public class Cancion implements Serializable {
 
     public Cancion() {
         
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
     
     public int getId() {

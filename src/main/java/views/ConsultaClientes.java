@@ -6,14 +6,7 @@ package views;
 
 import controllers.UsuarioController;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
-import views.ConsultarPlaylist.NonEditableTableModel;
-
-/**
- *
- * @author dylan
- */
 public class ConsultaClientes extends javax.swing.JInternalFrame {
     UsuarioController usrController = new UsuarioController();
      class NonEditableTableModel extends DefaultTableModel {
@@ -157,6 +150,7 @@ public class ConsultaClientes extends javax.swing.JInternalFrame {
                 String[] columnNames = {"NICK", "NOMBRE", "APELLIDO", "CORREO", "FECHA DE NACIMIENTO", "IMAGEN"};
                 NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
                 ClienteEspecifico.setModel(tableModel);
+                ClienteEspecifico.getColumnModel().getColumn(5).setCellRenderer(new ImageRenderer());
             }
         }
     }//GEN-LAST:event_tablaClientesMouseClicked

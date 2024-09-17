@@ -154,20 +154,22 @@ public class PlaylistController {
     }
 
     public Object[][] obtenerDatosPlaylist(int id) {
-        // Obtener la playlist por ID
+        
         Playlist playlist = auxPlay.findPlaylist(id);
-
         if (playlist == null) {
-            return new Object[0][0]; // Si no se encuentra la playlist, devolver una matriz vacía
+            return new Object[0][0]; 
         }
         List<Cancion> canciones = playlist.getCanciones();
-        Object[][] datos = new Object[canciones.size()][5];
+        Object[][] datos = new Object[canciones.size()][6];
 
         for (int i = 0; i < canciones.size(); i++) {
             Cancion cancion = canciones.get(i);
             datos[i][0] = cancion.getId();
             datos[i][1] = cancion.getNombre();
-            datos[i][2] = cancion.getDuracion();
+            datos[i][2] = cancion.getDireccion_imagen();
+            datos[i][3] = cancion.getDireccion_archivo_de_audio();
+            datos[i][4] = cancion.getDuracion();
+            datos[i][5] = cancion.getGenero();
         }
         return datos;
     }

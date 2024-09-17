@@ -140,6 +140,7 @@ if (evt.getClickCount() == 2) { // Detectar clic simple
                 String[] columnNames = {"NICK", "NOMBRE", "APELLIDO", "CORREO", "FECHA DE NACIMIENTO", "IMAGEN", "BIOGRAFIA","WEB"};
                 NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
                 ArtistaEspecifico.setModel(tableModel);
+                ArtistaEspecifico.getColumnModel().getColumn(5).setCellRenderer(new ImageRenderer());
             }
         }
         // TODO add your handling code here:
