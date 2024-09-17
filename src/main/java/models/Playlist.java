@@ -5,7 +5,8 @@
 package models;
 
 import java.io.Serializable;
-import java.util.LinkedList;
+
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,12 +37,12 @@ public class Playlist implements Serializable {
 	    protected String rutaImagen;
     @OneToMany 
 	@JoinColumn(name="canciones")
-	    protected LinkedList<Cancion>canciones;
+    protected List<Cancion> canciones;
 
     public Playlist() {
     }
 
-    public Playlist(String Nombre, String rutaImagen, LinkedList<Cancion> canciones) {
+    public Playlist(String Nombre, String rutaImagen, List<Cancion> canciones) {
         this.Nombre = Nombre;
         this.rutaImagen = rutaImagen;
         this.canciones = canciones;
@@ -71,12 +72,13 @@ public class Playlist implements Serializable {
         this.rutaImagen = rutaImagen;
     }
 
-    public LinkedList<Cancion> getCanciones() {
+    public List<Cancion> getCanciones() {
         return canciones;
     }
 
-    public void setCanciones(LinkedList<Cancion> canciones) {
+    public void setCanciones(List<Cancion> canciones) {
         this.canciones = canciones;
     }
     
 }
+

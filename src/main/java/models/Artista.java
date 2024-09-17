@@ -54,6 +54,26 @@ public class Artista extends Usuario {
     public void setDireccionWeb(String DireccionWeb) {
         this.DireccionWeb = DireccionWeb;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public LocalDate getFecNac() {
+       return fecNac;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
     
 }
 

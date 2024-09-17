@@ -5,6 +5,7 @@
 package models;
 
 import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Entity;
 
 import javax.persistence.Inheritance;
@@ -31,7 +32,7 @@ public class PlaylistParticular extends Playlist {
     public PlaylistParticular() {
     }
 
-    public PlaylistParticular(Boolean privada, String Nombre, String rutaImagen, LinkedList<Cancion> canciones, Cliente Propietario) {
+    public PlaylistParticular(Boolean privada, String Nombre, String rutaImagen, List<Cancion> canciones, Cliente Propietario) {
         super(Nombre, rutaImagen, canciones);
         this.privada = privada;
 	this.Propietario =Propietario;
@@ -75,7 +76,7 @@ public class PlaylistParticular extends Playlist {
         this.rutaImagen = rutaImagen;
     }
 
-    public LinkedList<Cancion> getCanciones() {
+    public List<Cancion> getCanciones() {
         return canciones;
     }
 

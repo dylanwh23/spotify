@@ -6,6 +6,7 @@
  */
 package controllers;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,6 +37,7 @@ public class PlaylistController {
      private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
      ClienteJpaController usr_ctr = new ClienteJpaController(emf);
      
+     
     public void crearPlaylistPorDefecto(String nombre ,String genero,String rutaImagen){
             PlaylistPorDefecto playlist = new PlaylistPorDefecto();
             playlist.setGenero(auxGen.findGenero(genero));
@@ -50,14 +52,15 @@ public class PlaylistController {
     }
 
     public void crearPlaylistParticular(String Nombre, String rutaImagen, String nick_usuario) {
-        	Cliente el_usr = usr_ctr.findCliente(nick_usuario);
-PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaImagen, new LinkedList<Cancion>(),el_usr);
-	try{
-	auxPlay.create(la_nueva_lista);
-	usr_ctr.edit(el_usr);
-	} catch(Exception ex){
-		Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE,null,ex);
-	}
+        Cliente el_usr = usr_ctr.findCliente(nick_usuario);
+        PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaImagen, new LinkedList<Cancion>(), el_usr);
+        try {
+            auxPlay.create(la_nueva_lista);
+            //usr_ctr.edit(el_usr);
+            //no se necesita
+        } catch (Exception ex) {
+            Logger.getLogger(PlaylistController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -159,7 +162,7 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
         if (playlist == null) {
             return new Object[0][0]; // Si no se encuentra la playlist, devolver una matriz vacía
         }
-        LinkedList<Cancion> canciones = playlist.getCanciones();
+        List<Cancion> canciones = playlist.getCanciones();
         Object[][] datos = new Object[canciones.size()][5];
 
         for (int i = 0; i < canciones.size(); i++) {
@@ -179,7 +182,6 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
     }
 
     public List<String> obtenerNombresPlaylistParticularCliente(String nick) {
-        
         EntityManager em = emf.createEntityManager();
         try {
             List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.Propietario.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
@@ -198,12 +200,10 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
         String idPlayString = stringPlaylist.substring(0, indicePlay).trim();
         int idPlaylist = Integer.parseInt(idPlayString); 
         Playlist playlist = auxPlay.findPlaylist(idPlaylist);
-        
         stringCancion = stringCancion.trim();
         int indiceCan = stringCancion.indexOf('-');
         String idCanString = stringCancion.substring(0, indiceCan).trim();
         int idCancion = Integer.parseInt(idCanString); 
-        
         playlist.getCanciones().add(auxCan.findCancion(idCancion));
         auxPlay.edit(playlist);
     }
@@ -242,5 +242,69 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
 	auxPlay.edit(la_lista_de_reproduccion);
 	    } catch (Exception e){}
     }
+
+    public List<String> obtenerNombresDeCancionesNoPresentesPlaylist(String stringPlaylist) {
+        EntityManager em = emf.createEntityManager();
+        stringPlaylist = stringPlaylist.trim();
+        int indicePlay = stringPlaylist.indexOf('-');
+        String idPlayString = stringPlaylist.substring(0, indicePlay).trim();
+        int idPlaylist = Integer.parseInt(idPlayString);
+        Playlist playlist = auxPlay.findPlaylist(idPlaylist);
+        List<Integer> idsCancionesEnPlaylist = playlist.getCanciones().stream()
+                .map(Cancion::getId)
+                .collect(Collectors.toList());
+        List<Cancion> canciones;
+        if (idsCancionesEnPlaylist.isEmpty()) {
+            canciones = auxCan.findCancionEntities();
+        } else {
+            canciones = em.createQuery("SELECT c FROM Cancion c WHERE c.id NOT IN :ids", Cancion.class).setParameter("ids", idsCancionesEnPlaylist).getResultList();;
+        }
+        return canciones.stream()
+                .map(cancion -> cancion.getId() + " - " + cancion.getNombre())
+                .collect(Collectors.toList());
+    }
+    
+    
+   public List<String> obtenerNombresPlaylists() {
+    List<Playlist> playlists = auxPlay.findPlaylistEntities();
+    return playlists.stream()
+                    .map(playlist -> playlist.getNombre())
+                    .collect(Collectors.toList());
 }
 
+    public List<String> obtenerNombresPlaylistPublicas() {
+     EntityManager em = emf.createEntityManager();
+        try {
+           List<PlaylistParticular> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.privada = false", PlaylistParticular.class).getResultList();
+            return playlists.stream()
+                    .filter(playlist -> playlist instanceof PlaylistParticular) // Filtrar solo las playlists particulares
+                    .map(playlist -> playlist.getId()+ " - " + playlist.getNombre())
+                    .collect(Collectors.toList());
+        } finally {
+            em.close();
+        }
+    }
+
+  
+public List<String> obtenerNombresDePlaylistsFavoritas(String clienteNick) {
+    // Busca al cliente por su nick
+    Cliente cliente = usr_ctr.findCliente(clienteNick);
+
+    // Si no se encuentra el cliente, retorna una lista vacía
+    if (cliente == null) {
+        return new ArrayList<>();
+    }
+
+    // Obtener las playlists favoritas del cliente
+    List<Playlist> playlistsFavoritas = cliente.getPlaylistFavoritos();
+
+    // Mapear las playlists favoritas a una lista de nombres
+    return playlistsFavoritas.stream()
+            .map(playlist -> playlist.getId() + " - " + playlist.getNombre())
+            .collect(Collectors.toList());
+}
+
+  
+   
+    
+}
