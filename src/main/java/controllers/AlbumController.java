@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import javax.persistence.Persistence;
 import models.Artista;
 import models.Cancion;
+import models.Cliente;
 import models.Genero;
 import persistences.ArtistaJpaController;
 import persistences.ClienteJpaController;
@@ -28,6 +29,7 @@ import persistences.GeneroJpaController;
 public class AlbumController implements IAlbumController {
  private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
  ArtistaJpaController usr_ctr = new ArtistaJpaController(emf);
+ ClienteJpaController auxCliente = new ClienteJpaController(emf);
  AlbumJpaController auxAL = new AlbumJpaController();
  GeneroJpaController auxG = new GeneroJpaController();
     public AlbumController() {
@@ -133,4 +135,25 @@ public List<String> obtenerNombresAlbums() {
         auxAL.create(album);
     }
 
+    public List<String> obtenerNombresAlbumsFavoritos(String clienteNick) {
+    // Busca al cliente por su nick
+    Cliente cliente = auxCliente.findCliente(clienteNick);
+
+    // Si no se encuentra el cliente, retorna una lista vacía
+    if (cliente == null) {
+        return new ArrayList<>();
+    }
+
+    // Obtener los álbumes favoritos del cliente
+    List<Album> albumesFavoritos = cliente.getAlbumesFavoritos();
+
+    // Mapear los álbumes favoritos a una lista de nombres
+    return albumesFavoritos.stream()
+            .map(album -> album.getId() + " - " + album.getNombre())
+            .collect(Collectors.toList());
+}
+
+    
+    
+    
 }

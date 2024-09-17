@@ -213,8 +213,8 @@ public void registrarAlbumFavorito(String nick, String nombreAlbum) throws Excep
          String albumid = nombreAlbum.trim();
         int indicePlay = albumid.indexOf('-');
         String idAlbumString = albumid.substring(0, indicePlay).trim();
-        //int idAlbum = Integer.parseInt(idAlbumString); 
-        Album album = auxAlbum.findAlbum(idAlbumString);
+        int idAlbum = Integer.parseInt(idAlbumString); 
+        Album album = auxAlbum.findAlbum(idAlbum);
         Cliente cliente = (Cliente) aux.findUsuario(nick);
         cliente.getAlbumesFavoritos().add(album);
         aux.edit(cliente);
@@ -230,6 +230,33 @@ public void registrarCancionFavorita(String nick, String nombreCancion) throws E
         Cancion cancion = auxCan.findCancion(idCancion);
         Cliente cliente = (Cliente) aux.findUsuario(nick);
         cliente.getCancionesFavoritas().add(cancion);
+        aux.edit(cliente);
+                
+}
+
+public void eliminarCancionFavorita(String nick, String nombreCancion)throws Exception{
+
+        UsuarioJpaController aux = new UsuarioJpaController(emf);
+        String cancionid = nombreCancion.trim();
+        int indicePlay = cancionid.indexOf('-');
+        String idPlayString = cancionid.substring(0, indicePlay).trim();
+        int idCancion = Integer.parseInt(idPlayString); 
+        Cancion cancion = auxCan.findCancion(idCancion);
+        Cliente cliente = (Cliente) aux.findUsuario(nick);
+        cliente.getCancionesFavoritas().remove(cancion);
+        aux.edit(cliente);
+}
+
+
+public void eliminarAlbumFavorito(String nick, String nombreAlbum) throws Exception{
+         UsuarioJpaController aux = new UsuarioJpaController(emf);
+         String albumid = nombreAlbum.trim();
+        int indicePlay = albumid.indexOf('-');
+        String idAlbumString = albumid.substring(0, indicePlay).trim();
+        int idAlbum = Integer.parseInt(idAlbumString); 
+        Album album = auxAlbum.findAlbum(idAlbum);
+        Cliente cliente = (Cliente) aux.findUsuario(nick);
+        cliente.getAlbumesFavoritos().remove(album);
         aux.edit(cliente);
       
 }
@@ -290,6 +317,18 @@ public void dejarSeguirUsuario(String usuario, String usuarioADejarDeSeguir) thr
             System.out.println(e);
         }
     }
+public void eliminarPlaylistFavorita(String nick, String nombrePlaylist) throws Exception{
+    UsuarioJpaController aux = new UsuarioJpaController(emf);
+    String playlistid = nombrePlaylist.trim();
+        int indicePlay = playlistid.indexOf('-');
+        String idPlayString = playlistid.substring(0, indicePlay).trim();
+        int idPlaylist = Integer.parseInt(idPlayString); 
+        Playlist playlist = auxPlay.findPlaylist(idPlaylist);
+        Cliente cliente = (Cliente) aux.findUsuario(nick);
+        cliente.getPlaylistFavoritos().remove(playlist);
+        aux.edit(cliente);
 }
+}
+
 
 

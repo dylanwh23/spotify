@@ -9,6 +9,8 @@ import controllers.CancionController;
 import controllers.PlaylistController;
 import controllers.UsuarioController;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,7 +35,7 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
         }
 
         recargarPlaylists();
-
+        RecargarBtns();
     }
 
     /**
@@ -53,11 +55,14 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         SeleccionBox = new javax.swing.JComboBox<>();
         AgregarBtn = new javax.swing.JButton();
+        EliminarFavBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        AccionBox = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Guardar Tema/Lista/Album");
+        setTitle("Guardar/Eliminar Tema/Lista/Album");
 
         jLabel1.setText("Usuario:");
 
@@ -91,44 +96,71 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
             }
         });
 
+        EliminarFavBtn.setText("Eliminar Favorito");
+        EliminarFavBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarFavBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Accion:");
+
+        AccionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Guardar Favorito", "Eliminar Favorito" }));
+        AccionBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AccionBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(UsuariosBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(SeleccionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(SeleccionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(UsuariosBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                        .addComponent(jLabel2)))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EliminarFavBtn)
                     .addComponent(AgregarBtn))
                 .addGap(20, 20, 20))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(AccionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(AccionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UsuariosBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(TipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88)
+                    .addComponent(jLabel1)
+                    .addComponent(TipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(65, 65, 65)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
                     .addComponent(SeleccionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AgregarBtn))
-                .addContainerGap(165, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(AgregarBtn)
+                    .addComponent(EliminarFavBtn))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,8 +180,8 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
     private void recargarPlaylists(){
         SeleccionBox.removeAllItems();
 
-       
-        try{
+       if(AccionBox.getSelectedItem().toString().equals("Guardar Favorito")){
+            try{
             String usuario = UsuariosBox.getSelectedItem().toString();
             
                   if(TipoBox.getSelectedItem().toString().equals("Cancion")){
@@ -164,9 +196,12 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
         }else if(TipoBox.getSelectedItem().toString().equals("Album")){
             SeleccionBox.removeAllItems();
             List<String> nombresAlbumes = albmController.obtenerNombresAlbums();
+            List<String> nombresAlbumesFavoritos = albmController.obtenerNombresAlbumsFavoritos(usuario);
             for (String nombreC : nombresAlbumes) {
-                SeleccionBox.addItem(nombreC);
-            }
+                 if (!nombresAlbumesFavoritos.contains(nombreC)) {
+                 SeleccionBox.addItem(nombreC);
+                }
+             }
         }else if(TipoBox.getSelectedItem().toString().equals("Playlist")){            
                 SeleccionBox.removeAllItems();
 
@@ -202,7 +237,36 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
         }catch(Exception ex){
         JOptionPane.showMessageDialog(this, "Ocurrió un error: No hay usuario ingresado", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+       }else if(AccionBox.getSelectedItem().toString().equals("Eliminar Favorito")){
+           SeleccionBox.removeAllItems();
+           try {
+        String usuario = UsuariosBox.getSelectedItem().toString();
+
+        if (TipoBox.getSelectedItem().toString().equals("Cancion")) {
+            SeleccionBox.removeAllItems();
+            List<String> nombresCancionesFavoritas = canController.obtenerNombresCancionesFavoritas(usuario);
+            for (String nombreC : nombresCancionesFavoritas) {
+                SeleccionBox.addItem(nombreC);
+            }
+        } else if (TipoBox.getSelectedItem().toString().equals("Album")) {
+            SeleccionBox.removeAllItems();
+            List<String> nombresAlbumesFavoritos = albmController.obtenerNombresAlbumsFavoritos(usuario);
+            for (String nombreA : nombresAlbumesFavoritos) {
+                SeleccionBox.addItem(nombreA);
+            }
+        } else if (TipoBox.getSelectedItem().toString().equals("Playlist")) {
+            SeleccionBox.removeAllItems();
+            List<String> nombresPlaylistsFavoritas = playController.obtenerNombresDePlaylistsFavoritas(usuario);
+            for (String nombreP : nombresPlaylistsFavoritas) {
+                SeleccionBox.addItem(nombreP);
+            }
+        }
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Ocurrió un error: No hay usuario ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+       }       
+         
         
 }
     
@@ -268,25 +332,99 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
             //JOptionPane.showMessageDialog(this, "Ocurrió un error: No existe usuario" , "Error", JOptionPane.ERROR_MESSAGE);   
           }
           
-         
-         
-         
-         
-             
-      
-
-        
     }//GEN-LAST:event_AgregarBtnActionPerformed
+
+    private void RecargarBtns(){
+         if(AccionBox.getSelectedItem().toString().equals("Guardar Favorito")){
+            AgregarBtn.setVisible(true);
+            EliminarFavBtn.setVisible(false);
+            recargarPlaylists();
+        }else if(AccionBox.getSelectedItem().toString().equals("Eliminar Favorito")){
+            AgregarBtn.setVisible(false);
+            EliminarFavBtn.setVisible(true);
+            recargarPlaylists();
+        }
+    }
+    
+    
+    
+    
+    
+    
+    private void AccionBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccionBoxActionPerformed
+        // TODO add your handling code here:
+        if(AccionBox.getSelectedItem().toString().equals("Guardar Favorito")){
+            AgregarBtn.setVisible(true);
+            EliminarFavBtn.setVisible(false);
+            recargarPlaylists();
+        }else if(AccionBox.getSelectedItem().toString().equals("Eliminar Favorito")){
+            AgregarBtn.setVisible(false);
+            EliminarFavBtn.setVisible(true);
+            recargarPlaylists();
+        }
+      
+    }//GEN-LAST:event_AccionBoxActionPerformed
+
+    private void EliminarFavBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarFavBtnActionPerformed
+        // TODO add your handling code here:
+          recargarPlaylists();
+
+          String tipo = TipoBox.getSelectedItem().toString();
+          
+          try{
+              String usuario = UsuariosBox.getSelectedItem().toString();
+              
+            try{
+             
+             String nombre = SeleccionBox.getSelectedItem().toString();
+             if (tipo.equals("Cancion")) {
+                 try {
+                     usrController.eliminarCancionFavorita(usuario, nombre);
+                     JOptionPane.showMessageDialog(this, "Cancion eliminada de favoritos .", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                 } catch (Exception ex) {
+                     JOptionPane.showMessageDialog(this, "Ocurrió un error: Cancion ya eliminada", "Error", JOptionPane.ERROR_MESSAGE);
+                     //Logger.getLogger(GuardarTemaListaAlbum.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+                 recargarPlaylists();
+             } else if (tipo.equals("Album")) {
+                  try {
+                     usrController.eliminarAlbumFavorito(usuario, nombre);
+                     JOptionPane.showMessageDialog(this, "Album eliminado de favoritos .", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                 } catch (Exception ex) {
+                     JOptionPane.showMessageDialog(this, "Ocurrió un error: Album ya eliminado", "Error", JOptionPane.ERROR_MESSAGE);
+                     //Logger.getLogger(GuardarTemaListaAlbum.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+                recargarPlaylists();
+             } else if (tipo.equals("Playlist")) {
+                 try {
+                     usrController.eliminarPlaylistFavorita(usuario, nombre);
+                     JOptionPane.showMessageDialog(this, "Playlist eliminada de favoritos .", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                 } catch (Exception ex) {
+                     JOptionPane.showMessageDialog(this, "Ocurrió un error: Playlist ya eliminada", "Error", JOptionPane.ERROR_MESSAGE);
+                     //Logger.getLogger(GuardarTemaListaAlbum.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+                recargarPlaylists();
+             }
+            }catch(Exception ex){
+             JOptionPane.showMessageDialog(this, "Ocurrió un error: Seleccion vacia" , "Error", JOptionPane.ERROR_MESSAGE);
+         }
+          }catch(Exception ex){
+            //JOptionPane.showMessageDialog(this, "Ocurrió un error: No existe usuario" , "Error", JOptionPane.ERROR_MESSAGE);   
+          }
+    }//GEN-LAST:event_EliminarFavBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> AccionBox;
     private javax.swing.JButton AgregarBtn;
+    private javax.swing.JButton EliminarFavBtn;
     private javax.swing.JComboBox<String> SeleccionBox;
     private javax.swing.JComboBox<String> TipoBox;
     private javax.swing.JComboBox<String> UsuariosBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
