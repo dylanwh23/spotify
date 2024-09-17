@@ -28,6 +28,17 @@ public class Cancion implements Serializable {
     private String direccion_imagen;
 //=======
 
+    public Cancion(String nombre, int duracion, String direccion_archivo_de_audio, String direccion_imagen) {
+        this.nombre = nombre;
+        this.duracion = duracion;
+        this.direccion_archivo_de_audio = direccion_archivo_de_audio;
+        this.direccion_imagen = direccion_imagen;
+    }
+
+    public Cancion() {
+        
+    }
+    
     public int getId() {
         return id;
     }
@@ -48,6 +59,22 @@ public class Cancion implements Serializable {
         return duracion;
     }
 
+    public String getDireccion_archivo_de_audio() {
+        return direccion_archivo_de_audio;
+    }
+
+    public void setDireccion_archivo_de_audio(String direccion_archivo_de_audio) {
+        this.direccion_archivo_de_audio = direccion_archivo_de_audio;
+    }
+
+    public String getDireccion_imagen() {
+        return direccion_imagen;
+    }
+
+    public void setDireccion_imagen(String direccion_imagen) {
+        this.direccion_imagen = direccion_imagen;
+    }
+    
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }

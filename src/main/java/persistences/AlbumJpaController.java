@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import models.Album;
@@ -20,14 +21,15 @@ import persistences.exceptions.NonexistentEntityException;
  * @author dylan
  */
 public class AlbumJpaController implements Serializable {
-
+    private EntityManagerFactory emf = null;
+    
     public AlbumJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    private EntityManagerFactory emf = null;
+    
 
     public AlbumJpaController() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
     }
 
     public EntityManager getEntityManager() {
@@ -59,7 +61,7 @@ public class AlbumJpaController implements Serializable {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 String id = album.getNombre();
-                if (findAlbum(id) == null) {
+                if (findAlbumString(id) == null) {
                     throw new NonexistentEntityException("The album with id " + id + " no longer exists.");
                 }
             }
@@ -116,7 +118,7 @@ public class AlbumJpaController implements Serializable {
         }
     }
 
-    public Album findAlbum(String id) {
+    public Album findAlbum(int id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Album.class, id);
@@ -133,6 +135,15 @@ public class AlbumJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    private Object findAlbumString(String id) {
+         EntityManager em = getEntityManager();
+        try {
+            return em.find(Album.class, id);
         } finally {
             em.close();
         }

@@ -5,6 +5,7 @@ package models;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -59,11 +60,11 @@ public class PlaylistPorDefecto extends Playlist {
         this.rutaImagen = rutaImagen;
     }
 
-    public LinkedList<Cancion> getCanciones() {
+    public List<Cancion> getCanciones() {
         return canciones;
     }
 
-    public void setCanciones(LinkedList<Cancion> canciones) {
+    public void setCanciones(List<Cancion> canciones) {
         this.canciones = canciones;
     }
     

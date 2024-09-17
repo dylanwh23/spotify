@@ -153,7 +153,6 @@ public class ConsultaClientes extends javax.swing.JInternalFrame {
                 // Obtener el valor de una columna específica, por ejemplo, la columna con índice 1
                 String id = (String) tablaClientes.getValueAt(row, 1); // Cambia 1 al índice de la columna deseada
                 jFrame1.setVisible(true);
-                System.out.println("CXOSO");
                 Object[][] datos = usrController.obtenerDatosCliente(id);
                 String[] columnNames = {"NICK", "NOMBRE", "APELLIDO", "CORREO", "FECHA DE NACIMIENTO", "IMAGEN"};
                 NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);

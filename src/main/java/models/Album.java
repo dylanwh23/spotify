@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -6,10 +6,13 @@ package models;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *hoal
@@ -19,12 +22,36 @@ import javax.persistence.Id;
 public class Album implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
     
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id private String nombre;
+    private String nombre;
     private int anioo;
+    
+    @ManyToOne
+    private Artista artista;
+    @OneToMany
     List<Genero> generos;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    List<Cancion> canciones;
 
+    public Album(String nombre, int anioo, Artista artista, List<Genero> generos, List<Cancion> canciones) {
+        this.nombre = nombre;
+        this.anioo = anioo;
+        this.artista = artista;
+        this.generos = generos;
+        this.canciones = canciones;
+    }
+
+    public Album() {
+       
+    }
+    
+    public int getId() {
+        return id;
+    }
+    
     public String getNombre() {
         return nombre;
     }
