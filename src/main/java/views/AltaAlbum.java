@@ -652,12 +652,13 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
             try {
                 AController.CrearAlbum(NombreAlbum.getText(), Integer.parseInt(anioAlbum.getText()), NombreArtista.getText(), canciones, generosSeleccionados);
                 JOptionPane.showMessageDialog(this, "Alta de Album creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
-     dispose();
+
     }//GEN-LAST:event_FinalizarActionPerformed
 
     private void anioAlbumKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anioAlbumKeyTyped

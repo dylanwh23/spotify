@@ -268,7 +268,7 @@ public class PlaylistController {
         try {
            List<PlaylistParticular> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.privada = false", PlaylistParticular.class).getResultList();
             return playlists.stream()
-                    .filter(playlist -> playlist instanceof PlaylistParticular) // Filtrar solo las playlists particulares
+                    .filter(playlist -> playlist instanceof PlaylistParticular) 
                     .map(playlist -> playlist.getId()+ " - " + playlist.getNombre())
                     .collect(Collectors.toList());
         } finally {
@@ -278,18 +278,18 @@ public class PlaylistController {
 
   
 public List<String> obtenerNombresDePlaylistsFavoritas(String clienteNick) {
-    // Busca al cliente por su nick
+  
     Cliente cliente = usr_ctr.findCliente(clienteNick);
 
-    // Si no se encuentra el cliente, retorna una lista vacía
+   
     if (cliente == null) {
         return new ArrayList<>();
     }
 
-    // Obtener las playlists favoritas del cliente
+   
     List<Playlist> playlistsFavoritas = cliente.getPlaylistFavoritos();
 
-    // Mapear las playlists favoritas a una lista de nombres
+    
     return playlistsFavoritas.stream()
             .map(playlist -> playlist.getId() + " - " + playlist.getNombre())
             .collect(Collectors.toList());

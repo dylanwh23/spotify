@@ -140,25 +140,25 @@ public void registrarPlaylistFavorita(String nick, String nombrePlaylist) throws
 public List<String> obtenerNombresDePlaylistsNoFavoritas(String clienteNick) {
     EntityManager em = emf.createEntityManager();
     UsuarioJpaController aux = new UsuarioJpaController(emf);
-    // Encuentra al cliente por su nick
+   
     Cliente cliente = (Cliente) aux.findUsuario(clienteNick);
 
-    // Obtén los IDs de las playlists favoritas del cliente
+    
     List<Integer> idsPlaylistsFavoritas = cliente.getPlaylistFavoritos().stream()
             .map(Playlist::getId)
             .collect(Collectors.toList());
 
-    // Encuentra todas las playlists que no están en los favoritos del cliente
+   
     List<Playlist> playlistsNoFavoritas;
     if (idsPlaylistsFavoritas.isEmpty()) {
-        playlistsNoFavoritas = auxPlay.findPlaylistEntities(); // Si no hay favoritas, devuelve todas las playlists
+        playlistsNoFavoritas = auxPlay.findPlaylistEntities(); 
     } else {
         playlistsNoFavoritas = em.createQuery("SELECT p FROM Playlist p WHERE p.id NOT IN :ids", Playlist.class)
                 .setParameter("ids", idsPlaylistsFavoritas)
                 .getResultList();
     }
 
-    // Retorna los nombres de las playlists no favoritas
+   
     return playlistsNoFavoritas.stream()
             .map(playlist -> playlist.getId() + " - " + playlist.getNombre())
             .collect(Collectors.toList());
@@ -172,9 +172,9 @@ public Object[][] obtenerDatosArtista(String nick) {
         Object[][] data = new Object[artistas.size()][8];
 
         for (int i = 0; i < artistas.size(); i++) {
-            Artista artista = artistas.get(i);  // Obtener el cliente individual
+            Artista artista = artistas.get(i);  
 
-            data[i][0] = artista.getNick();     // Asignar valores al arreglo
+            data[i][0] = artista.getNick();     
             data[i][1] = artista.getNombre();
             data[i][2] = artista.getApellido();
             data[i][3] = artista.getMail();
@@ -196,9 +196,9 @@ public Object[][] obtenerDatosArtistas() {
         Object[][] data = new Object[artistas.size()][8];
 
         for (int i = 0; i < artistas.size(); i++) {
-            Artista artista = artistas.get(i);  // Obtener el cliente individual
+            Artista artista = artistas.get(i); 
 
-                 // Asignar valores al arreglo
+                 
             data[i][0] = artista.getNombre();
             data[i][1] = artista.getNick();
         }
@@ -321,14 +321,10 @@ public void dejarSeguirUsuario(String usuario, String usuarioADejarDeSeguir) thr
     }
 public void eliminarPlaylistFavorita(String nick, String nombrePlaylist) throws Exception {
     UsuarioJpaController aux = new UsuarioJpaController(emf);
-    
-   
     String playlistid = nombrePlaylist.trim();
     int indicePlay = playlistid.indexOf('-');
     String idPlayString = playlistid.substring(0, indicePlay).trim();
     int idPlaylist = Integer.parseInt(idPlayString); 
-    
-    
     Cliente cliente = (Cliente) aux.findUsuario(nick);
     
    

@@ -377,7 +377,6 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
             try{
              
              String nombre = SeleccionBox.getSelectedItem().toString();
-                System.out.println(nombre);
              if (tipo.equals("Cancion")) {
                  try {
                      usrController.eliminarCancionFavorita(usuario, nombre);

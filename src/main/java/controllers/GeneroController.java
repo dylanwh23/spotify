@@ -58,19 +58,7 @@ public class GeneroController implements IGeneroController {
     }
         
         
-        
-        /* Manejador m =  Manejador.getinstance();
-        Genero gen = new Genero();
-        gen.setNombre(nombre);
-        
-        if(m.buscarGenero(nombre) == false){
-            m.agregarGenero(nombre);
-            System.out.println(nombre);
-        }else{
-            System.out.println("Genero ya ingresado");
-        }
- */
-    
+ 
         
         
     }
