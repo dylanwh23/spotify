@@ -67,8 +67,8 @@ public class AlbumController implements IAlbumController {
         EntityManager em = getEntityManager();
         try {
             
-            TypedQuery<Artista> query = em.createQuery("SELECT a FROM Artista a WHERE a.nombre = :nombre", Artista.class);
-            query.setParameter("nombre", nombreA);
+            TypedQuery<Artista> query = em.createQuery("SELECT a FROM Artista a WHERE a.nick = :nick", Artista.class);
+            query.setParameter("nick", nombreA);
             
             
             List<Artista> resultados = query.getResultList();

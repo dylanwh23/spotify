@@ -41,7 +41,8 @@ public class UsuarioController implements IUsuarioController{
     PlaylistJpaController auxPlay = new PlaylistJpaController();
     AlbumJpaController auxAlbum = new AlbumJpaController();
     CancionJpaController auxCan = new CancionJpaController();
-
+    ClienteJpaController auxCliente =  new ClienteJpaController();
+    
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
      
        public List<String> obtenerNombresClientes() {
@@ -323,10 +324,11 @@ public void eliminarPlaylistFavorita(String nick, String nombrePlaylist) throws 
         int indicePlay = playlistid.indexOf('-');
         String idPlayString = playlistid.substring(0, indicePlay).trim();
         int idPlaylist = Integer.parseInt(idPlayString); 
-        Playlist playlist = auxPlay.findPlaylist(idPlaylist);
         Cliente cliente = (Cliente) aux.findUsuario(nick);
+        Playlist playlist = auxPlay.findPlaylist(idPlaylist);
         cliente.getPlaylistFavoritos().remove(playlist);
         aux.edit(cliente);
+        
 }
 }
 

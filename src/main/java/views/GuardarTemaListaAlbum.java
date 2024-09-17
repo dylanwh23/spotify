@@ -377,6 +377,7 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
             try{
              
              String nombre = SeleccionBox.getSelectedItem().toString();
+                System.out.println(nombre);
              if (tipo.equals("Cancion")) {
                  try {
                      usrController.eliminarCancionFavorita(usuario, nombre);
@@ -401,7 +402,7 @@ public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
                      JOptionPane.showMessageDialog(this, "Playlist eliminada de favoritos .", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                  } catch (Exception ex) {
                      JOptionPane.showMessageDialog(this, "Ocurrió un error: Playlist ya eliminada", "Error", JOptionPane.ERROR_MESSAGE);
-                     //Logger.getLogger(GuardarTemaListaAlbum.class.getName()).log(Level.SEVERE, null, ex);
+                     Logger.getLogger(GuardarTemaListaAlbum.class.getName()).log(Level.SEVERE, null, ex);
                  }
                 recargarPlaylists();
              }

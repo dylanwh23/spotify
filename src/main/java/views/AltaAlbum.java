@@ -657,7 +657,7 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
             }
         }
 
-    
+     dispose();
     }//GEN-LAST:event_FinalizarActionPerformed
 
     private void anioAlbumKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anioAlbumKeyTyped

@@ -69,8 +69,24 @@ public class Cliente extends Usuario {
     public List<Album> getAlbumesFavoritos() {
         return albumesFavoritos;
     }
+
+    public void setPlaylistFavoritos(List<Playlist> PlaylistFavoritos) {
+        this.PlaylistFavoritos = PlaylistFavoritos;
+    }
+
+    public void setCancionesFavoritas(List<Cancion> cancionesFavoritas) {
+        this.cancionesFavoritas = cancionesFavoritas;
+    }
+
+    public void setAlbumesFavoritos(List<Album> albumesFavoritos) {
+        this.albumesFavoritos = albumesFavoritos;
+    }
+
+    public void setUsuariosSeguidos(List<Usuario> usuariosSeguidos) {
+        this.usuariosSeguidos = usuariosSeguidos;
+    }
     
-        
+    
     
 
     public Cliente() {
