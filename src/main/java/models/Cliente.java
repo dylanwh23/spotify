@@ -47,10 +47,17 @@ public class Cliente extends Usuario {
         name = "cliente_albumesFavoritos", 
         joinColumns = @JoinColumn(name = "cliente_id"), 
         inverseJoinColumns = @JoinColumn(name = "album_id") 
-    )
-    
+    ) 
     private List<Album> albumesFavoritos;
 
+    @ManyToMany
+    @JoinTable(
+        name = "cliente_usuariosSeguidos", 
+        joinColumns = @JoinColumn(name = "cliente_id"), 
+        inverseJoinColumns = @JoinColumn(name = "usuario_id") 
+    )     
+    private List<Usuario> usuariosSeguidos;      
+        
     public List<Playlist> getPlaylistFavoritos() {
         return PlaylistFavoritos;
     }

@@ -140,4 +140,6 @@ public class UsuarioJpaController implements Serializable {
         }
     }
     
+    
+    
 }

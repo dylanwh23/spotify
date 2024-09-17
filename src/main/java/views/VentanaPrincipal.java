@@ -48,7 +48,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         contenido = new javax.swing.JPanel();
         jMenuBar2 = new javax.swing.JMenuBar();
         registrosBtn = new javax.swing.JMenu();
@@ -63,10 +62,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         consultarClientesBtn = new javax.swing.JMenuItem();
         consultarPlaylistBtn = new javax.swing.JMenuItem();
         Consultarartista = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         jMenu3.setText("jMenu3");
-
-        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administración");
@@ -184,6 +182,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu5);
 
+        jMenu1.setText("Seguir/Dejar de seguir");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+        jMenuBar2.add(jMenu1);
+
         setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -278,6 +289,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contenido.add(ConsultarArtista);
         ConsultarArtista.setVisible(true);
     }//GEN-LAST:event_ConsultarartistaActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        SeguirDejarSeguir seguirDejarSeguir = new SeguirDejarSeguir(ICU);
+        contenido.add(seguirDejarSeguir);
+        seguirDejarSeguir.setVisible(true);  
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_jMenu1ActionPerformed
     
         
     
@@ -327,10 +350,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem consultarClientesBtn;
     private javax.swing.JMenuItem consultarPlaylistBtn;
     private javax.swing.JPanel contenido;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu registrosBtn;
     // End of variables declaration//GEN-END:variables

@@ -306,7 +306,11 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         //apronto datos para hacer el alta
         Date fechaSeleccinada = fechaNac.getDate();
-        LocalDate localDate = fechaSeleccinada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localDate = null;
+        if(fechaSeleccinada == null){
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese fecha de nacimiento", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+        }
+        localDate = fechaSeleccinada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String tipoSeleccionado = (String) tipoSelect.getSelectedItem();
 
         if (nickField.getText().trim().isEmpty() || nombreField.getText().trim().isEmpty() || apellidoField.getText().trim().isEmpty() || correoField.getText().trim().isEmpty() || fechaNac == null) {

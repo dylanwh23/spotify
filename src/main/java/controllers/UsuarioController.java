@@ -11,7 +11,10 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import models.Album;
 import models.Artista;
 import models.Cancion;
@@ -231,5 +234,62 @@ public void registrarCancionFavorita(String nick, String nombreCancion) throws E
       
 }
 
-
+public List<String> obtenerNicknamesseguidos(String usuario) throws Exception{
+    List<String> aux = null;
+    ClienteJpaController jpa = new ClienteJpaController(emf);
+    Query query = jpa.getEntityManager().createNativeQuery("Select usuario_id from cliente_usuariosseguidos where cliente_id ='"+usuario+"'");
+    return query.getResultList();
 }
+
+public List<String> obtenerNicknamesDisponiblesASeguir(String usuario, List<String> usuariosSeguidos) throws Exception{
+   
+    ClienteJpaController jpa = new ClienteJpaController(emf);
+    String jpql = "";
+    TypedQuery<String> query = null;
+    
+    if(usuariosSeguidos.isEmpty()){
+        jpql = "SELECT u.nick FROM Usuario u";
+        query = jpa.getEntityManager().createQuery(jpql, String.class);
+    }else{
+        jpql = "SELECT u.nick FROM Usuario u WHERE u.nick NOT IN :nickExlcuidos";
+        query = jpa.getEntityManager().createQuery(jpql, String.class).setParameter("nickExlcuidos", usuariosSeguidos);;
+    }
+    return query.getResultList();
+}
+public void seguirUsuario(String usuario, String usuarioASeguir) throws Exception {
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        try {        
+            em = emf.createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
+            
+            String sql = "INSERT INTO cliente_usuariosseguidos (cliente_id, usuario_id) VALUES (?, ?)";
+            Query query = em.createNativeQuery(sql);
+            query.setParameter(1, usuario);
+            query.setParameter(2, usuarioASeguir);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+public void dejarSeguirUsuario(String usuario, String usuarioADejarDeSeguir) throws Exception {
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        try {        
+            em = emf.createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
+            
+            String sql = "Delete from cliente_usuariosseguidos where cliente_id ='"+usuario+"' and usuario_id = '"+usuarioADejarDeSeguir+"'";
+            Query query = em.createNativeQuery(sql);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+
+
