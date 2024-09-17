@@ -61,6 +61,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         consultarClientesBtn = new javax.swing.JMenuItem();
         consultarPlaylistBtn = new javax.swing.JMenuItem();
+	modificaciones_btn = new javax.swing.JMenu();
+	publicar_lista_btn = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -83,6 +85,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 477, Short.MAX_VALUE)
         );
+	modificaciones_btn.setLabel("Modificiones");
+	modificaciones_btn.addActionListener(new java.awt.event.ActionListener(){
+		public void actionPerformed(java.awt.event.ActionEvent evt){
+			modificaciones_btn_ActionPerformed(evt);
+		}
+	});
+
+
+	publicar_lista_btn.setLabel("Publicar Lista");
+	publicar_lista_btn.addActionListener(new java.awt.event.ActionListener(){
+		public void actionPerformed(java.awt.event.ActionEvent evt){
+			PublicarLista_btn_ActionPerformed(evt);
+		}
+	});
+
+	modificaciones_btn.add(publicar_lista_btn);
+
 
         registrosBtn.setText("Registros");
         registrosBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +109,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 registrosBtnActionPerformed(evt);
             }
         });
+
 
         altaUsuarioBtn.setLabel("Alta Usuario");
         altaUsuarioBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -166,6 +186,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu5);
 
+	jMenuBar2.add(modificaciones_btn);
+
         setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -182,6 +204,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+	private void modificaciones_btn_ActionPerformed(java.awt.event.ActionEvent evt){
+	
+	}
+    private void PublicarLista_btn_ActionPerformed(java.awt.event.ActionEvent evt){
+   	PublicarLista publicar_lista = new PublicarLista();
+       contenido.add(publicar_lista);
+	publicar_lista.setVisible(true);       
+
+	}
     private void altaUsuarioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaUsuarioBtnActionPerformed
         // TODO add your handling code here:
         AltaUsuario altaUsuario = new AltaUsuario(ICU);
@@ -247,8 +279,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         consultarPlaylist.setVisible(true);
     }//GEN-LAST:event_consultarPlaylistBtnActionPerformed
     
-        
-    
     /**
      * @param args the command line arguments
      */
@@ -293,11 +323,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem bajaTemaListabtn;
     private javax.swing.JMenuItem consultarClientesBtn;
     private javax.swing.JMenuItem consultarPlaylistBtn;
+    private javax.swing.JMenuItem publicar_lista_btn;
     private javax.swing.JPanel contenido;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu registrosBtn;
+    private javax.swing.JMenu modificaciones_btn;
     // End of variables declaration//GEN-END:variables
 }

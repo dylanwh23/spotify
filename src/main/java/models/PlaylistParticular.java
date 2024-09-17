@@ -11,18 +11,22 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Column;
 
 import javax.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="PlaylistParticular")
 public class PlaylistParticular extends Playlist {
 
-    private Boolean privada;
+	@Column(name="privada")
+	    private Boolean privada;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_nick")
-    private Cliente Propietario;
+    @JoinColumn(name = "Propietario")
+	    private Cliente Propietario;
 
     public PlaylistParticular() {
     }

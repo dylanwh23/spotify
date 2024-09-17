@@ -10,19 +10,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+
 
 /**
  *hoal
  * @author dylan
  */
 @Entity
+@Table(name="Album")
 public class Album implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="nombre")
     @Id private String nombre;
+    @Column(name="anioo")
     private int anioo;
+    @Column(name="generos")
     List<Genero> generos;
 
     public String getNombre() {

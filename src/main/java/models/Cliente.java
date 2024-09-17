@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Column;
 import javax.persistence.OneToMany;
 
 import java.util.LinkedList;
@@ -20,10 +22,12 @@ import java.util.LinkedList;
  * @author dylan
  */
 @Entity
+@Table(name="Cliente")
 public class Cliente extends Usuario {
 
     @OneToMany(mappedBy="Propietario")
-    private LinkedList<PlaylistParticular> sus_listas;
+    @JoinColumn(name="sus_listas")
+	private LinkedList<PlaylistParticular> sus_listas;
 
 
     public String getNick() {

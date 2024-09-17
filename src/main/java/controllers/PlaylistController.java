@@ -86,6 +86,7 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
                 data[i][2] = PlaylistParticular.getRutaImagen();
                 data[i][3] = "Particular";
                 data[i][4] = PlaylistParticular.getPrivada();
+		data[i][5] = PlaylistParticular.getPropietario();
             } else {
                 
                 data[i][0] = playlist.getId();
@@ -126,7 +127,7 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
     public Object[][] obtenerDatosPlaylistCliente(String nick) {
         EntityManager em = emf.createEntityManager();
         try {
-            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.cliente.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
+            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.Propietario.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
             Object[][] data = new Object[playlists.size()][6];
             for (int i = 0; i < playlists.size(); i++) {
                 Playlist playlist = playlists.get(i);
@@ -137,6 +138,7 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
                     data[i][2] = PlaylistParticular.getRutaImagen();
                     data[i][3] = "Particular";
                     data[i][4] = PlaylistParticular.getPrivada();
+		    data[i][5] = PlaylistParticular.getPropietario();
                 }
             }
             return data;
@@ -180,7 +182,7 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
         
         EntityManager em = emf.createEntityManager();
         try {
-            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.cliente.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
+            List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.Propietario.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
             return playlists.stream()
                     .filter(playlist -> playlist instanceof PlaylistParticular) // Filtrar solo las playlists particulares
                     .map(playlist -> playlist.getId()+ " - " + playlist.getNombre())
@@ -232,6 +234,13 @@ PlaylistParticular la_nueva_lista = new PlaylistParticular(true, Nombre, rutaIma
         
         playlist.getCanciones().remove(auxCan.findCancion(idCancion));
         auxPlay.edit(playlist);
+    }
+    public void Publicar_Lista(int id){
+	    try{
+   	PlaylistParticular la_lista_de_reproduccion = (PlaylistParticular) auxPlay.findPlaylist(id);
+	la_lista_de_reproduccion.setPrivada(false);
+	auxPlay.edit(la_lista_de_reproduccion);
+	    } catch (Exception e){}
     }
 }
 

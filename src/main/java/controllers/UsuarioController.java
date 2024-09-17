@@ -32,6 +32,7 @@ public class UsuarioController implements IUsuarioController{
     
     
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+  //  private ClienteJpaController cliente_ctr = new ClienteJpaController(emf);
      
        public List<String> obtenerNombresClientes() {
         EntityManager em = emf.createEntityManager();
@@ -45,6 +46,7 @@ public class UsuarioController implements IUsuarioController{
         } finally {
             em.close();
         }
+	  //     cliente_ctr.
     }
     
 

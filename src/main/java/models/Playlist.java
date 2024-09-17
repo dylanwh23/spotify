@@ -12,7 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Column;
 
 /**
  *
@@ -20,15 +23,20 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="Playlist")
 public class Playlist implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    protected int id;
+	@Column(name="id")
+	    protected int id;
     
-    protected String Nombre;
-    protected String rutaImagen;
+	@Column(name="Nombre")
+	    protected String Nombre;
+	@Column(name="rutaImagen")
+	    protected String rutaImagen;
     @OneToMany 
-    protected LinkedList<Cancion>canciones;
+	@JoinColumn(name="canciones")
+	    protected LinkedList<Cancion>canciones;
 
     public Playlist() {
     }
