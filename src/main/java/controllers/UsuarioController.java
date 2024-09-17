@@ -5,6 +5,7 @@
 package controllers;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -318,18 +319,37 @@ public void dejarSeguirUsuario(String usuario, String usuarioADejarDeSeguir) thr
             System.out.println(e);
         }
     }
-public void eliminarPlaylistFavorita(String nick, String nombrePlaylist) throws Exception{
+public void eliminarPlaylistFavorita(String nick, String nombrePlaylist) throws Exception {
     UsuarioJpaController aux = new UsuarioJpaController(emf);
+    
+   
     String playlistid = nombrePlaylist.trim();
-        int indicePlay = playlistid.indexOf('-');
-        String idPlayString = playlistid.substring(0, indicePlay).trim();
-        int idPlaylist = Integer.parseInt(idPlayString); 
-        Cliente cliente = (Cliente) aux.findUsuario(nick);
-        Playlist playlist = auxPlay.findPlaylist(idPlaylist);
-        cliente.getPlaylistFavoritos().remove(playlist);
-        aux.edit(cliente);
-        
+    int indicePlay = playlistid.indexOf('-');
+    String idPlayString = playlistid.substring(0, indicePlay).trim();
+    int idPlaylist = Integer.parseInt(idPlayString); 
+    
+    
+    Cliente cliente = (Cliente) aux.findUsuario(nick);
+    
+   
+    List<Playlist> playlistsFavoritas = cliente.getPlaylistFavoritos();
+    
+
+    Iterator<Playlist> iterator = playlistsFavoritas.iterator();
+    
+    while (iterator.hasNext()) {
+        Playlist playlist = iterator.next();
+  
+        if (playlist.getId() == idPlaylist) {
+            iterator.remove(); 
+            break; 
+        }
+    }
+    
+   
+    aux.edit(cliente);
 }
+
 }
 
 
