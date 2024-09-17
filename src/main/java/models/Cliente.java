@@ -29,6 +29,8 @@ public class Cliente extends Usuario {
     @JoinColumn(name="sus_listas")
 	private LinkedList<PlaylistParticular> sus_listas;
 
+    public Cliente() {
+    }
 
     public String getNick() {
         return nick;

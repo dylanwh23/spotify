@@ -35,7 +35,9 @@ public class PlaylistParticular extends Playlist {
         super(Nombre, rutaImagen, canciones);
         this.privada = privada;
 	this.Propietario =Propietario;
-	Propietario.Agregar_Lista_Particular(this);
+	//Propietario.Agregar_Lista_Particular(this);
+        //el propetario solo se aclara en la lista de reproduccion Particular, el list de cliente es para listas de reproduccion favoritas
+       
     }
     public Cliente getPropietario(){
     	return this.Propietario;
