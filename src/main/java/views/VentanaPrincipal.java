@@ -146,7 +146,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         registrosBtn.add(altaAlbumBtn);
 
-        jMenuItem2.setText("Guardar Tema/Lista/Album");
+        jMenuItem2.setText("Guardar/Eliminar Tema/Lista/Album");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
