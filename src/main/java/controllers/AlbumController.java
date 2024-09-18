@@ -122,7 +122,18 @@ public List<String> obtenerNombresAlbums() {
                  .collect(Collectors.toList());
 }
 
-    public void CrearAlbum(String text, int parseInt, String strArtista, List<Cancion> canciones, List<String> generos) {
+    public void CrearAlbum(String text, int parseInt, String strArtista, Object[][] cancionesOBJ, List<String> generos) {
+        List<Cancion> canciones = new ArrayList<>();
+        for (Object[] fila : cancionesOBJ) {
+            Cancion cancion = new Cancion();
+            cancion.setNombre((String) fila[1]);  // Nombre
+            cancion.setDuracion((Integer) fila[2]);  // Duración
+            cancion.setDireccion_archivo_de_audio((String) fila[3]);  // Ruta MP3
+            cancion.setDireccion_imagen((String) fila[4]);  // Imagen
+            cancion.setGenero(auxG.findGenero((String) fila[5]));
+            canciones.add(cancion);  // Agregar la canción a la lista
+        }
+
         Artista artista = usr_ctr.findArtista(strArtista);
         List<Genero> generosSeleccionados = new ArrayList<>();
         for (String nombre : generos) {

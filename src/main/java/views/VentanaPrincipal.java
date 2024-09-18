@@ -70,6 +70,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setTitle("Administración");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImage(logo.getImage());
+        setPreferredSize(new java.awt.Dimension(1300, 900));
 
         contenido.setBackground(new java.awt.Color(60, 121, 40));
 

@@ -83,6 +83,7 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        canciones.setRowHeight(50);
         jScrollPane3.setViewportView(canciones);
 
         javax.swing.GroupLayout jFrame2Layout = new javax.swing.GroupLayout(jFrame2.getContentPane());
@@ -126,6 +127,8 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        ListaPlaylist.setRowHeight(40);
+        ListaPlaylist.setShowHorizontalLines(true);
         ListaPlaylist.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ListaPlaylistMouseClicked(evt);

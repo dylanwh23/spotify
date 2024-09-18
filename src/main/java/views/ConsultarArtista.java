@@ -64,6 +64,7 @@ public class ConsultarArtista extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        ArtistaEspecifico.setRowHeight(40);
         jScrollPane3.setViewportView(ArtistaEspecifico);
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());

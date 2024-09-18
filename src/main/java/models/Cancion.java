@@ -38,6 +38,7 @@ public class Cancion implements Serializable {
         this.duracion = duracion;
         this.direccion_archivo_de_audio = direccion_archivo_de_audio;
         this.direccion_imagen = direccion_imagen;
+        
     }
 
     public Cancion() {

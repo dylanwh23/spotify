@@ -2,6 +2,7 @@ package views;
 
 import controllers.IUsuarioController;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.TextField;
 import java.io.File;
 import static java.rmi.server.LogStream.log;
@@ -25,17 +26,18 @@ import persistences.exceptions.PreexistingEntityException;
  * @author dylan
  */
 public class AltaUsuario extends javax.swing.JInternalFrame {
+   
     private IUsuarioController controladorUsr;
 
     /**
      * Creates new form AltaUsuario
      */
     public AltaUsuario(IUsuarioController icu) {
-        
         initComponents();
         controladorUsr = icu;
         //dejar panel de opciones extras de artista como no visible por default
         jPanel1.setVisible(false);
+        
 
     }
 

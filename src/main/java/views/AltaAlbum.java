@@ -39,12 +39,11 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
      */
     AlbumController AController = new AlbumController();
     GeneroController controladorGenero = new GeneroController();
-    List<Cancion> canciones = new ArrayList<>();
-    DefaultTableModel model = new DefaultTableModel(new Object[]{"Nombre", "Duración", "Ruta MP3", "Imagen", "Eliminar"}, 0) {
+    DefaultTableModel model = new DefaultTableModel(new Object[]{"Orden","Nombre", "Duración", "Ruta MP3", "Imagen","Genero", "Eliminar"}, 0) {
         @Override
         public boolean isCellEditable(int row, int column) {
             // Hacer la columna de "Eliminar" editable (para que el botón funcione) y el resto no
-            return column == 4;
+            return column == 6;
         }
     };
 
@@ -93,17 +92,8 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
 
             // Verifica si la tabla tiene filas y si el índice es válido
             if (table.getRowCount() > 0 && row >= 0 && row < ((DefaultTableModel) table.getModel()).getRowCount()) {
-                // Elimina la fila del modelo
+                
                 ((DefaultTableModel) table.getModel()).removeRow(row);
-
-                // Elimina el elemento de la lista si el índice es válido
-                if (row >= 0 && row < canciones.size()) {
-                    canciones.remove(row);
-                } else {
-                    System.out.println("Error: El índice de fila no se encuentra en la lista de canciones");
-                }
-            } else {
-                System.out.println("Error: El índice de fila no es válido en el modelo");
             }
 
             fireEditingStopped();
@@ -112,28 +102,29 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
 
     public AltaAlbum() {
         initComponents();
-        canciones = new ArrayList<>();
         agregarCancionPanel.setVisible(false);
-        //jScrollPane2.setVisible(false);
+        
         PanelAlbum.setVisible(false);
         List<String> nombresGenero = controladorGenero.obtenerNombresGeneros();
         String[] columnNames = {"Seleccionar", "Género"};
         Object[][] data = new Object[nombresGenero.size()][2]; // 2 columnas
-
+        for (String nombreG : nombresGenero) {
+            DatosGenero.addItem(nombreG);
+        }
         for (int i = 0; i < nombresGenero.size(); i++) {
-            data[i][0] = false; // Checkbox sin seleccionar
-            data[i][1] = nombresGenero.get(i); // Nombre del género
+            data[i][0] = false; 
+            data[i][1] = nombresGenero.get(i); 
         }
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
             @Override
             public Class<?> getColumnClass(int column) {
-                // La primera columna es Boolean (para checkbox) y la segunda es String (para género)
+              
                 return column == 0 ? Boolean.class : String.class;
             }
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                // Solo permitir la edición en la columna de checkboxes
+            
                 return column == 0;
             }
         };
@@ -167,10 +158,12 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
         btnMP3 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        DatosGenero = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaCanciones = new javax.swing.JTable();
         AceptarCancion = new javax.swing.JButton();
         Finalizar = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
         PanelAlbum = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -269,6 +262,13 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
 
         jLabel16.setText("ruta MP3");
 
+        DatosGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Genero" }));
+        DatosGenero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DatosGeneroActionPerformed(evt);
+            }
+        });
+
         TablaCanciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -296,43 +296,49 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel17.setText("ruta MP3");
+
         javax.swing.GroupLayout agregarCancionPanelLayout = new javax.swing.GroupLayout(agregarCancionPanel);
         agregarCancionPanel.setLayout(agregarCancionPanelLayout);
         agregarCancionPanelLayout.setHorizontalGroup(
             agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(agregarCancionPanelLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8)
+                .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, agregarCancionPanelLayout.createSequentialGroup()
+                        .addContainerGap(14, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(agregarCancionPanelLayout.createSequentialGroup()
-                        .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel16))
-                        .addGap(18, 18, 18)
-                        .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(59, 59, 59)
+                        .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel8)
                             .addGroup(agregarCancionPanelLayout.createSequentialGroup()
-                                .addComponent(fileMP3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(btnMP3))
-                            .addComponent(duracion, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nombreC, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel17))
+                                .addGap(18, 18, 18)
+                                .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(agregarCancionPanelLayout.createSequentialGroup()
+                                        .addComponent(fileMP3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(btnMP3))
+                                    .addComponent(duracion, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombreC, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(pos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(agregarCancionPanelLayout.createSequentialGroup()
+                                        .addComponent(fileImg, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(btnImg))
+                                    .addComponent(DatosGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(agregarCancionPanelLayout.createSequentialGroup()
-                                .addComponent(fileImg, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(btnImg))))
-                    .addGroup(agregarCancionPanelLayout.createSequentialGroup()
-                        .addComponent(AceptarCancion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Finalizar)
-                        .addGap(56, 56, 56)))
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, agregarCancionPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(AceptarCancion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Finalizar)
+                                .addGap(56, 56, 56)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         agregarCancionPanelLayout.setVerticalGroup(
@@ -359,12 +365,16 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fileMP3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMP3)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel16)
+                    .addComponent(fileMP3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DatosGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AceptarCancion)
                     .addComponent(Finalizar))
@@ -484,10 +494,10 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
                                 .addComponent(AceptarArtista))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addGap(20, 20, 20)
-                                .addComponent(NombreArtista, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)))
+                                .addComponent(NombreArtista)))
                         .addGap(196, 196, 196))
                     .addComponent(PanelAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(agregarCancionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -511,10 +521,8 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(agregarCancionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(380, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
     private List<String> ObtenerGenerosSeleccionados() {
         List<String> generosSeleccionados = new ArrayList<>();
@@ -582,19 +590,18 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
 
     private void AceptarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarCancionActionPerformed
 
-        if (!(nombreC.getText().isEmpty() || duracion.getText().isEmpty() || fileMP3.getText().isEmpty() || fileImg.getText().isEmpty())) {
+        if (!(nombreC.getText().isEmpty() || duracion.getText().isEmpty() || fileMP3.getText().isEmpty() || fileImg.getText().isEmpty()||DatosGenero.getSelectedItem().toString().equals("Seleccione Genero"))) {
             jScrollPane2.setVisible(true);
             int duracionnum = Integer.parseInt(duracion.getText());
-            Cancion cancionAux = new Cancion(nombreC.getText(), duracionnum, fileMP3.getText(), fileImg.getText());
-            canciones.add(cancionAux);
-            model.addRow(new Object[]{cancionAux.getNombre(), cancionAux.getDuracion(), cancionAux.getDireccion_archivo_de_audio(), cancionAux.getDireccion_imagen(), "Eliminar"});
+            //Cancion cancionAux = new Cancion(nombreC.getText(), duracionnum, fileMP3.getText(), fileImg.getText());
+            //canciones.add(cancionAux);
+            model.addRow(new Object[]{pos.getText(),nombreC.getText(), duracionnum, fileMP3.getText(), fileImg.getText(),DatosGenero.getSelectedItem().toString(), "Eliminar"});
             TablaCanciones.setModel(model);
-
-            // Configurar el botón "Eliminar" en la columna
-            ButtonColumn buttonColumn = new ButtonColumn(TablaCanciones, 4); // 4 es el índice de la columna "Eliminar"
-            // Esto asegura que la columna "Eliminar" esté bien configurada
-            TablaCanciones.getColumnModel().getColumn(4).setCellRenderer(buttonColumn);
-            TablaCanciones.getColumnModel().getColumn(4).setCellEditor(buttonColumn);
+            TablaCanciones.getColumnModel().getColumn(4).setCellRenderer(new ImageRenderer());
+           
+            ButtonColumn buttonColumn = new ButtonColumn(TablaCanciones, 6); // 4 es el índice de la columna "Eliminar"
+            TablaCanciones.getColumnModel().getColumn(6).setCellRenderer(buttonColumn);
+            TablaCanciones.getColumnModel().getColumn(6).setCellEditor(buttonColumn);
 
             JOptionPane.showMessageDialog(this, "Tema añadido correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -635,22 +642,31 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnMP3ActionPerformed
 
     private void FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarActionPerformed
+
+        DefaultTableModel model = (DefaultTableModel) TablaCanciones.getModel();
+        int rowCount = model.getRowCount();
+        int columnCount = model.getColumnCount();
+        Object[][] datosCancion = new Object[rowCount][columnCount];
+        for (int row = 0; row < rowCount; row++) {
+            for (int column = 0; column < columnCount; column++) {
+                datosCancion[row][column] = model.getValueAt(row, column);  // Copiar cada valor de la celda al array
+            }
+        }
+
         List<String> generosSeleccionados = ObtenerGenerosSeleccionados();
         if (NombreAlbum.getText().isEmpty() || anioAlbum.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ocurrió un error: Campos vacios en Album", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (!AController.buscarArtista(NombreArtista.getText())) {
             JOptionPane.showMessageDialog(this, "Ocurrió un error: El artista ingresado no existe o es vacío", "Error", JOptionPane.ERROR_MESSAGE);
             PanelAlbum.setVisible(false);
-        }
-        else if ((canciones.size() < 1)) {
-        JOptionPane.showMessageDialog(this, "Ocurrió un error: Ingrese alguna cancion", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else if ((generosSeleccionados.size() < 1)) {
-        JOptionPane.showMessageDialog(this, "Ocurrió un error: Ingrese algun genero", "Error", JOptionPane.ERROR_MESSAGE);
-        } 
-        else {
+        } else if (datosCancion.length<1) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error: Ingrese alguna cancion", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if ((generosSeleccionados.size() < 1)) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error: Ingrese algun genero", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             try {
-                AController.CrearAlbum(NombreAlbum.getText(), Integer.parseInt(anioAlbum.getText()), NombreArtista.getText(), canciones, generosSeleccionados);
+                
+                AController.CrearAlbum(NombreAlbum.getText(), Integer.parseInt(anioAlbum.getText()), NombreArtista.getText(),datosCancion, generosSeleccionados);
                 JOptionPane.showMessageDialog(this, "Alta de Album creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (Exception e) {
@@ -703,11 +719,16 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_posKeyTyped
 
+    private void DatosGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DatosGeneroActionPerformed
+      
+    }//GEN-LAST:event_DatosGeneroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AceptarAlbum;
     private javax.swing.JButton AceptarArtista;
     private javax.swing.JButton AceptarCancion;
+    private javax.swing.JComboBox<String> DatosGenero;
     private javax.swing.JButton Finalizar;
     private javax.swing.JTextField NombreAlbum;
     private javax.swing.JTextField NombreArtista;
@@ -724,6 +745,7 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

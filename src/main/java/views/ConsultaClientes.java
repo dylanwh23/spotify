@@ -65,6 +65,7 @@ public class ConsultaClientes extends javax.swing.JInternalFrame {
         ClienteEspecifico.setMinimumSize(new java.awt.Dimension(400, 300));
         ClienteEspecifico.setName(""); // NOI18N
         ClienteEspecifico.setPreferredSize(new java.awt.Dimension(400, 300));
+        ClienteEspecifico.setRowHeight(40);
         jScrollPane2.setViewportView(ClienteEspecifico);
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
