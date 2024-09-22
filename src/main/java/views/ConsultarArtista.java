@@ -53,8 +53,8 @@ public class ConsultarArtista extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaArtistas = new javax.swing.JTable();
 
-        jFrame1.setMinimumSize(new java.awt.Dimension(800, 500));
-        jFrame1.setPreferredSize(new java.awt.Dimension(800, 500));
+        jFrame1.setMinimumSize(new java.awt.Dimension(400, 300));
+        jFrame1.setLocationRelativeTo(null);
 
         ArtistaEspecifico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -67,11 +67,6 @@ public class ConsultarArtista extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        ArtistaEspecifico.setToolTipText("");
-        ArtistaEspecifico.setColumnSelectionAllowed(false);
-        ArtistaEspecifico.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        ArtistaEspecifico.setFillsViewportHeight(true);
-        ArtistaEspecifico.setRowHeight(40);
         jScrollPane3.setViewportView(ArtistaEspecifico);
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());

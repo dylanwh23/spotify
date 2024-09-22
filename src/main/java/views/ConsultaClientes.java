@@ -49,7 +49,9 @@ public class ConsultaClientes extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
 
-        jFrame1.setMinimumSize(new java.awt.Dimension(400, 300));
+        jFrame1.setMinimumSize(new java.awt.Dimension(800, 500));
+        jFrame1.setPreferredSize(new java.awt.Dimension(800, 500));
+        jFrame1.setLocationRelativeTo(null);
 
         ClienteEspecifico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

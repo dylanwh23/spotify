@@ -122,5 +122,15 @@ public class Album implements Serializable {
     public String toString() {
         return "models.Albumm[ id=" + nombre + " ]";
     }
+
+    public Artista getArtista() {
+        return artista;
+    }
+
+    public List<Cancion> getCanciones() {
+        return canciones;
+    }
+
+   
     
 }

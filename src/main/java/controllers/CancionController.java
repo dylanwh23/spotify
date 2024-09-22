@@ -10,9 +10,11 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import models.Album;
 import models.Cancion;
 import models.Cliente;
 import models.Usuario;
+import persistences.AlbumJpaController;
 import persistences.CancionJpaController;
 import persistences.UsuarioJpaController;
 
@@ -22,7 +24,7 @@ import persistences.UsuarioJpaController;
  */
 public class CancionController implements ICancionController  {
      CancionJpaController cancionJpaController = new CancionJpaController();
-     
+     AlbumJpaController auxAl = new AlbumJpaController();
      private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
      UsuarioJpaController auxCliente = new UsuarioJpaController(emf);
      
@@ -68,7 +70,27 @@ public class CancionController implements ICancionController  {
             .collect(Collectors.toList());
 }
 
-   
+ public Object[][] obtenerDatosCancion(int id) {
+   Album album = auxAl.findAlbum(id);
+        if (album == null) {
+            return new Object[0][0]; 
+        }
+        List<Cancion> canciones = album.getCanciones();
+        Object[][] datos = new Object[canciones.size()][6];
+
+        for (int i = 0; i < canciones.size(); i++) {
+            Cancion cancion = canciones.get(i);
+            datos[i][0] = cancion.getId();
+            datos[i][1] = cancion.getNombre();
+            datos[i][2] = cancion.getDuracion();
+            datos[i][3] = cancion.getDireccion_archivo_de_audio();
+            datos[i][4] = cancion.getDireccion_imagen();
+
+
+
+        }
+        return datos;
+    }
    
 }
 

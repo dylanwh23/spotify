@@ -71,6 +71,7 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
         jFrame2.setLocation(new java.awt.Point(500, 500));
         jFrame2.setMinimumSize(new java.awt.Dimension(300, 300));
         jFrame2.setSize(new java.awt.Dimension(300, 300));
+        jFrame2.setLocationRelativeTo(null);
 
         canciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

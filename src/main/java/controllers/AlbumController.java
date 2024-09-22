@@ -164,7 +164,71 @@ public List<String> obtenerNombresAlbums() {
             .collect(Collectors.toList());
 }
 
-    
+public List<Album> BuscarAlbumGenero(String nombreGenero) {
+    EntityManager em = getEntityManager();
+    try {
+        return em.createQuery("SELECT a FROM Album a WHERE a.genero.nombre = :nombreGenero", Album.class)
+                 .setParameter("nombreGenero", nombreGenero)
+                 .getResultList();
+    } finally {
+        em.close();
+    }
+}  
+  public List<Album> obtenerAlbumesPorGenero(String nombreGenero) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        
+        return em.createQuery(
+                "SELECT a FROM Album a JOIN a.generos g WHERE g.nombre = :nombreGenero", Album.class)
+                .setParameter("nombreGenero", nombreGenero)
+                .getResultList();
+    } finally {
+        em.close();
+    }
+}  
+ public List<Album> obtenerAlbumArtista(String nickArtista) {
+     EntityManager em = emf.createEntityManager();
+    try {
+        
+        return em.createQuery(
+                "SELECT a FROM Album a JOIN a.artista art WHERE art.nick = :nickArtista", Album.class)
+                .setParameter("nickArtista", nickArtista)
+                .getResultList();
+    } finally {
+        em.close();
+    }
+}
+  
+ public Object[][] obtenerDatosAlbum(String nombre) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        List<Album> albumes = em.createQuery("SELECT a FROM Album a WHERE a.nombre = :nombre", Album.class).setParameter("nombre", nombre).getResultList();
+        Object[][] data = new Object[albumes.size()][6];
+
+        for (int i = 0; i < albumes.size(); i++) {
+            Album album = albumes.get(i);  
+             data[i][0] = album.getId();
+            data[i][1] = album.getNombre();     
+            data[i][2] = album.getAnioo();
+            data[i][3] = album.getArtista().getNombre();
+            data[i][4] = album.getGeneros().stream()
+                                .map(Genero::getNombre)
+                                .collect(Collectors.joining(", "));;
+            data[i][5] = album.getCanciones().stream()
+                                .map(Cancion::getNombre)
+                                .collect(Collectors.joining(", "));;
+            
+        }
+        return data;
+
+    } finally {
+        em.close();
+    }
+}
+ 
+ 
+ 
+
     
     
 }
