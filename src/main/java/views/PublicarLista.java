@@ -25,8 +25,6 @@ public class PublicarLista extends javax.swing.JInternalFrame{
        	javax.swing.GroupLayout.Alignment CENTER = javax.swing.GroupLayout.Alignment.CENTER;
 	javax.swing.GroupLayout.Alignment BASELINE = javax.swing.GroupLayout.Alignment.BASELINE;
 
-	//javax.swing.ComboBoxModel Play_List_Combo_Box_Modelo = new javax.swing.DefaultComboBoxModel<>(new String[] {"Seleccione una Lista de Reproducción"});
-
 	//Para no tener que buscar que id (PK) le corresponde a el nombre de la playlist seleccionada
 	private List<Integer> los_ids_de_las_playlists = new ArrayList<Integer>();
 
@@ -94,7 +92,7 @@ public class PublicarLista extends javax.swing.JInternalFrame{
 	}
 	);
 	
-	//javax.swing.GroupLayout el_panel_layout = new javax.swing.GroupLayout(el_panel);
+	
 	//el_panel.setLayout(el_panel_layout);
 	
 	javax.swing.GroupLayout el_panel_layout = new javax.swing.GroupLayout(getContentPane());

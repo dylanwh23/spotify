@@ -3,22 +3,13 @@ package views;
 
 import java.awt.Component;
 import java.awt.Image;
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import javax.imageio.ImageIO;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
+
 import javax.swing.table.DefaultTableCellRenderer;
 
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
 import java.io.File;
 import javax.imageio.ImageIO;
 
