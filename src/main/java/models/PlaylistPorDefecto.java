@@ -12,8 +12,11 @@ import javax.persistence.ManyToOne;
 import models.Cancion;
 import models.Genero;
 import models.Playlist;
+import javax.persistence.Table;
+import javax.persistence.Column;
 
 @Entity
+@Table(name="PlaylistPorDefecto")
 public class PlaylistPorDefecto extends Playlist {
     
     @ManyToOne

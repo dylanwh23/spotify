@@ -6,14 +6,20 @@ package models;
 
 import java.time.LocalDate;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Column;
+
 
 /**
  *
  * @author dylan
  */
 @Entity
+@Table(name="Artista")
 public class Artista extends Usuario {
+	@Column(name="biografia")
     private String biografia;
+	@Column(name="DireccionWeb")
     private String DireccionWeb;
     
     

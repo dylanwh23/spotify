@@ -12,18 +12,22 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Column;
 
 import javax.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="PlaylistParticular")
 public class PlaylistParticular extends Playlist {
 
-    private Boolean privada;
+	@Column(name="privada")
+	    private Boolean privada;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_nick")
-    private Cliente Propietario;
+    @JoinColumn(name = "propietario")
+	    private Cliente propietario;
 
     public PlaylistParticular() {
     }
@@ -31,13 +35,13 @@ public class PlaylistParticular extends Playlist {
     public PlaylistParticular(Boolean privada, String Nombre, String rutaImagen, List<Cancion> canciones, Cliente Propietario) {
         super(Nombre, rutaImagen, canciones);
         this.privada = privada;
-	this.Propietario =Propietario;
+	this.propietario = Propietario;
 	//Propietario.Agregar_Lista_Particular(this);
         //el propetario solo se aclara en la lista de reproduccion Particular, el list de cliente es para listas de reproduccion favoritas
        
     }
     public Cliente getPropietario(){
-    	return this.Propietario;
+    	return this.propietario;
     }
 
     public Boolean getPrivada() {
