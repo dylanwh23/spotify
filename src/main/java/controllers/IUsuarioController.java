@@ -18,5 +18,15 @@ public interface IUsuarioController {
     public abstract List<String> obtenerNicknamesDisponiblesASeguir(String usuario, List<String> usuariosSeguidos) throws Exception;
     public abstract void seguirUsuario(String usuario, String usuarioASeguir) throws Exception;
     public abstract void dejarSeguirUsuario(String usuario, String usuarioASeguir) throws Exception;
-
+    public abstract Object[][] obtenerDatosCliente(String nick);
+    public abstract Object[][] obtenerDatosClientes();
+    public abstract void registrarPlaylistFavorita(String nick, String nombrePlaylist)throws Exception;
+    public abstract List<String> obtenerNombresDePlaylistsNoFavoritas(String clienteNick);
+    public abstract Object[][] obtenerDatosArtista(String nick);
+    public abstract Object[][] obtenerDatosArtistas();
+    public abstract void registrarAlbumFavorito(String nick, String nombreAlbum) throws Exception;
+    public abstract void registrarCancionFavorita(String nick, String nombreCancion) throws Exception;
+    public abstract void eliminarCancionFavorita(String nick, String nombreCancion)throws Exception;
+    public abstract void eliminarAlbumFavorito(String nick, String nombreAlbum) throws Exception;
+    public abstract void eliminarPlaylistFavorita(String nick, String nombrePlaylist) throws Exception;
 }

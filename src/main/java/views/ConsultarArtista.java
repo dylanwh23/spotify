@@ -6,11 +6,13 @@ package views;
 
 import controllers.UsuarioController;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author dylan
  */
+
 public class ConsultarArtista extends javax.swing.JInternalFrame {
  UsuarioController usrController = new UsuarioController();
  class NonEditableTableModel extends DefaultTableModel {
@@ -51,7 +53,8 @@ public class ConsultarArtista extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaArtistas = new javax.swing.JTable();
 
-        jFrame1.setMinimumSize(new java.awt.Dimension(400, 300));
+        jFrame1.setMinimumSize(new java.awt.Dimension(800, 500));
+        jFrame1.setPreferredSize(new java.awt.Dimension(800, 500));
 
         ArtistaEspecifico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -64,6 +67,10 @@ public class ConsultarArtista extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        ArtistaEspecifico.setToolTipText("");
+        ArtistaEspecifico.setColumnSelectionAllowed(false);
+        ArtistaEspecifico.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ArtistaEspecifico.setFillsViewportHeight(true);
         ArtistaEspecifico.setRowHeight(40);
         jScrollPane3.setViewportView(ArtistaEspecifico);
 
@@ -131,20 +138,27 @@ public class ConsultarArtista extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablaArtistasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaArtistasMouseClicked
-if (evt.getClickCount() == 2) { // Detectar clic simple
+        if (evt.getClickCount() == 2) { // Detectar clic doble
             int row = tablaArtistas.rowAtPoint(evt.getPoint());
             if (row >= 0) {
-                // Obtener el valor de una columna específica, por ejemplo, la columna con índice 1
-                String id = (String) tablaArtistas.getValueAt(row, 1); // Cambia 1 al índice de la columna deseada
+                // Obtener el valor de una columna específica
+                String id = (String) tablaArtistas.getValueAt(row, 1);
                 jFrame1.setVisible(true);
                 Object[][] datos = usrController.obtenerDatosArtista(id);
-                String[] columnNames = {"NICK", "NOMBRE", "APELLIDO", "CORREO", "FECHA DE NACIMIENTO", "IMAGEN", "BIOGRAFIA","WEB"};
+                String[] columnNames = {"NICK", "NOMBRE", "APELLIDO", "CORREO", "FECHA DE NACIMIENTO", "IMAGEN", "BIOGRAFIA", "WEB"};
                 NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
                 ArtistaEspecifico.setModel(tableModel);
+
+                // Establecer el renderizador de imagen para la columna de imagen
                 ArtistaEspecifico.getColumnModel().getColumn(5).setCellRenderer(new ImageRenderer());
+
+                // Establecer el renderizador de texto multilínea para la columna de biografía
+                ArtistaEspecifico.getColumnModel().getColumn(6).setCellRenderer(new MultiLineCellRenderer());
+
+                // Ajustar la altura de las filas
+                ArtistaEspecifico.setRowHeight(200); // Ajusta según sea necesario
             }
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_tablaArtistasMouseClicked
 
 

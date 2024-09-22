@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import java.util.List;
 import models.Genero;
 
 /**
@@ -15,6 +16,8 @@ public interface IGeneroController {
     public abstract boolean registrarGenero(String nombre, Genero padre);
     
     public abstract boolean registrarGenero2(String nombre);
+    public abstract List<String> obtenerNombresGeneros();
+    public abstract Genero findGenero(String nombre);
     
    
 }

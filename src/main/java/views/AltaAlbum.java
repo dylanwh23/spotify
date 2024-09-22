@@ -232,6 +232,7 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Agregar Cancion al Album");
 
+        fileImg.setEditable(false);
         fileImg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fileImgActionPerformed(evt);
@@ -245,6 +246,7 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
             }
         });
 
+        fileMP3.setEditable(false);
         fileMP3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fileMP3ActionPerformed(evt);
@@ -606,14 +608,14 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_fileMP3ActionPerformed
 
     private void btnMP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMP3ActionPerformed
-        JFileChooser fc= new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("mp3");
-        fc.setFileFilter(filter);
+        JFileChooser fc1= new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos MP3", "mp3");
+        fc1.setFileFilter(filter);
 
-        fc.showOpenDialog(fc);
-        File imgfile = fc.getSelectedFile();
-        String filepath=imgfile.getAbsolutePath();
-        fileMP3.setText(filepath);
+        fc1.showOpenDialog(fc1);
+        File imgfile = fc1.getSelectedFile();
+        String filepath2=imgfile.getAbsolutePath();
+        fileMP3.setText(filepath2);
     }//GEN-LAST:event_btnMP3ActionPerformed
 
     private void DatosGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DatosGeneroActionPerformed

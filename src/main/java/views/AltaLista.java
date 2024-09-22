@@ -85,6 +85,7 @@ public class AltaLista extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Elige foto de lista:");
 
+        txtFile.setEditable(false);
         txtFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFileActionPerformed(evt);

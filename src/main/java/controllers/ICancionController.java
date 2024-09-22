@@ -4,10 +4,14 @@
  */
 package controllers;
 
+import java.util.List;
+
 /**
  *
  * @author lilia
  */
 public interface ICancionController {
-    public boolean CrearCancion(String nombre, int duracion);
+    public abstract boolean CrearCancion(String nombre, int duracion);
+    public abstract List<String> obtenerNombresCanciones();
+    public abstract List<String> obtenerNombresCancionesFavoritas(String clienteNick);
 }

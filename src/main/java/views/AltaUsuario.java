@@ -102,6 +102,8 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Elige foto de perfil:");
 
+        txtFile.setEditable(false);
+
         btnFile.setText("Select");
         btnFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

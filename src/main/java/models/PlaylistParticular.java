@@ -27,7 +27,7 @@ public class PlaylistParticular extends Playlist {
 
     @ManyToOne
     @JoinColumn(name = "propietario")
-	    private Cliente propietario;
+	    private Cliente Propietario;
 
     public PlaylistParticular() {
     }
@@ -35,13 +35,13 @@ public class PlaylistParticular extends Playlist {
     public PlaylistParticular(Boolean privada, String Nombre, String rutaImagen, List<Cancion> canciones, Cliente Propietario) {
         super(Nombre, rutaImagen, canciones);
         this.privada = privada;
-	this.propietario = Propietario;
+	this.Propietario = Propietario;
 	//Propietario.Agregar_Lista_Particular(this);
         //el propetario solo se aclara en la lista de reproduccion Particular, el list de cliente es para listas de reproduccion favoritas
        
     }
     public Cliente getPropietario(){
-    	return this.propietario;
+    	return this.Propietario;
     }
 
     public Boolean getPrivada() {
