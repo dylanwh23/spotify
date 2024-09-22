@@ -169,7 +169,12 @@ public class PlaylistController {
             datos[i][2] = cancion.getDireccion_imagen();
             datos[i][3] = cancion.getDireccion_archivo_de_audio();
             datos[i][4] = cancion.getDuracion();
+            if(cancion.getGenero()!=null){
             datos[i][5] = cancion.getGenero().toString();
+            }else{
+            datos[i][5] ="Sin Genero asociado";
+            }
+            
         }
         return datos;
     }

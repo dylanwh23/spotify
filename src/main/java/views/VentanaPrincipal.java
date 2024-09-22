@@ -262,12 +262,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_bajaTemaListabtnActionPerformed
 
     private void altaAlbumBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaAlbumBtnActionPerformed
-        // TODO add your handling code here:
-        
+
         AltaAlbum altaAlbum = new AltaAlbum();
         contenido.add(altaAlbum);
         altaAlbum.setVisible(true);
-        
+      
     }//GEN-LAST:event_altaAlbumBtnActionPerformed
 
     private void consultarPlaylistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarPlaylistBtnActionPerformed

@@ -4,6 +4,7 @@
  */
 package views;
 
+
 import controllers.AlbumController;
 import controllers.IAlbumController;
 import models.Album;
@@ -31,12 +32,12 @@ import javax.swing.table.TableCellRenderer;
 import models.Cancion;
 import models.Genero;
 
-
-public class AltaAlbum extends javax.swing.JInternalFrame {
-  
 /**
-     * Creates new form ConsultaUsuario
-     */
+ *
+ * @author Machichu
+ */
+public class AltaAlbum extends javax.swing.JInternalFrame {
+
     AlbumController AController = new AlbumController();
     GeneroController controladorGenero = new GeneroController();
     DefaultTableModel model = new DefaultTableModel(new Object[]{"Orden","Nombre", "Duración", "Ruta MP3", "Imagen","Genero", "Eliminar"}, 0) {
@@ -99,11 +100,10 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
             fireEditingStopped();
         }
     }
-
     public AltaAlbum() {
+         System.out.println("views.AltaAlbum.<init>()");
         initComponents();
         agregarCancionPanel.setVisible(false);
-        
         PanelAlbum.setVisible(false);
         List<String> nombresGenero = controladorGenero.obtenerNombresGeneros();
         String[] columnNames = {"Seleccionar", "Género"};
@@ -179,8 +179,8 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Alta Album");
-        setMinimumSize(new java.awt.Dimension(600, 600));
+        setTitle("Alta de Genero");
+        setMinimumSize(new java.awt.Dimension(350, 300));
         setPreferredSize(new java.awt.Dimension(800, 800));
 
         NombreArtista.addActionListener(new java.awt.event.ActionListener() {
@@ -521,10 +521,12 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(agregarCancionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(380, Short.MAX_VALUE))
+                .addContainerGap(179, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
-    private List<String> ObtenerGenerosSeleccionados() {
+  private List<String> ObtenerGenerosSeleccionados() {
         List<String> generosSeleccionados = new ArrayList<>();
         for (int i = 0; i < TablaGeneros.getRowCount(); i++) {
             Boolean isSelected = (Boolean) TablaGeneros.getValueAt(i, 0); // Columna 0 (Checkbox)
@@ -535,50 +537,13 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
         }
         return generosSeleccionados;
     }
-
-   
-
-    
-    private void AceptarAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarAlbumActionPerformed
-        List<String> generosSeleccionados = ObtenerGenerosSeleccionados();
-       if(NombreAlbum.getText().isEmpty() || anioAlbum.getText().isEmpty()||generosSeleccionados.size()<1){
-           JOptionPane.showMessageDialog(this,"Ocurrió un error: Se ingresaron campos vacios" ,"Error",JOptionPane.ERROR_MESSAGE);
-       }else{
-           agregarCancionPanel.setVisible(true);
-       }
-    }//GEN-LAST:event_AceptarAlbumActionPerformed
-
-    private void posActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_posActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_posActionPerformed
-
     private void NombreArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreArtistaActionPerformed
-      
+
     }//GEN-LAST:event_NombreArtistaActionPerformed
 
     private void NombreArtistaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NombreArtistaKeyPressed
 
     }//GEN-LAST:event_NombreArtistaKeyPressed
-
-    private void NombreAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreAlbumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreAlbumActionPerformed
-
-    private void anioAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anioAlbumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_anioAlbumActionPerformed
-
-    private void AceptarArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarArtistaActionPerformed
-       String nomAr = NombreArtista.getText();
-       agregarCancionPanel.setVisible(false);
-        if (AController.buscarArtista(nomAr)) {
-             PanelAlbum.setVisible(true);
-            
-        } else {
-            JOptionPane.showMessageDialog(this,"Ocurrió un error: El artista ingresado no existe o es vacío" ,"Error",JOptionPane.ERROR_MESSAGE);
-            PanelAlbum.setVisible(false);
-        }
-    }//GEN-LAST:event_AceptarArtistaActionPerformed
 
     private void nombreCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreCActionPerformed
         // TODO add your handling code here:
@@ -588,27 +553,37 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_duracionActionPerformed
 
-    private void AceptarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarCancionActionPerformed
+    private void duracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_duracionKeyTyped
+        int key = evt.getKeyChar();
 
-        if (!(nombreC.getText().isEmpty() || duracion.getText().isEmpty() || fileMP3.getText().isEmpty() || fileImg.getText().isEmpty()||DatosGenero.getSelectedItem().toString().equals("Seleccione Genero"))) {
-            jScrollPane2.setVisible(true);
-            int duracionnum = Integer.parseInt(duracion.getText());
-            //Cancion cancionAux = new Cancion(nombreC.getText(), duracionnum, fileMP3.getText(), fileImg.getText());
-            //canciones.add(cancionAux);
-            model.addRow(new Object[]{pos.getText(),nombreC.getText(), duracionnum, fileMP3.getText(), fileImg.getText(),DatosGenero.getSelectedItem().toString(), "Eliminar"});
-            TablaCanciones.setModel(model);
-            TablaCanciones.getColumnModel().getColumn(4).setCellRenderer(new ImageRenderer());
-           
-            ButtonColumn buttonColumn = new ButtonColumn(TablaCanciones, 6); // 4 es el índice de la columna "Eliminar"
-            TablaCanciones.getColumnModel().getColumn(6).setCellRenderer(buttonColumn);
-            TablaCanciones.getColumnModel().getColumn(6).setCellEditor(buttonColumn);
+        boolean numeros = key >= 48 && key <= 57;
 
-            JOptionPane.showMessageDialog(this, "Tema añadido correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error: Se ingresaron campos vacíos", "Error", JOptionPane.ERROR_MESSAGE);
-
+        if (!numeros) {
+            evt.consume();
         }
-    }//GEN-LAST:event_AceptarCancionActionPerformed
+
+        if (duracion.getText().trim().length() == 10) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_duracionKeyTyped
+
+    private void posActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_posActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_posActionPerformed
+
+    private void posKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_posKeyTyped
+        int key = evt.getKeyChar();
+
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (!numeros) {
+            evt.consume();
+        }
+
+        if (pos.getText().trim().length() == 10) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_posKeyTyped
 
     private void fileImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileImgActionPerformed
         // TODO add your handling code here:
@@ -627,7 +602,7 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnImgActionPerformed
 
     private void fileMP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMP3ActionPerformed
-        
+
     }//GEN-LAST:event_fileMP3ActionPerformed
 
     private void btnMP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMP3ActionPerformed
@@ -640,6 +615,32 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
         String filepath=imgfile.getAbsolutePath();
         fileMP3.setText(filepath);
     }//GEN-LAST:event_btnMP3ActionPerformed
+
+    private void DatosGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DatosGeneroActionPerformed
+
+    }//GEN-LAST:event_DatosGeneroActionPerformed
+
+    private void AceptarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarCancionActionPerformed
+
+        if (!(nombreC.getText().isEmpty() || duracion.getText().isEmpty() || fileMP3.getText().isEmpty() || fileImg.getText().isEmpty()||DatosGenero.getSelectedItem().toString().equals("Seleccione Genero"))) {
+            jScrollPane2.setVisible(true);
+            int duracionnum = Integer.parseInt(duracion.getText());
+            //Cancion cancionAux = new Cancion(nombreC.getText(), duracionnum, fileMP3.getText(), fileImg.getText());
+            //canciones.add(cancionAux);
+            model.addRow(new Object[]{pos.getText(),nombreC.getText(), duracionnum, fileMP3.getText(), fileImg.getText(),DatosGenero.getSelectedItem().toString(), "Eliminar"});
+            TablaCanciones.setModel(model);
+            TablaCanciones.getColumnModel().getColumn(4).setCellRenderer(new ImageRenderer());
+
+            ButtonColumn buttonColumn = new ButtonColumn(TablaCanciones, 6); // 4 es el índice de la columna "Eliminar"
+            TablaCanciones.getColumnModel().getColumn(6).setCellRenderer(buttonColumn);
+            TablaCanciones.getColumnModel().getColumn(6).setCellEditor(buttonColumn);
+
+            JOptionPane.showMessageDialog(this, "Tema añadido correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error: Se ingresaron campos vacíos", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_AceptarCancionActionPerformed
 
     private void FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizarActionPerformed
 
@@ -665,7 +666,7 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Ocurrió un error: Ingrese algun genero", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                
+
                 AController.CrearAlbum(NombreAlbum.getText(), Integer.parseInt(anioAlbum.getText()), NombreArtista.getText(),datosCancion, generosSeleccionados);
                 JOptionPane.showMessageDialog(this, "Alta de Album creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
@@ -674,8 +675,11 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
             }
         }
 
-
     }//GEN-LAST:event_FinalizarActionPerformed
+
+    private void anioAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anioAlbumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anioAlbumActionPerformed
 
     private void anioAlbumKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anioAlbumKeyTyped
         int key = evt.getKeyChar();
@@ -691,37 +695,30 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_anioAlbumKeyTyped
 
-    private void duracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_duracionKeyTyped
-        int key = evt.getKeyChar();
+    private void NombreAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreAlbumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreAlbumActionPerformed
 
-        boolean numeros = key >= 48 && key <= 57;
-
-        if (!numeros) {
-            evt.consume();
+    private void AceptarAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarAlbumActionPerformed
+        List<String> generosSeleccionados = ObtenerGenerosSeleccionados();
+        if(NombreAlbum.getText().isEmpty() || anioAlbum.getText().isEmpty()||generosSeleccionados.size()<1){
+            JOptionPane.showMessageDialog(this,"Ocurrió un error: Se ingresaron campos vacios" ,"Error",JOptionPane.ERROR_MESSAGE);
+        }else{
+            agregarCancionPanel.setVisible(true);
         }
+    }//GEN-LAST:event_AceptarAlbumActionPerformed
 
-        if (duracion.getText().trim().length() == 10) {
-            evt.consume();
+    private void AceptarArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarArtistaActionPerformed
+        String nomAr = NombreArtista.getText();
+        agregarCancionPanel.setVisible(false);
+        if (AController.buscarArtista(nomAr)) {
+            PanelAlbum.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(this,"Ocurrió un error: El artista ingresado no existe o es vacío" ,"Error",JOptionPane.ERROR_MESSAGE);
+            PanelAlbum.setVisible(false);
         }
-    }//GEN-LAST:event_duracionKeyTyped
-
-    private void posKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_posKeyTyped
-        int key = evt.getKeyChar();
-
-        boolean numeros = key >= 48 && key <= 57;
-
-        if (!numeros) {
-            evt.consume();
-        }
-
-        if (pos.getText().trim().length() == 10) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_posKeyTyped
-
-    private void DatosGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DatosGeneroActionPerformed
-      
-    }//GEN-LAST:event_DatosGeneroActionPerformed
+    }//GEN-LAST:event_AceptarArtistaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -759,7 +756,4 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
     private javax.swing.JTextField nombreC;
     private javax.swing.JTextField pos;
     // End of variables declaration//GEN-END:variables
-
-    
 }
-
