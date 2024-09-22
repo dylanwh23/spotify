@@ -16,6 +16,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Table;
+import javax.persistence.Column;
 
 /**
  *
@@ -23,19 +25,26 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="Usuario")
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     //@GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    protected String nick;
-    protected String nombre;
-    protected String apellido;
-    protected String mail;
-    protected String imagen;
+	@Column(name="nick")
+	    protected String nick;
+	@Column(name="nombre")
+	    protected String nombre;
+	@Column(name="apellido")
+	    protected String apellido;
+	@Column(name="mail")
+	    protected String mail;
+	@Column(name="imagen")
+	    protected String imagen;
     
-    protected LocalDate fecNac;
+	@Column(name="fecNac")
+	    protected LocalDate fecNac;
     
 
     public String getNick() {

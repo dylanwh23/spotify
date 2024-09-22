@@ -89,6 +89,7 @@ public class PlaylistController {
                 data[i][2] = PlaylistParticular.getRutaImagen();
                 data[i][3] = "Particular";
                 data[i][4] = PlaylistParticular.getPrivada();
+		data[i][5] = PlaylistParticular.getPropietario();
             } else {
                 
                 data[i][0] = playlist.getId();
@@ -140,6 +141,7 @@ public class PlaylistController {
                     data[i][2] = PlaylistParticular.getRutaImagen();
                     data[i][3] = "Particular";
                     data[i][4] = PlaylistParticular.getPrivada();
+		    data[i][5] = PlaylistParticular.getPropietario();
                 }
             }
             return data;
@@ -239,6 +241,13 @@ public class PlaylistController {
         
         playlist.getCanciones().remove(auxCan.findCancion(idCancion));
         auxPlay.edit(playlist);
+    }
+    public void Publicar_Lista(int id){
+	    try{
+   	PlaylistParticular la_lista_de_reproduccion = (PlaylistParticular) auxPlay.findPlaylist(id);
+	la_lista_de_reproduccion.setPrivada(false);
+	auxPlay.edit(la_lista_de_reproduccion);
+	    } catch (Exception e){}
     }
 
     public List<String> obtenerNombresDeCancionesNoPresentesPlaylist(String stringPlaylist) {
