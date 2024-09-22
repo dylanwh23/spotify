@@ -5,41 +5,33 @@
 package models;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  *
  * @author dylan
  */
 @Entity
-@Table(name="Cancion")
 public class Cancion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private int id;
-
-    @Column(name = "nombre")
     private String nombre;
-    @Column(name = "duracion")
     private int duracion;
-    @Column(name = "direccion_archivo_de_audio")
     private String direccion_archivo_de_audio;
-    @Column(name = "direccion_imagen")
     private String direccion_imagen;
-
     @ManyToOne
-    @JoinColumn(name = "genero")
+    @JoinColumn(name = "genero_nombre")
     private Genero genero;
+    
+//=======
 
     public Cancion(String nombre, int duracion, String direccion_archivo_de_audio, String direccion_imagen) {
         this.nombre = nombre;
@@ -126,4 +118,5 @@ public class Cancion implements Serializable {
         return "models.Cancionn[ id=" + id + " ]";
     }
     
+//>>>>>>> 7a2084fa622101ddd7415abaaf7ae1550f9afdf9
 }

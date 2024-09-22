@@ -11,11 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -24,38 +19,21 @@ import javax.persistence.OneToMany;
  * @author dylan
  */
 @Entity
-@Table(name="Album")
 public class Album implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="id")
     private int id;
     
-    @Column(name="nombre")
-     private String nombre;
-    @Column(name="anioo")
+    private String nombre;
     private int anioo;
-   
-    @OneToMany
-    @JoinTable(
-        name = "album_genero", 
-        joinColumns = @JoinColumn(name = "album_id"), 
-        inverseJoinColumns = @JoinColumn(name = "generos_nombre") 
-    )
-    List<Genero> generos;
-   
-    @ManyToOne
-    @JoinColumn(name="artista")
-    private Artista artista;
     
+    @ManyToOne
+    private Artista artista;
+    @OneToMany
+    List<Genero> generos;
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-        name = "album_canciones", 
-        joinColumns = @JoinColumn(name = "album_id"), 
-        inverseJoinColumns = @JoinColumn(name = "cancion_id") 
-    )
     List<Cancion> canciones;
 
     public Album(String nombre, int anioo, Artista artista, List<Genero> generos, List<Cancion> canciones) {

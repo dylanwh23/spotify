@@ -22,7 +22,7 @@ import javax.persistence.Table;
  * @author diego
  */
 @Entity
-@Table(name = "Genero")
+@Table(name = "genero")
 @NamedQueries({
     @NamedQuery(name = "Genero.findAll", query = "SELECT g FROM Genero g"),
     @NamedQuery(name = "Genero.findByNombre", query = "SELECT g FROM Genero g WHERE g.nombre = :nombre")})
@@ -31,11 +31,11 @@ public class Genero implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String nombre;
     @OneToMany(mappedBy = "padreNombre")
     private Collection<Genero> generoCollection;
-    @JoinColumn(name = "padre_nombre", referencedColumnName = "nombre")
+    @JoinColumn(name = "PADRE_NOMBRE", referencedColumnName = "NOMBRE")
     @ManyToOne
     private Genero padreNombre;
 

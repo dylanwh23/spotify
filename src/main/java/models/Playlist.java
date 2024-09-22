@@ -13,11 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.JoinTable;
 
 /**
  *
@@ -25,24 +21,15 @@ import javax.persistence.JoinTable;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="Playlist")
 public class Playlist implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
-	    protected int id;
+    protected int id;
     
-	@Column(name="Nombre")
-	    protected String Nombre;
-	@Column(name="rutaImagen")
-	    protected String rutaImagen;
+    protected String Nombre;
+    protected String rutaImagen;
     @OneToMany 
-    @JoinTable(
-        name = "playlist_cancion", 
-        joinColumns = @JoinColumn(name = "playlist_id"), 
-        inverseJoinColumns = @JoinColumn(name = "canciones_id") 
-    )
-    protected List<Cancion> canciones;
+    protected List<Cancion>canciones;
 
     public Playlist() {
     }
@@ -86,4 +73,3 @@ public class Playlist implements Serializable {
     }
     
 }
-

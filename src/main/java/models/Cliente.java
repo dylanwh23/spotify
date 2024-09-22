@@ -8,9 +8,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-import javax.persistence.Column;
+
 import javax.persistence.OneToMany;
 
 import java.util.LinkedList;
@@ -25,8 +23,8 @@ import javax.persistence.ManyToMany;
  * @author dylan
  */
 @Entity
-@Table(name="Cliente")
 public class Cliente extends Usuario {
+
     @ManyToMany
     @JoinTable(
             name = "cliente_playlistFavoritas",
