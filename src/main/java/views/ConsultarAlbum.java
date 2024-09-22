@@ -272,22 +272,22 @@ class NonEditableTableModel extends DefaultTableModel {
         // TODO add your handling code here:
        String generoSeleccionado = ComboBoxGenero.getSelectedItem().toString();
     
-    // Obtener la lista de álbumes para el género seleccionado
+   
     List<Album> albumes = AController.obtenerAlbumesPorGenero(generoSeleccionado);
     
-    // Crear el modelo de tabla con los datos de los álbumes
+   
     String[] columnNames = {"Álbum"};
     Object[][] data = new Object[albumes.size()][1];
     for (int i = 0; i < albumes.size(); i++) {
-        data[i][0] = albumes.get(i).getNombre();  // Mostrar solo el nombre del álbum
+        data[i][0] = albumes.get(i).getNombre();  
     }
     
-    // Actualizar la tabla
+
     NonEditableTableModel modelo= new NonEditableTableModel(data,columnNames);
     TablaAlbum.setModel(modelo);
         
     
-    TablaAlbum.setVisible(true);  // Mostrar la tabla
+    TablaAlbum.setVisible(true);  
         
     }//GEN-LAST:event_ComboBoxGeneroActionPerformed
 
@@ -295,17 +295,17 @@ class NonEditableTableModel extends DefaultTableModel {
         // TODO add your handling code here:
          String artistaSeleccionado = ComboBoxArtista.getSelectedItem().toString();
     
-    // Obtener la lista de álbumes para el género seleccionado
+   
     List<Album> albumes = AController.obtenerAlbumArtista(artistaSeleccionado);
     
-    // Crear el modelo de tabla con los datos de los álbumes
+  
     String[] columnNames = {"Álbum"};
     Object[][] data = new Object[albumes.size()][1];
     for (int i = 0; i < albumes.size(); i++) {
-        data[i][0] = albumes.get(i).getNombre();  // Mostrar solo el nombre del álbum
+        data[i][0] = albumes.get(i).getNombre();  
     }
     
-    // Actualizar la tabla
+    
      NonEditableTableModel modelo= new NonEditableTableModel(data,columnNames);
     TablaAlbum.setModel(modelo);
     TablaAlbum.setVisible(true);  // Mostrar la tabla
@@ -317,15 +317,15 @@ class NonEditableTableModel extends DefaultTableModel {
             int row = TablaAlbum.rowAtPoint(evt.getPoint());
             if (row >= 0) {
                 
-                // Obtener el valor de una columna específica, por ejemplo, la columna con índice 1
-                String id = (String) TablaAlbum.getValueAt(row, 0); // Cambia 1 al índice de la columna deseada
+               
+                String id = (String) TablaAlbum.getValueAt(row, 0); 
                 jFrame1.setVisible(true);
                 
                 Object[][] datos = AController.obtenerDatosAlbum(id);
                 String[] columnNames = {"ID" , "NOMBRE", "AÑO", "ARTISTA", "GENEROS", "CANCIONES"};
                 NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
                 DatosAlbum.setModel(tableModel);
-                //DatosAlbum.getColumnModel().getColumn(5).setCellRenderer(new ImageRenderer());
+                
             }
         }
     }//GEN-LAST:event_TablaAlbumMouseClicked
@@ -337,7 +337,7 @@ class NonEditableTableModel extends DefaultTableModel {
             int row = DatosAlbum.rowAtPoint(evt.getPoint());
             if (row >= 0) {
                 
-                // Obtener el valor de una columna específica, por ejemplo, la columna con índice 1
+                
                 int id = (int) DatosAlbum.getValueAt(row, 0); // Cambia 1 al índice de la columna deseada
                 jFrame2.setVisible(true);
                 

@@ -17,7 +17,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import models.Cliente;	
 import models.Cancion;
-import models.Genero;
 import models.Playlist;
 import models.PlaylistParticular;
 import models.PlaylistPorDefecto;
@@ -183,8 +182,8 @@ public class PlaylistController {
     public List<String> obtenerNombresPlaylistPorDefecto() {
         List<Playlist> playlists = auxPlay.findPlaylistEntities();
         return playlists.stream()
-                .filter(playlist -> playlist instanceof PlaylistPorDefecto) // Filtrar por el tipo de playlist
-                .map(playlist -> playlist.getId()+ " - " + playlist.getNombre()) // Obtener solo el nombre
+                .filter(playlist -> playlist instanceof PlaylistPorDefecto) 
+                .map(playlist -> playlist.getId()+ " - " + playlist.getNombre()) 
                 .collect(Collectors.toList());
     }
 
@@ -193,7 +192,7 @@ public class PlaylistController {
         try {
             List<Playlist> playlists = em.createQuery("SELECT p FROM PlaylistParticular p WHERE p.Propietario.nick = :nick", Playlist.class).setParameter("nick", nick).getResultList();
             return playlists.stream()
-                    .filter(playlist -> playlist instanceof PlaylistParticular) // Filtrar solo las playlists particulares
+                    .filter(playlist -> playlist instanceof PlaylistParticular) 
                     .map(playlist -> playlist.getId()+ " - " + playlist.getNombre())
                     .collect(Collectors.toList());
         } finally {

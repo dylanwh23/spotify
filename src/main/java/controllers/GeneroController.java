@@ -25,7 +25,7 @@ public class GeneroController implements IGeneroController {
             aux.create(gen);
             return true;
         } catch (Exception ex) {
-            //Logger.getLogger(GeneroController.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
     }
@@ -37,7 +37,7 @@ public class GeneroController implements IGeneroController {
             aux.create(gen);
             return true;
         } catch (Exception ex) {
-            //Logger.getLogger(GeneroController.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
     }

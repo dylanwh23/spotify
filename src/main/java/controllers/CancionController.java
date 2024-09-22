@@ -7,13 +7,13 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.EntityManager;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import models.Album;
 import models.Cancion;
 import models.Cliente;
-import models.Usuario;
+
 import persistences.AlbumJpaController;
 import persistences.CancionJpaController;
 import persistences.UsuarioJpaController;
@@ -52,19 +52,19 @@ public class CancionController implements ICancionController  {
     }
 
    public List<String> obtenerNombresCancionesFavoritas(String clienteNick) {
-    // Busca al cliente por su nick
+    
     
     Cliente cliente = (Cliente) auxCliente.findUsuario(clienteNick);
 
-    // Si no se encuentra el cliente, retorna una lista vacía
+    
     if (cliente == null) {
         return new ArrayList<>();
     }
 
-    // Obtener las canciones favoritas del cliente
+   
     List<Cancion> cancionesFavoritas = cliente.getCancionesFavoritas();
 
-    // Mapear las canciones favoritas a una lista de nombres
+    
     return cancionesFavoritas.stream()
             .map(cancion -> cancion.getId() + " - " + cancion.getNombre())
             .collect(Collectors.toList());

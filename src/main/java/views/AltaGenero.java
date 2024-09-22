@@ -171,15 +171,15 @@ public class AltaGenero extends javax.swing.JInternalFrame {
     
         
 
-    // Recorre la lista para verificar si ya existe el string
+    
     for (String genero : listaGeneros) {
         if (genero.equals(texto)) {
             generoExiste = true;
-            break; // Sale del bucle si encuentra el string
+            break; 
         }
     }
 
-    // Si no existe, añade el string a la lista
+    
     if (!generoExiste && GeneroPadreBox.getName() == "Ninguno" && texto != null && !texto.trim().isEmpty()) {
         GenController.registrarGenero2(texto);
         JOptionPane.showMessageDialog(this,"Genero creado exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
@@ -190,14 +190,7 @@ public class AltaGenero extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(this,"Ocurrió un error: El genero ingresado ya existe o es vacío" ,"Error",JOptionPane.ERROR_MESSAGE);
     }
 
-    
-//      if (!generoExiste ) {
-//        GenController.registrarGenero(texto, padre);
-//        JOptionPane.showMessageDialog(this,"Genero creado exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
-//    } else {
-//        JOptionPane.showMessageDialog(this,"Ocurrió un error: El genero ingresado ya existe","Error",JOptionPane.ERROR_MESSAGE);
-//    }
-       
+
         GeneroPadreBox.removeAllItems();
         GeneroPadreBox.addItem("Ninguno");
         

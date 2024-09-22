@@ -352,7 +352,7 @@ public void eliminarPlaylistFavorita(String nick, String nombrePlaylist) throws 
 public List<String> obtenerNombresArtistas() {
         EntityManager em = emf.createEntityManager();
         try {
-            // Consulta para obtener solo los objetos de tipo Cliente
+            
             List<Artista> artistas = em.createQuery("SELECT a FROM Artista a", Artista.class).getResultList();
 
             return artistas.stream()
