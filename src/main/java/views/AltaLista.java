@@ -269,11 +269,7 @@ public class AltaLista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_crearBtnActionPerformed
 
     private void ClienteBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClienteBoxActionPerformed
-         List<String> nombresClientes = controladorUsuario.obtenerNombresClientes();
-            for (String nombreC : nombresClientes) {
-                ClienteBox.addItem(nombreC);
-               // System.out.println(nombreC);
-            }
+       
     }//GEN-LAST:event_ClienteBoxActionPerformed
 
     private void crearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearBtnMouseClicked

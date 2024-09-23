@@ -48,6 +48,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu3 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         contenido = new javax.swing.JPanel();
         jMenuBar2 = new javax.swing.JMenuBar();
         registrosBtn = new javax.swing.JMenu();
@@ -58,6 +59,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         bajaTemaListabtn = new javax.swing.JMenuItem();
         altaAlbumBtn = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         consultarClientesBtn = new javax.swing.JMenuItem();
         consultarPlaylistBtn = new javax.swing.JMenuItem();
@@ -66,6 +68,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
 
         jMenu3.setText("jMenu3");
+
+        jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administración");
@@ -153,6 +157,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         registrosBtn.add(jMenuItem2);
+
+        jMenuItem3.setText("Publicar Lista");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        registrosBtn.add(jMenuItem3);
 
         jMenuBar2.add(registrosBtn);
 
@@ -327,6 +339,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contenido.add(consultarAlbum);
         consultarAlbum.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        PublicarLista publicarLista = new PublicarLista();
+        contenido.add(publicarLista);
+        publicarLista.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -375,11 +394,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem consultarPlaylistBtn;
     private javax.swing.JPanel contenido;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu registrosBtn;
     // End of variables declaration//GEN-END:variables
 }

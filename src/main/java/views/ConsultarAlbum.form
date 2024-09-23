@@ -62,7 +62,7 @@
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[800, 400]"/>
         </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor" postCode="jFrame1.setLocationRelativeTo(null);">
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor" postCode="jFrame2.setLocationRelativeTo(null);">
           <Dimension value="[800, 400]"/>
         </Property>
       </Properties>

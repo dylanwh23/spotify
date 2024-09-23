@@ -122,7 +122,7 @@ class NonEditableTableModel extends DefaultTableModel {
 
         jFrame2.setMinimumSize(new java.awt.Dimension(800, 400));
         jFrame2.setPreferredSize(new java.awt.Dimension(800, 400));
-        jFrame1.setLocationRelativeTo(null);
+        jFrame2.setLocationRelativeTo(null);
 
         DatosCancion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -345,7 +345,7 @@ class NonEditableTableModel extends DefaultTableModel {
                 String[] columnNames = {"ID ", "NOMBRE", "DURACION", "ARCHIVO DE AUDIO", "IMAGEN"};
                 NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
                 DatosCancion.setModel(tableModel);
-                DatosAlbum.getColumnModel().getColumn(4).setCellRenderer(new ImageRenderer());
+                DatosCancion.getColumnModel().getColumn(4).setCellRenderer(new ImageRenderer());
             }
         }
     }//GEN-LAST:event_DatosAlbumMouseClicked
