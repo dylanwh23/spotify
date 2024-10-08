@@ -29,12 +29,25 @@ import persistences.ClienteJpaController;
  *
  * @author Machichu
  */
-public class PlaylistController {
-     PlaylistJpaController auxPlay = new PlaylistJpaController();
-     GeneroJpaController auxGen = new GeneroJpaController();
-     CancionJpaController auxCan = new CancionJpaController();
-     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
-     ClienteJpaController usr_ctr = new ClienteJpaController(emf);
+public class PlaylistController implements IPlaylistController{
+    private PlaylistJpaController auxPlay;
+    private GeneroJpaController auxGen;
+    private CancionJpaController auxCan;
+    private ClienteJpaController usr_ctr;
+    private EntityManagerFactory emf;
+
+    // Constructor que obtiene las dependencias desde la fábrica
+    public PlaylistController() {
+        // Obtener la instancia de la fábrica
+        Fabrica fabrica = Fabrica.getInstance();
+
+        // Obtener los controladores JPA necesarios desde la fábrica
+        this.auxPlay = fabrica.getPlaylistJpaController();
+        this.auxGen = fabrica.getGeneroJpaController();
+        this.auxCan = fabrica.getCancionJpaController();
+        this.usr_ctr = fabrica.getClienteJpaController();
+        this.emf = fabrica.getEntityManagerFactory();
+    }
      
      
     public void crearPlaylistPorDefecto(String nombre ,String genero,String rutaImagen){

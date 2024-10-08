@@ -4,9 +4,10 @@
  */
 package views;
 
-import controllers.CancionController;
-import controllers.PlaylistController;
-import controllers.UsuarioController;
+import controllers.Fabrica;
+import controllers.ICancionController;
+import controllers.IPlaylistController;
+import controllers.IUsuarioController;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -16,9 +17,11 @@ import javax.swing.JOptionPane;
  * @author dylan
  */
 public class BajaTemaLista extends javax.swing.JInternalFrame {
-    CancionController cancionController = new CancionController();
-    PlaylistController controladorP = new PlaylistController();
-    UsuarioController controladorUsuario = new UsuarioController();
+    Fabrica fabrica = Fabrica.getInstance();
+
+    ICancionController cancionController = fabrica.getICancionController();
+    IPlaylistController controladorP = fabrica.getIPlaylistController();
+    IUsuarioController controladorUsuario = fabrica.getIUsuarioController();
     /**
      * Creates new form ConsultaUsuario
      */

@@ -5,6 +5,7 @@
 package controllers;
 
 import java.util.List;
+import models.Album;
 import models.Genero;
 
 /**
@@ -18,5 +19,8 @@ public interface IAlbumController {
     public abstract List<String> obtenerNombresAlbums();
     public abstract void CrearAlbum(String text, int parseInt, String strArtista, Object[][] cancionesOBJ, List<String> generos);
     public abstract List<String> obtenerNombresAlbumsFavoritos(String clienteNick);
+    public abstract List<Album> obtenerAlbumesPorGenero(String nombreGenero);
+    public abstract List<Album> obtenerAlbumArtista(String nickArtista);
+    public abstract Object[][] obtenerDatosAlbum(String nombre);
     
 }

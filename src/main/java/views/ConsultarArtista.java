@@ -4,9 +4,9 @@
  */
 package views;
 
-import controllers.UsuarioController;
+import controllers.Fabrica;
+import controllers.IUsuarioController;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -14,7 +14,8 @@ import javax.swing.table.TableCellRenderer;
  */
 
 public class ConsultarArtista extends javax.swing.JInternalFrame {
- UsuarioController usrController = new UsuarioController();
+ Fabrica fabrica = Fabrica.getInstance();
+ IUsuarioController usrController = fabrica.getIUsuarioController();
  class NonEditableTableModel extends DefaultTableModel {
 
         public NonEditableTableModel(Object[][] data, Object[] columnNames) {

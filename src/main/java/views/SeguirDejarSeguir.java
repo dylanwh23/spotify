@@ -4,6 +4,7 @@
  */
 package views;
 
+import controllers.Fabrica;
 import controllers.IUsuarioController;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,6 +17,7 @@ import views.ConsultarPlaylist.NonEditableTableModel;
  * @author dylan
  */
 public class SeguirDejarSeguir extends javax.swing.JInternalFrame {
+
     private IUsuarioController controladorUsr;
     
     //variables que uso en los mouse events

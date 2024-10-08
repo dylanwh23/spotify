@@ -1,5 +1,8 @@
 package views;
 
+import controllers.Fabrica;
+import controllers.IPlaylistController;
+import controllers.IUsuarioController;
 import controllers.PlaylistController;
 import controllers.UsuarioController;
 import java.io.File;
@@ -13,8 +16,9 @@ import java.util.ArrayList;
 
 
 public class PublicarLista extends javax.swing.JInternalFrame{
-	UsuarioController usr_ctr = new UsuarioController();
-	PlaylistController pylt_ctr = new PlaylistController();
+        Fabrica fabrica = Fabrica.getInstance();
+	IUsuarioController usr_ctr = fabrica.getIUsuarioController();
+	IPlaylistController pylt_ctr = fabrica.getIPlaylistController();
 
 	int PREFERRED_SIZE = javax.swing.GroupLayout.PREFERRED_SIZE;
 	int DEFAULT_SIZE = javax.swing.GroupLayout.DEFAULT_SIZE;

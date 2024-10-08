@@ -4,7 +4,9 @@
  */
 package views;
 
+import controllers.Fabrica;
 import controllers.GeneroController;
+import controllers.IGeneroController;
 import java.awt.PopupMenu;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -21,7 +23,8 @@ public class AltaGenero extends javax.swing.JInternalFrame {
      */
     public AltaGenero() {
         initComponents();
-        GeneroController GenController = new GeneroController();        
+        Fabrica fabrica = Fabrica.getInstance();
+        IGeneroController GenController = fabrica.getIGeneroController();
         List<String> nombresGenero = GenController.obtenerNombresGeneros();
             for (String nombreG : nombresGenero) {
                 GeneroPadreBox.addItem(nombreG);

@@ -39,10 +39,22 @@ import models.Usuario;
  * @author Machichu
  */
 public class UsuarioController implements IUsuarioController{
-    PlaylistJpaController auxPlay = new PlaylistJpaController();
-    AlbumJpaController auxAlbum = new AlbumJpaController();
-    CancionJpaController auxCan = new CancionJpaController();
-    ClienteJpaController auxCliente =  new ClienteJpaController();
+    private PlaylistJpaController auxPlay;
+    private AlbumJpaController auxAlbum;
+    private CancionJpaController auxCan;
+    private ClienteJpaController auxCliente;
+
+    // Constructor que obtiene las dependencias desde la fábrica
+    public UsuarioController() {
+        // Obtener la instancia de la fábrica
+        Fabrica fabrica = Fabrica.getInstance();
+
+        // Obtener los controladores JPA necesarios desde la fábrica
+        this.auxPlay = fabrica.getPlaylistJpaController();
+        this.auxAlbum = fabrica.getAlbumJpaController();
+        this.auxCan = fabrica.getCancionJpaController();
+        this.auxCliente = fabrica.getClienteJpaController(); // Asumiendo que ClienteJpaController es similar a UsuarioJpaController
+    }
     
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
   //  private ClienteJpaController cliente_ctr = new ClienteJpaController(emf);

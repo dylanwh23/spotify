@@ -27,32 +27,28 @@ import persistences.GeneroJpaController;
  * @author Machichu
  */
 public class AlbumController implements IAlbumController {
- private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
- ArtistaJpaController usr_ctr = new ArtistaJpaController(emf);
- ClienteJpaController auxCliente = new ClienteJpaController(emf);
- AlbumJpaController auxAL = new AlbumJpaController();
- GeneroJpaController auxG = new GeneroJpaController();
+ //private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+    private EntityManagerFactory emf;
+    private ArtistaJpaController usr_ctr;
+    private ClienteJpaController auxCliente;
+    private AlbumJpaController auxAL;
+    private GeneroJpaController auxG;
+
+    // Constructor que recibe las dependencias necesarias
+    public AlbumController(EntityManagerFactory emf, ArtistaJpaController usr_ctr, 
+                           ClienteJpaController auxCliente, AlbumJpaController auxAL, 
+                           GeneroJpaController auxG) {
+        this.emf = emf;
+        this.usr_ctr = usr_ctr;
+        this.auxCliente = auxCliente;
+        this.auxAL = auxAL;
+        this.auxG = auxG;
+    }
     public AlbumController() {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-//    public boolean registrarAlbum(String nombre) {
-//        Album A = new Album();
-//        A.setNombre(nombre);
-//        
-//        try {
-//            aux.create(A);
-//            return true;
-//        } catch (Exception ex) {
-//            
-//            return false;
-//        }
-//    }
 
-
-
-
-    //private EntityManagerFactory emf;
 
     public AlbumController(EntityManagerFactory emf) {
         this.emf = emf;
@@ -110,7 +106,7 @@ public boolean registrarAlbum(String nombre, int anio,List<Genero> generos) {
             auxAL.create(al);
             return true;
         } catch (Exception ex) {
-            //Logger.getLogger(GeneroController.class.getName()).log(Level.SEVERE, null, ex);
+         
             return false;
         }
     }

@@ -4,17 +4,18 @@
  */
 package views;
 
-import controllers.GeneroController;
-import controllers.PlaylistController;
-import controllers.UsuarioController;
+import controllers.Fabrica;
+import controllers.IGeneroController;
+import controllers.IPlaylistController;
+import controllers.IUsuarioController;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import views.ImageRenderer;
 
 public class ConsultarPlaylist extends javax.swing.JInternalFrame {
-    PlaylistController controladorP = new PlaylistController();
-    UsuarioController controladorUsuario = new UsuarioController();
-    GeneroController controladorGenero = new GeneroController();
+    Fabrica fabrica = Fabrica.getInstance();
+    IPlaylistController controladorP = fabrica.getIPlaylistController();
+    IUsuarioController controladorUsuario = fabrica.getIUsuarioController();
+    IGeneroController controladorGenero = fabrica.getIGeneroController();
     
     /**
      * Creates new form ConsultaUsuario

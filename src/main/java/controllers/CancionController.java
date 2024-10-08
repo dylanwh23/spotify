@@ -23,10 +23,20 @@ import persistences.UsuarioJpaController;
  * @author Machichu
  */
 public class CancionController implements ICancionController  {
-     CancionJpaController cancionJpaController = new CancionJpaController();
-     AlbumJpaController auxAl = new AlbumJpaController();
-     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
-     UsuarioJpaController auxCliente = new UsuarioJpaController(emf);
+    private CancionJpaController cancionJpaController;
+    private AlbumJpaController auxAl;
+    private UsuarioJpaController auxCliente;
+
+    // Constructor que obtiene las dependencias desde la fábrica
+    public CancionController() {
+        // Obtener la instancia de la fábrica
+        Fabrica fabrica = Fabrica.getInstance();
+
+        // Obtener los controladores JPA necesarios desde la fábrica
+        this.cancionJpaController = fabrica.getCancionJpaController();
+        this.auxAl = fabrica.getAlbumJpaController();
+        this.auxCliente = fabrica.getUsuarioJpaController();
+    }
      
     public boolean CrearCancion(String nombre, int duracion){
 

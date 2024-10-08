@@ -4,10 +4,11 @@
  */
 package views;
 
-import controllers.AlbumController;
-import controllers.CancionController;
-import controllers.GeneroController;
-import controllers.UsuarioController;
+import controllers.Fabrica;
+import controllers.IAlbumController;
+import controllers.ICancionController;
+import controllers.IGeneroController;
+import controllers.IUsuarioController;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import models.Album;
@@ -18,10 +19,11 @@ import models.Album;
  * @author lilia
  */
 public class ConsultarAlbum extends javax.swing.JInternalFrame {
-GeneroController genController= new GeneroController();
-UsuarioController UController= new UsuarioController();
-AlbumController AController=new AlbumController();
-CancionController CController= new CancionController();
+Fabrica fabrica = Fabrica.getInstance();
+IGeneroController genController = fabrica.getIGeneroController();
+IUsuarioController UController = fabrica.getIUsuarioController();
+IAlbumController AController = fabrica.getIAlbumController();
+ICancionController CController= fabrica.getICancionController();
 
 
     /**

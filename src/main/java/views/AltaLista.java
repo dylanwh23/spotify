@@ -4,9 +4,10 @@
  */
 package views;
 
-import controllers.GeneroController;
-import controllers.PlaylistController;
-import controllers.UsuarioController;
+import controllers.Fabrica;
+import controllers.IGeneroController;
+import controllers.IPlaylistController;
+import controllers.IUsuarioController;
 import java.io.File;
 import java.util.List;
 import javax.swing.JFileChooser;
@@ -16,9 +17,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class AltaLista extends javax.swing.JInternalFrame {
-        UsuarioController controladorUsuario = new UsuarioController();
-        PlaylistController controladorPlaylist = new PlaylistController();
-        GeneroController controladorGenero = new GeneroController();
+        Fabrica fabrica = Fabrica.getInstance();
+        IUsuarioController controladorUsuario = fabrica.getIUsuarioController();
+        IPlaylistController controladorPlaylist = fabrica.getIPlaylistController();
+        IGeneroController controladorGenero = fabrica.getIGeneroController();
     /**
      * Creates new form ConsultaUsuario
      */
@@ -85,7 +87,6 @@ public class AltaLista extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Elige foto de lista:");
 
-        txtFile.setEditable(false);
         txtFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFileActionPerformed(evt);

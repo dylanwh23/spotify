@@ -4,9 +4,11 @@
  */
 package views;
 
-import controllers.AlbumController;
-import controllers.CancionController;
-import controllers.PlaylistController;
+import controllers.Fabrica;
+import controllers.IAlbumController;
+import controllers.ICancionController;
+import controllers.IPlaylistController;
+import controllers.IUsuarioController;
 import controllers.UsuarioController;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,10 +20,11 @@ import javax.swing.JOptionPane;
  * @author Machichu
  */
 public class GuardarTemaListaAlbum extends javax.swing.JInternalFrame {
-    AlbumController albmController = new AlbumController();
-    CancionController canController = new CancionController();
-    PlaylistController playController = new PlaylistController();
-    UsuarioController usrController = new UsuarioController();
+    Fabrica fabrica = Fabrica.getInstance();
+    IAlbumController albmController = fabrica.getIAlbumController();
+    ICancionController canController = fabrica.getICancionController();
+    IPlaylistController playController = fabrica.getIPlaylistController();
+    IUsuarioController usrController = fabrica.getIUsuarioController();
     /**
      * Creates new form GuardarTemaListaAlbum
      */

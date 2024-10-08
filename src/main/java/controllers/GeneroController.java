@@ -15,7 +15,16 @@ import persistences.GeneroJpaController;
  * @author Machichu
  */
 public class GeneroController implements IGeneroController {
-    GeneroJpaController aux = new GeneroJpaController();
+     private GeneroJpaController aux;
+
+    // Constructor que obtiene las dependencias desde la fábrica
+    public GeneroController() {
+        // Obtener la instancia de la fábrica
+        Fabrica fabrica = Fabrica.getInstance();
+
+        // Obtener el controlador JPA de géneros desde la fábrica
+        this.aux = fabrica.getGeneroJpaController();
+    }
     
     public boolean registrarGenero(String nombre, Genero padre) {
         Genero gen = new Genero();
