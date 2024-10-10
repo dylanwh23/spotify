@@ -14,11 +14,10 @@ import javax.persistence.Column;
 import javax.persistence.OneToMany;
 
 import java.util.LinkedList;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-
 
 /**
  *
@@ -26,6 +25,8 @@ import javax.persistence.ManyToMany;
  */
 @Entity
 @Table(name="Cliente")
+@DiscriminatorValue("cliente")
+
 public class Cliente extends Usuario {
     @ManyToMany
     @JoinTable(
@@ -142,12 +143,12 @@ public class Cliente extends Usuario {
         this.fecNac = fecNac;
     }
     
-    public Cliente(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String imagen){
+    public Cliente(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String contraseña){
 
         this.nick = nick;
         this.nombre = nombre;
         this.apellido = apellido;
-        //this.Contraseña = contraseña;
+        this.contraseñaHash = contraseña;
         this.mail = mail;
         this.fecNac = FecNac;
         this.imagen = imagen;

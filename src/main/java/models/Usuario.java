@@ -6,18 +6,14 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Table;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 
 /**
  *
@@ -25,12 +21,10 @@ import javax.persistence.Column;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo_usuario", discriminatorType = DiscriminatorType.STRING)
 @Table(name="Usuario")
 public class Usuario implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Id
 	@Column(name="nick")
 	    protected String nick;
@@ -38,13 +32,14 @@ public class Usuario implements Serializable {
 	    protected String nombre;
 	@Column(name="apellido")
 	    protected String apellido;
-	@Column(name="mail")
+	@Column(name="mail", unique=true)
 	    protected String mail;
 	@Column(name="imagen")
 	    protected String imagen;
-    
 	@Column(name="fecNac")
 	    protected LocalDate fecNac;
+        @Column(name="password", nullable = false)
+	    protected String contraseñaHash;
     
 
     public String getNick() {
@@ -53,6 +48,14 @@ public class Usuario implements Serializable {
 
     public void setNick(String nick) {
         this.nick = nick;
+    }
+    
+    public String getContraseña() {
+        return contraseñaHash;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseñaHash = contraseña;
     }
 
     @Override

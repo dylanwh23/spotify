@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package persistences;
+package persistence;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,16 +12,16 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import models.PlaylistParticular;
-import persistences.exceptions.NonexistentEntityException;
+import models.Cancion;
+import persistence.exceptions.NonexistentEntityException;
 
 /**
  *
  * @author dylan
  */
-public class PlaylistParticularJpaController implements Serializable {
+public class CancionJpaController implements Serializable {
 
-    public PlaylistParticularJpaController(EntityManagerFactory emf) {
+    public CancionJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -30,12 +30,12 @@ public class PlaylistParticularJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(PlaylistParticular playlistParticular) {
+    public void create(Cancion cancion) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(playlistParticular);
+            em.persist(cancion);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -44,19 +44,19 @@ public class PlaylistParticularJpaController implements Serializable {
         }
     }
 
-    public void edit(PlaylistParticular playlistParticular) throws NonexistentEntityException, Exception {
+    public void edit(Cancion cancion) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            playlistParticular = em.merge(playlistParticular);
+            cancion = em.merge(cancion);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = playlistParticular.getId();
-                if (findPlaylistParticular(id) == null) {
-                    throw new NonexistentEntityException("The playlistParticular with id " + id + " no longer exists.");
+                int id = cancion.getId();
+                if (findCancion(id) == null) {
+                    throw new NonexistentEntityException("The cancion with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -72,14 +72,14 @@ public class PlaylistParticularJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            PlaylistParticular playlistParticular;
+            Cancion cancion;
             try {
-                playlistParticular = em.getReference(PlaylistParticular.class, id);
-                playlistParticular.getId();
+                cancion = em.getReference(Cancion.class, id);
+                cancion.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The playlistParticular with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The cancion with id " + id + " no longer exists.", enfe);
             }
-            em.remove(playlistParticular);
+            em.remove(cancion);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -88,19 +88,19 @@ public class PlaylistParticularJpaController implements Serializable {
         }
     }
 
-    public List<PlaylistParticular> findPlaylistParticularEntities() {
-        return findPlaylistParticularEntities(true, -1, -1);
+    public List<Cancion> findCancionEntities() {
+        return findCancionEntities(true, -1, -1);
     }
 
-    public List<PlaylistParticular> findPlaylistParticularEntities(int maxResults, int firstResult) {
-        return findPlaylistParticularEntities(false, maxResults, firstResult);
+    public List<Cancion> findCancionEntities(int maxResults, int firstResult) {
+        return findCancionEntities(false, maxResults, firstResult);
     }
 
-    private List<PlaylistParticular> findPlaylistParticularEntities(boolean all, int maxResults, int firstResult) {
+    private List<Cancion> findCancionEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(PlaylistParticular.class));
+            cq.select(cq.from(Cancion.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -112,20 +112,20 @@ public class PlaylistParticularJpaController implements Serializable {
         }
     }
 
-    public PlaylistParticular findPlaylistParticular(int id) {
+    public Cancion findCancion(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(PlaylistParticular.class, id);
+            return em.find(Cancion.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getPlaylistParticularCount() {
+    public int getCancionCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<PlaylistParticular> rt = cq.from(PlaylistParticular.class);
+            Root<Cancion> rt = cq.from(Cancion.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

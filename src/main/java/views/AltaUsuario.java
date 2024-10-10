@@ -16,7 +16,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import persistences.exceptions.PreexistingEntityException;
+import persistence.exceptions.PreexistingEntityException;
 
 
 
@@ -73,6 +73,8 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         biografiaField = new javax.swing.JTextArea();
         registrarBtn = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        contraseñaField = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -172,6 +174,8 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel10.setText("Contraseña:");
+
         javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
         contenido.setLayout(contenidoLayout);
         contenidoLayout.setHorizontalGroup(
@@ -208,7 +212,11 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
                                             .addGap(10, 10, 10))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenidoLayout.createSequentialGroup()
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(correoField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(correoField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenidoLayout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(contraseñaField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(contenidoLayout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(107, 107, 107)
@@ -235,7 +243,7 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
         contenidoLayout.setVerticalGroup(
             contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenidoLayout.createSequentialGroup()
-                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(contenidoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -255,6 +263,10 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
                             .addComponent(correoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(contraseñaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tipoSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)))
                     .addGroup(contenidoLayout.createSequentialGroup()
@@ -272,7 +284,7 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
                     .addComponent(fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addComponent(registrarBtn)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addContainerGap(230, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -337,7 +349,7 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
-                controladorUsr.registroUsuario(nickField.getText(), nombreField.getText(), apellidoField.getText(), correoField.getText(), localDate, txtFile.getText(), biografiaField.getText(), linkField.getText(), tipoSeleccionado);
+                controladorUsr.registroUsuario(nickField.getText(), nombreField.getText(), apellidoField.getText(), correoField.getText(), localDate, txtFile.getText(), biografiaField.getText(), linkField.getText(), tipoSeleccionado, contraseñaField.getText());
                 JOptionPane.showMessageDialog(this, "Usuario creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 //formatear campos
                 nickField.setText("");
@@ -356,9 +368,11 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea biografiaField;
     private javax.swing.JButton btnFile;
     protected javax.swing.JPanel contenido;
+    private javax.swing.JTextField contraseñaField;
     private javax.swing.JTextField correoField;
     private com.toedter.calendar.JDateChooser fechaNac;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

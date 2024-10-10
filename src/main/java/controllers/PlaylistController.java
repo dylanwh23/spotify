@@ -20,10 +20,10 @@ import models.Cancion;
 import models.Playlist;
 import models.PlaylistParticular;
 import models.PlaylistPorDefecto;
-import persistences.CancionJpaController;
-import persistences.GeneroJpaController;
-import persistences.PlaylistJpaController;
-import persistences.ClienteJpaController;
+import persistence.CancionJpaController;
+import persistence.GeneroJpaController;
+import persistence.PlaylistJpaController;
+import persistence.ClienteJpaController;
 
 /**
  *

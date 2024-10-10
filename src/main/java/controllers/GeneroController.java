@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import models.Genero;
-import persistences.GeneroJpaController;
+import persistence.GeneroJpaController;
 /**
  *
  * @author Machichu

@@ -6,12 +6,12 @@ package controllers;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import persistences.AlbumJpaController;
-import persistences.CancionJpaController;
-import persistences.ClienteJpaController;
-import persistences.GeneroJpaController;
-import persistences.PlaylistJpaController;
-import persistences.UsuarioJpaController;
+import persistence.AlbumJpaController;
+import persistence.CancionJpaController;
+import persistence.ClienteJpaController;
+import persistence.GeneroJpaController;
+import persistence.PlaylistJpaController;
+import persistence.UsuarioJpaController;
 
 /**
  *
@@ -55,11 +55,11 @@ public class Fabrica {
     }
 
     CancionJpaController getCancionJpaController() {
-        return new CancionJpaController();
+        return new CancionJpaController(emf);
     }
 
     AlbumJpaController getAlbumJpaController() {
-        return new AlbumJpaController();
+        return new AlbumJpaController(emf);
     }
 
     UsuarioJpaController getUsuarioJpaController() {
@@ -67,15 +67,15 @@ public class Fabrica {
     }
 
     GeneroJpaController getGeneroJpaController() {
-        return new GeneroJpaController();
+        return new GeneroJpaController(emf);
     }
 
     PlaylistJpaController getPlaylistJpaController() {
-        return new PlaylistJpaController();
+        return new PlaylistJpaController(emf);
     }
 
     ClienteJpaController getClienteJpaController() {
-        return new ClienteJpaController();
+        return new ClienteJpaController(emf);
     }
 
     EntityManagerFactory getEntityManagerFactory() {

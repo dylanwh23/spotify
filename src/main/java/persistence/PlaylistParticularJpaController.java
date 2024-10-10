@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package persistences;
+package persistence;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,17 +12,16 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import models.Artista;
-import persistences.exceptions.NonexistentEntityException;
-import persistences.exceptions.PreexistingEntityException;
+import models.PlaylistParticular;
+import persistence.exceptions.NonexistentEntityException;
 
 /**
  *
  * @author dylan
  */
-public class ArtistaJpaController implements Serializable {
+public class PlaylistParticularJpaController implements Serializable {
 
-    public ArtistaJpaController(EntityManagerFactory emf) {
+    public PlaylistParticularJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -31,18 +30,13 @@ public class ArtistaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Artista artista) throws PreexistingEntityException, Exception {
+    public void create(PlaylistParticular playlistParticular) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(artista);
+            em.persist(playlistParticular);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findArtista(artista.getNick()) != null) {
-                throw new PreexistingEntityException("Artista " + artista + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -50,19 +44,19 @@ public class ArtistaJpaController implements Serializable {
         }
     }
 
-    public void edit(Artista artista) throws NonexistentEntityException, Exception {
+    public void edit(PlaylistParticular playlistParticular) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            artista = em.merge(artista);
+            playlistParticular = em.merge(playlistParticular);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = artista.getNick();
-                if (findArtista(id) == null) {
-                    throw new NonexistentEntityException("The artista with id " + id + " no longer exists.");
+                int id = playlistParticular.getId();
+                if (findPlaylistParticular(id) == null) {
+                    throw new NonexistentEntityException("The playlistParticular with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -73,19 +67,19 @@ public class ArtistaJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Artista artista;
+            PlaylistParticular playlistParticular;
             try {
-                artista = em.getReference(Artista.class, id);
-                artista.getNick();
+                playlistParticular = em.getReference(PlaylistParticular.class, id);
+                playlistParticular.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The artista with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The playlistParticular with id " + id + " no longer exists.", enfe);
             }
-            em.remove(artista);
+            em.remove(playlistParticular);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -94,19 +88,19 @@ public class ArtistaJpaController implements Serializable {
         }
     }
 
-    public List<Artista> findArtistaEntities() {
-        return findArtistaEntities(true, -1, -1);
+    public List<PlaylistParticular> findPlaylistParticularEntities() {
+        return findPlaylistParticularEntities(true, -1, -1);
     }
 
-    public List<Artista> findArtistaEntities(int maxResults, int firstResult) {
-        return findArtistaEntities(false, maxResults, firstResult);
+    public List<PlaylistParticular> findPlaylistParticularEntities(int maxResults, int firstResult) {
+        return findPlaylistParticularEntities(false, maxResults, firstResult);
     }
 
-    private List<Artista> findArtistaEntities(boolean all, int maxResults, int firstResult) {
+    private List<PlaylistParticular> findPlaylistParticularEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Artista.class));
+            cq.select(cq.from(PlaylistParticular.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -118,20 +112,20 @@ public class ArtistaJpaController implements Serializable {
         }
     }
 
-    public Artista findArtista(String id) {
+    public PlaylistParticular findPlaylistParticular(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Artista.class, id);
+            return em.find(PlaylistParticular.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getArtistaCount() {
+    public int getPlaylistParticularCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Artista> rt = cq.from(Artista.class);
+            Root<PlaylistParticular> rt = cq.from(PlaylistParticular.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

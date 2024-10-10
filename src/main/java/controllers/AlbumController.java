@@ -7,7 +7,7 @@ package controllers;
 import controllers.IAlbumController;
 import java.util.ArrayList;
 import models.Album;
-import persistences.AlbumJpaController;
+import persistence.AlbumJpaController;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
@@ -19,9 +19,9 @@ import models.Artista;
 import models.Cancion;
 import models.Cliente;
 import models.Genero;
-import persistences.ArtistaJpaController;
-import persistences.ClienteJpaController;
-import persistences.GeneroJpaController;
+import persistence.ArtistaJpaController;
+import persistence.ClienteJpaController;
+import persistence.GeneroJpaController;
 /**
  *
  * @author Machichu

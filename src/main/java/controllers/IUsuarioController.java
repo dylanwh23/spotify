@@ -12,7 +12,7 @@ import java.util.List;
  * @author dylan
  */
 public interface IUsuarioController {
-    public abstract void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link, String tipo) throws Exception;
+    public abstract void registroUsuario(String nickname, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link, String tipo, String contraseña) throws Exception;
     public abstract List<String> obtenerNombresClientes();
     public abstract List<String> obtenerNicknamesseguidos(String usuario) throws Exception;
     public abstract List<String> obtenerNicknamesDisponiblesASeguir(String usuario, List<String> usuariosSeguidos) throws Exception;
@@ -30,4 +30,9 @@ public interface IUsuarioController {
     public abstract void eliminarAlbumFavorito(String nick, String nombreAlbum) throws Exception;
     public abstract void eliminarPlaylistFavorita(String nick, String nombrePlaylist) throws Exception;
     public abstract List<String> obtenerNombresArtistas();
+    
+    //encriptado contraseñas
+    public abstract String hashPassword(String password);
+    public abstract boolean checkPassword(String password, String hashedPassword);
+
 }

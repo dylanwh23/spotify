@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 
 
 /**
@@ -16,6 +17,8 @@ import javax.persistence.Column;
  */
 @Entity
 @Table(name="Artista")
+@DiscriminatorValue("artista")
+
 public class Artista extends Usuario {
 	@Column(name="biografia")
     private String biografia;
@@ -23,11 +26,11 @@ public class Artista extends Usuario {
     private String DireccionWeb;
     
     
-    public Artista(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link){
+    public Artista(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String biografia, String link, String contraseña){
         this.nick = nick;
         this.nombre = nombre;
         this.apellido = apellido;
-        //this.Contraseña = contraseña;
+        this.contraseñaHash = contraseña;
         this.mail = mail;
         this.fecNac = FecNac;
         this.biografia = biografia;

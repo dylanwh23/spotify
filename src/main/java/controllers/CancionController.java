@@ -14,9 +14,9 @@ import models.Album;
 import models.Cancion;
 import models.Cliente;
 
-import persistences.AlbumJpaController;
-import persistences.CancionJpaController;
-import persistences.UsuarioJpaController;
+import persistence.AlbumJpaController;
+import persistence.CancionJpaController;
+import persistence.UsuarioJpaController;
 
 /**
  *
