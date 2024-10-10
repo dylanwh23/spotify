@@ -51,7 +51,6 @@ public class UsuarioController implements IUsuarioController {
     public UsuarioController() {
         // Obtener la instancia de la fábrica
         Fabrica fabrica = Fabrica.getInstance();
-
         // Obtener los controladores JPA necesarios desde la fábrica
         this.auxPlay = fabrica.getPlaylistJpaController();
         this.auxAlbum = fabrica.getAlbumJpaController();

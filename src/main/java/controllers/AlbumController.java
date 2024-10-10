@@ -27,25 +27,19 @@ import persistence.GeneroJpaController;
  * @author Machichu
  */
 public class AlbumController implements IAlbumController {
- //private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
-    private EntityManagerFactory emf;
-    private ArtistaJpaController usr_ctr;
+   private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+  
+    private ArtistaJpaController art_ctr;
     private ClienteJpaController auxCliente;
     private AlbumJpaController auxAL;
     private GeneroJpaController auxG;
-
-    // Constructor que recibe las dependencias necesarias
-    public AlbumController(EntityManagerFactory emf, ArtistaJpaController usr_ctr, 
-                           ClienteJpaController auxCliente, AlbumJpaController auxAL, 
-                           GeneroJpaController auxG) {
-        this.emf = emf;
-        this.usr_ctr = usr_ctr;
-        this.auxCliente = auxCliente;
-        this.auxAL = auxAL;
-        this.auxG = auxG;
-    }
+   
     public AlbumController() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Fabrica fabrica = Fabrica.getInstance();
+        this.art_ctr = fabrica.getArtistaJpaController();
+        this.auxCliente = fabrica.getClienteJpaController();
+        this.auxAL = fabrica.getAlbumJpaController();
+        this.auxG = fabrica.getGeneroJpaController();
     }
     
 
@@ -118,19 +112,19 @@ public List<String> obtenerNombresAlbums() {
                  .collect(Collectors.toList());
 }
 
-    public void CrearAlbum(String text, int parseInt, String strArtista, Object[][] cancionesOBJ, List<String> generos) {
+    public void CrearAlbum(String text, int parseInt, String strArtista, String Direccion_imagen,  Object[][] cancionesOBJ, List<String> generos) {
         List<Cancion> canciones = new ArrayList<>();
         for (Object[] fila : cancionesOBJ) {
             Cancion cancion = new Cancion();
             cancion.setNombre((String) fila[1]);  // Nombre
             cancion.setDuracion((Integer) fila[2]);  // Duración
             cancion.setDireccion_archivo_de_audio((String) fila[3]);  // Ruta MP3
-            cancion.setDireccion_imagen((String) fila[4]);  // Imagen
-            cancion.setGenero(auxG.findGenero((String) fila[5]));
+            //cancion.setDireccion_imagen((String) fila[4]);  // Imagen
+            cancion.setGenero(auxG.findGenero((String) fila[4]));
             canciones.add(cancion);  // Agregar la canción a la lista
         }
 
-        Artista artista = usr_ctr.findArtista(strArtista);
+        Artista artista = art_ctr.findArtista(strArtista);
         List<Genero> generosSeleccionados = new ArrayList<>();
         for (String nombre : generos) {
             Genero genero = auxG.findGenero(nombre); // Método que busca el Genero por su nombre
@@ -138,7 +132,7 @@ public List<String> obtenerNombresAlbums() {
                 generosSeleccionados.add(genero); // Añadir a la lista si se encontró
             }
         }
-        Album album = new Album(text, parseInt, artista, generosSeleccionados, canciones);
+        Album album = new Album(text, parseInt, artista, Direccion_imagen, generosSeleccionados, canciones);
         auxAL.create(album);
     }
 

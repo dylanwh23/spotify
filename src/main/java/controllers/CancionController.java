@@ -31,7 +31,6 @@ public class CancionController implements ICancionController  {
     public CancionController() {
         // Obtener la instancia de la fábrica
         Fabrica fabrica = Fabrica.getInstance();
-
         // Obtener los controladores JPA necesarios desde la fábrica
         this.cancionJpaController = fabrica.getCancionJpaController();
         this.auxAl = fabrica.getAlbumJpaController();
@@ -94,7 +93,7 @@ public class CancionController implements ICancionController  {
             datos[i][1] = cancion.getNombre();
             datos[i][2] = cancion.getDuracion();
             datos[i][3] = cancion.getDireccion_archivo_de_audio();
-            datos[i][4] = cancion.getDireccion_imagen();
+            datos[i][4] = "Agarrar canicond de album HACER";
 
 
 

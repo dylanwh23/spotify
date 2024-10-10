@@ -7,6 +7,7 @@ package controllers;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import persistence.AlbumJpaController;
+import persistence.ArtistaJpaController;
 import persistence.CancionJpaController;
 import persistence.ClienteJpaController;
 import persistence.GeneroJpaController;
@@ -56,6 +57,9 @@ public class Fabrica {
 
     CancionJpaController getCancionJpaController() {
         return new CancionJpaController(emf);
+    }
+    ArtistaJpaController getArtistaJpaController() {
+        return new ArtistaJpaController(emf);
     }
 
     AlbumJpaController getAlbumJpaController() {
