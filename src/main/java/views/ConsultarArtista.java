@@ -6,6 +6,8 @@ package views;
 
 import controllers.Fabrica;
 import controllers.IUsuarioController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -48,47 +50,8 @@ public class ConsultarArtista extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFrame1 = new javax.swing.JFrame();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        ArtistaEspecifico = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaArtistas = new javax.swing.JTable();
-
-        jFrame1.setMinimumSize(new java.awt.Dimension(400, 300));
-        jFrame1.setLocationRelativeTo(null);
-
-        ArtistaEspecifico.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(ArtistaEspecifico);
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jFrame1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)))
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jFrame1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
 
         setClosable(true);
         setIconifiable(true);
@@ -137,32 +100,25 @@ public class ConsultarArtista extends javax.swing.JInternalFrame {
         if (evt.getClickCount() == 2) { // Detectar clic doble
             int row = tablaArtistas.rowAtPoint(evt.getPoint());
             if (row >= 0) {
-                // Obtener el valor de una columna específica
-                String id = (String) tablaArtistas.getValueAt(row, 1);
-                jFrame1.setVisible(true);
-                Object[][] datos = usrController.obtenerDatosArtista(id);
-                String[] columnNames = {"NICK", "NOMBRE", "APELLIDO", "CORREO", "FECHA DE NACIMIENTO", "IMAGEN", "BIOGRAFIA", "WEB"};
-                NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
-                ArtistaEspecifico.setModel(tableModel);
-
-                // Establecer el renderizador de imagen para la columna de imagen
-                ArtistaEspecifico.getColumnModel().getColumn(5).setCellRenderer(new ImageRenderer());
-
-                // Establecer el renderizador de texto multilínea para la columna de biografía
-                ArtistaEspecifico.getColumnModel().getColumn(6).setCellRenderer(new MultiLineCellRenderer());
-
-                // Ajustar la altura de las filas
-                ArtistaEspecifico.setRowHeight(200); // Ajusta según sea necesario
+                try {
+                    // Obtener el valor de una columna específica
+                    String id = (String) tablaArtistas.getValueAt(row, 1);
+                    
+                    Object[][] datos = usrController.obtenerDatosArtista(id);
+                    jFrameUsuarios jframeu = new jFrameUsuarios(datos);
+                    jframeu.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(ConsultarArtista.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
             }
         }
     }//GEN-LAST:event_tablaArtistasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable ArtistaEspecifico;
-    private javax.swing.JFrame jFrame1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tablaArtistas;
     // End of variables declaration//GEN-END:variables
 }

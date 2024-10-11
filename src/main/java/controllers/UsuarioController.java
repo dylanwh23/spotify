@@ -35,7 +35,6 @@ import models.Artista;
 import models.Cliente;
 import models.Usuario;
  */
-
 /**
  *
  * @author Machichu
@@ -80,7 +79,7 @@ public class UsuarioController implements IUsuarioController {
         EntityManager em = emf.createEntityManager();
         try {
             List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.nick = :nick", Cliente.class).setParameter("nick", nick).getResultList();
-            Object[][] data = new Object[clientes.size()][6];
+            Object[][] data = new Object[clientes.size()][7];
 
             for (int i = 0; i < clientes.size(); i++) {
                 Cliente cliente = clientes.get(i);  // Obtener el cliente individual
@@ -91,6 +90,7 @@ public class UsuarioController implements IUsuarioController {
                 data[i][3] = cliente.getMail();
                 data[i][4] = cliente.getFecNac();
                 data[i][5] = cliente.getImagen();
+                data[i][6] = cliente.getContraseña();
             }
             return data;
 
@@ -178,7 +178,7 @@ public class UsuarioController implements IUsuarioController {
         EntityManager em = emf.createEntityManager();
         try {
             List<Artista> artistas = em.createQuery("SELECT a FROM Artista a WHERE a.nick = :nick", Artista.class).setParameter("nick", nick).getResultList();
-            Object[][] data = new Object[artistas.size()][8];
+            Object[][] data = new Object[artistas.size()][9];
 
             for (int i = 0; i < artistas.size(); i++) {
                 Artista artista = artistas.get(i);
@@ -189,8 +189,9 @@ public class UsuarioController implements IUsuarioController {
                 data[i][3] = artista.getMail();
                 data[i][4] = artista.getFecNac();
                 data[i][5] = artista.getImagen();
-                data[i][6] = artista.getBiografia();
+                data[i][6] = artista.getContraseña();
                 data[i][7] = artista.getDireccionWeb();
+                data[i][8] = artista.getBiografia();
             }
             return data;
 
@@ -274,6 +275,12 @@ public class UsuarioController implements IUsuarioController {
         List<String> aux = null;
         ClienteJpaController jpa = new ClienteJpaController(emf);
         Query query = jpa.getEntityManager().createNativeQuery("Select usuario_id from cliente_usuariosseguidos where cliente_id ='" + usuario + "'");
+        return query.getResultList();
+    }
+    public List<String> obtenerNicknamesseguidores(String usuario) throws Exception {
+        List<String> aux = null;
+        ClienteJpaController jpa = new ClienteJpaController(emf);
+        Query query = jpa.getEntityManager().createNativeQuery("Select cliente_id from cliente_usuariosseguidos where usuario_id ='" + usuario + "'");
         return query.getResultList();
     }
 
@@ -375,5 +382,13 @@ public class UsuarioController implements IUsuarioController {
 
     public boolean checkPassword(String password, String hashedPassword) {
         return BCrypt.checkpw(password, hashedPassword);
+    }
+
+    public boolean esCliente(String nickname) {
+        if (auxCliente.findCliente(nickname)instanceof Cliente ) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

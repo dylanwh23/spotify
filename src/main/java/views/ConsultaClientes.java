@@ -6,6 +6,8 @@ package views;
 
 import controllers.Fabrica;
 import controllers.IUsuarioController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class ConsultaClientes extends javax.swing.JInternalFrame {
@@ -45,43 +47,8 @@ public class ConsultaClientes extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFrame1 = new javax.swing.JFrame();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        ClienteEspecifico = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
-
-        jFrame1.setMinimumSize(new java.awt.Dimension(800, 500));
-        jFrame1.setPreferredSize(new java.awt.Dimension(800, 500));
-        jFrame1.setLocationRelativeTo(null);
-
-        ClienteEspecifico.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        ClienteEspecifico.setMinimumSize(new java.awt.Dimension(400, 300));
-        ClienteEspecifico.setName(""); // NOI18N
-        ClienteEspecifico.setPreferredSize(new java.awt.Dimension(400, 300));
-        ClienteEspecifico.setRowHeight(40);
-        jScrollPane2.setViewportView(ClienteEspecifico);
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-        );
 
         setClosable(true);
         setIconifiable(true);
@@ -148,24 +115,23 @@ public class ConsultaClientes extends javax.swing.JInternalFrame {
          if (evt.getClickCount() == 2) { // Detectar clic simple
             int row = tablaClientes.rowAtPoint(evt.getPoint());
             if (row >= 0) {
-                // Obtener el valor de una columna específica, por ejemplo, la columna con índice 1
-                String id = (String) tablaClientes.getValueAt(row, 1); // Cambia 1 al índice de la columna deseada
-                jFrame1.setVisible(true);
-                Object[][] datos = usrController.obtenerDatosCliente(id);
-                String[] columnNames = {"NICK", "NOMBRE", "APELLIDO", "CORREO", "FECHA DE NACIMIENTO", "IMAGEN"};
-                NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
-                ClienteEspecifico.setModel(tableModel);
-                ClienteEspecifico.getColumnModel().getColumn(5).setCellRenderer(new ImageRenderer());
+                try {
+                    // Obtener el valor de una columna específica, por ejemplo, la columna con índice 1
+                    String id = (String) tablaClientes.getValueAt(row, 1); // Cambia 1 al índice de la columna deseada
+                    Object[][] datos = usrController.obtenerDatosCliente(id);
+                    jFrameUsuarios jframeu = new jFrameUsuarios(datos);
+                    jframeu.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(ConsultaClientes.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         }
     }//GEN-LAST:event_tablaClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable ClienteEspecifico;
-    private javax.swing.JFrame jFrame1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaClientes;
     // End of variables declaration//GEN-END:variables
 }
