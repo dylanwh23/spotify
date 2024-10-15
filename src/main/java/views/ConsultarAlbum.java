@@ -277,7 +277,7 @@ class NonEditableTableModel extends DefaultTableModel {
         if (evt.getClickCount() == 2) { // Detectar clic simple
             int row = TablaAlbum.rowAtPoint(evt.getPoint());
             if (row >= 0) {
-                int id = (Integer) TablaAlbum.getValueAt(row, 0); 
+                int id = (Integer) TablaAlbum.getValueAt(row, 0);
                 Object[][] datos = AController.obtenerDatosAlbum(id);
                 jFrameAlbum jframe = new jFrameAlbum(datos); 
                 jframe.setVisible(true);

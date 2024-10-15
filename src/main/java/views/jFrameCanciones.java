@@ -49,11 +49,11 @@ public class jFrameCanciones extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 898, Short.MAX_VALUE)
+            .addGap(0, 999, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 987, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
@@ -66,7 +66,7 @@ public class jFrameCanciones extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        setSize(new java.awt.Dimension(914, 475));
+        setSize(new java.awt.Dimension(1015, 475));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

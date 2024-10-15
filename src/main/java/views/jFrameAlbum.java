@@ -24,23 +24,24 @@ public class jFrameAlbum extends javax.swing.JFrame {
     ICancionController CController= fabrica.getICancionController();
     
     public jFrameAlbum(Object[][] datos) {
-        initComponents();
-       
+        initComponents(); 
         id.setText(String.valueOf((Integer) datos[0][1]));
         nombre.setText((String)datos[0][2]);
         artista.setText((String)datos[0][4]);
         año.setText(String.valueOf((Integer)datos[0][3]));
         generos.setText((String)datos[0][5]);
-        ImageIcon icono = new ImageIcon((String)datos[0][0]);
-        File imageFile = new File((String)datos[0][0]);
-        if(!imageFile.exists()){
-           icono = new ImageIcon("src/main/java/includes/cruz.png");
+       String rutaImagen = (String) datos[0][0];
+        if (rutaImagen == null || rutaImagen.isEmpty()) {
+            rutaImagen = "src/main/java/includes/cruz.png"; // Ruta predeterminada
         }
+        File imageFile = new File(rutaImagen);
+        ImageIcon icono = imageFile.exists() ? new ImageIcon(rutaImagen) : new ImageIcon("src/main/java/includes/cruz.png");
         Image imagene = icono.getImage();
         Image imagenEscalada = imagene.getScaledInstance(225, 200, Image.SCALE_SMOOTH);
         ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
-        imagen.setIcon(iconoEscalado); 
-        
+        if (imagen != null) {
+            imagen.setIcon(iconoEscalado);
+        }
         Object[][] datosCan = CController.obtenerDatosCancion((Integer) datos[0][1]);
         for (Object[] fila : datosCan) {
             jPanelCanciones panel = new jPanelCanciones(fila);

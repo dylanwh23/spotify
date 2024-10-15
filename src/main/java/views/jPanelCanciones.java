@@ -24,16 +24,23 @@ public class jPanelCanciones extends javax.swing.JPanel {
         nombre.setText((String) fila[1]);
         duracion.setText(String.valueOf((Integer) fila[2]));
         audio.setText((String) fila[3]);
-        ImageIcon icono = new ImageIcon((String)fila[4]);
-        File imageFile = new File((String)fila[4]);
-        if(!imageFile.exists()){
-           icono = new ImageIcon("src/main/java/includes/cruz.png");
+        String rutaImagen = (String) fila[4];
+        if (rutaImagen == null || rutaImagen.isEmpty()) {
+            rutaImagen = "src/main/java/includes/cruz.png"; // Ruta predeterminada
+        }
+        ImageIcon icono = new ImageIcon(rutaImagen);
+        File imageFile = new File(rutaImagen);
+        if (!imageFile.exists()) {
+            icono = new ImageIcon("src/main/java/includes/cruz.png");
         }
         Image imagene = icono.getImage();
         Image imagenEscalada = imagene.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
-        imagen.setIcon(iconoEscalado);
+        if (imagen != null) {
+            imagen.setIcon(iconoEscalado);
+        }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

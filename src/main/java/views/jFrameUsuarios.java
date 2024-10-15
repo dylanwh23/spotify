@@ -27,22 +27,30 @@ public class jFrameUsuarios extends javax.swing.JFrame {
     }
     public jFrameUsuarios(Object[][] datos) throws Exception {
         initComponents();
-      
         nickname.setText((String) datos[0][0]);
         nombre.setText((String)datos[0][1]);
         apellido.setText((String)datos[0][2]);
         mail.setText((String)datos[0][3]);
-        LocalDate fecha = (LocalDate) datos[0][4];  // Asegúrate de que el valor sea un LocalDate
+        LocalDate fecha = (LocalDate) datos[0][4]; 
         fechanac.setText(fecha.toString());
-        ImageIcon icono = new ImageIcon((String)datos[0][5]);
-        File imageFile = new File((String)datos[0][5]);
-        if(!imageFile.exists()){
-           icono = new ImageIcon("src/main/java/includes/cruz.png");
+      
+        String rutaImagen = (String) datos[0][5];
+        if (rutaImagen == null || rutaImagen.isEmpty()) {
+            rutaImagen = "src/main/java/includes/cruz.png"; 
+        }
+        ImageIcon icono = new ImageIcon(rutaImagen);
+        File imageFile = new File(rutaImagen);
+        if (!imageFile.exists()) {
+            // Si no existe, cargar la imagen predeterminada
+            icono = new ImageIcon("src/main/java/includes/cruz.png");
         }
         Image imagene = icono.getImage();
         Image imagenEscalada = imagene.getScaledInstance(225, 200, Image.SCALE_SMOOTH);
         ImageIcon iconoEscalado = new ImageIcon(imagenEscalada);
-        imagen.setIcon(iconoEscalado); 
+        if (imagen != null) {
+            imagen.setIcon(iconoEscalado);
+        }
+
         contraseña.setText((String) datos[0][6]);
         List<String> listaSeguidores = usrController.obtenerNicknamesseguidores((String) datos[0][0]);
         cantseguidores.setText(String.valueOf(listaSeguidores.size()));
