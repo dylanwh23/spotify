@@ -8,7 +8,9 @@ import controllers.Fabrica;
 import controllers.IGeneroController;
 import controllers.IPlaylistController;
 import controllers.IUsuarioController;
+import java.awt.Font;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 public class ConsultarPlaylist extends javax.swing.JInternalFrame {
@@ -16,11 +18,12 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
     IPlaylistController controladorP = fabrica.getIPlaylistController();
     IUsuarioController controladorUsuario = fabrica.getIUsuarioController();
     IGeneroController controladorGenero = fabrica.getIGeneroController();
-    
+    DefaultTableModel sinNada = new DefaultTableModel();
     /**
      * Creates new form ConsultaUsuario
      */
     public ConsultarPlaylist() {
+        
         initComponents();
         DatosGenero.setVisible(false);
         DatosCliente.setVisible(false);
@@ -33,18 +36,23 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
         for (String nombreG : nombresGenero) {
             DatosGenero.addItem(nombreG);
         }
+        ListaPlaylist.setRowHeight(140);
+        ListaPlaylist.setFont(new Font("Arial", Font.PLAIN, 16));
+        ListaPlaylist.setShowGrid(true);
     }
 
     class NonEditableTableModel extends DefaultTableModel {
 
         public NonEditableTableModel(Object[][] data, Object[] columnNames) {
             super(data, columnNames);
+            
         }
 
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
+        
     }
 
     /**
@@ -56,9 +64,6 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFrame2 = new javax.swing.JFrame();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        canciones = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListaPlaylist = new javax.swing.JTable();
@@ -68,51 +73,15 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
-        jFrame2.setTitle("Canciones");
-        jFrame2.setLocation(new java.awt.Point(500, 500));
-        jFrame2.setMinimumSize(new java.awt.Dimension(300, 300));
-        jFrame2.setSize(new java.awt.Dimension(300, 300));
-        jFrame2.setLocationRelativeTo(null);
-
-        canciones.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        canciones.setRowHeight(50);
-        jScrollPane3.setViewportView(canciones);
-
-        javax.swing.GroupLayout jFrame2Layout = new javax.swing.GroupLayout(jFrame2.getContentPane());
-        jFrame2.getContentPane().setLayout(jFrame2Layout);
-        jFrame2Layout.setHorizontalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jFrame2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jFrame2Layout.setVerticalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jFrame2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Consulta Playlist");
         setMinimumSize(new java.awt.Dimension(300, 300));
-        setPreferredSize(new java.awt.Dimension(637, 400));
+        setPreferredSize(new java.awt.Dimension(1100, 700));
 
+        ListaPlaylist.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ListaPlaylist.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -173,7 +142,8 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1066, Short.MAX_VALUE)
+                                .addGap(6, 6, 6))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(598, 598, 598)
                                 .addComponent(jLabel1))
@@ -185,12 +155,17 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(GeneroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addGap(9, 9, 9))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(350, 350, 350)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -201,13 +176,9 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(DatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                        .addGap(21, 21, 21)))
+                .addContainerGap())
         );
 
         pack();
@@ -216,24 +187,29 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
     private void GeneroCliente(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneroCliente
       
         if ("Todas".equals(GeneroCliente.getSelectedItem())) {
+            ListaPlaylist.setModel(sinNada);
             DatosGenero.setVisible(false);
             DatosCliente.setVisible(false);
             Object[][] datos = controladorP.obtenerPlaylistLista();
-            String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "DTYPE","PRIVADA","GENERO"};
+            String[] columnNames = {"IMAGEN","ID", "NOMBRE", "DTYPE","PRIVADA","GENERO","PROPIETARIO"};
             NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
+
             ListaPlaylist.setModel(tableModel);
-            ListaPlaylist.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer());
+            ListaPlaylist.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
          
         } 
         else if ("Genero".equals(GeneroCliente.getSelectedItem())) {
+            ListaPlaylist.setModel(sinNada);
             DatosGenero.setVisible(true);
             DatosCliente.setVisible(false);
 
         } else if("Cliente".equals(GeneroCliente.getSelectedItem())){
+            ListaPlaylist.setModel(sinNada);
             DatosGenero.setVisible(false);
             DatosCliente.setVisible(true);
 
         }else{
+            ListaPlaylist.setModel(sinNada);
             DatosGenero.setVisible(false);
             DatosCliente.setVisible(false);
         }
@@ -245,10 +221,11 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
         ListaPlaylist.setVisible(true);
        if ("Genero".equals(GeneroCliente.getSelectedItem())) {
             Object[][] datos = controladorP.obtenerDatosPlaylistGenero(DatosGenero.getSelectedItem().toString());
-            String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "DTYPE", "GENERO"};
+            String[] columnNames = {"RUTAIMAGEN","ID", "NOMBRE",  "DTYPE", "GENERO"};
             NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
             ListaPlaylist.setModel(tableModel);
-            ListaPlaylist.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer());
+            ListaPlaylist.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
+            
         
         }
  
@@ -258,10 +235,10 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
 
         if ("Cliente".equals(GeneroCliente.getSelectedItem())){
             Object[][] datos = controladorP.obtenerDatosPlaylistCliente(DatosCliente.getSelectedItem().toString());
-            String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN", "DTYPE", "PRIVADA"};
+            String[] columnNames = {"RUTAIMAGEN","ID", "NOMBRE", "DTYPE", "PRIVADA"};
             NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
             ListaPlaylist.setModel(tableModel);
-            ListaPlaylist.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer());
+            ListaPlaylist.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
             
         }
     }//GEN-LAST:event_DatosClienteActionPerformed
@@ -270,14 +247,10 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
         if (evt.getClickCount() == 2) { // Detectar clic simple
             int row = ListaPlaylist.rowAtPoint(evt.getPoint());
             if (row >= 0) {
-                // Obtener el valor de una columna específica, por ejemplo, la columna con índice 1
-                int id = (int) ListaPlaylist.getValueAt(row, 0); // Cambia 1 al índice de la columna deseada
-                jFrame2.setVisible(true);
+                int id = (int) ListaPlaylist.getValueAt(row, 1); // Cambia 1 al índice de la columna deseada 
                 Object[][] datos = controladorP.obtenerDatosPlaylist(id);
-                String[] columnNames = {"ID", "NOMBRE", "RUTAIMAGEN","RUTA MP3","DURACION", "GENERO"};
-                NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
-                canciones.setModel(tableModel);
-                canciones.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer());
+                jFrameCanciones jFrameC = new jFrameCanciones(datos);
+                jFrameC.setVisible(true);
             }
         }
     }//GEN-LAST:event_ListaPlaylistMouseClicked
@@ -288,12 +261,9 @@ public class ConsultarPlaylist extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> DatosGenero;
     private javax.swing.JComboBox<String> GeneroCliente;
     private javax.swing.JTable ListaPlaylist;
-    private javax.swing.JTable canciones;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JFrame jFrame2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

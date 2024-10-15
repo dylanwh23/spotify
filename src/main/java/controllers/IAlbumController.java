@@ -21,6 +21,9 @@ public interface IAlbumController {
     public abstract List<String> obtenerNombresAlbumsFavoritos(String clienteNick);
     public abstract List<Album> obtenerAlbumesPorGenero(String nombreGenero);
     public abstract List<Album> obtenerAlbumArtista(String nickArtista);
-    public abstract Object[][] obtenerDatosAlbum(String nombre);
+    public abstract Object[][] obtenerDatosAlbum(int id);
+    public abstract Object[][] obtenerAlbumArtistaObj(String artistaSeleccionado);
+    public abstract Object[][] obtenerAlbumesPorGeneroObj(String generoSeleccionado);
+    
     
 }

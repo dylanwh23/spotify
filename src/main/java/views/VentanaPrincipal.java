@@ -282,6 +282,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void altaTemaListabtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_altaTemaListabtnActionPerformed
         AltaTemaLista altaTemaLista = new AltaTemaLista();
         contenido.add(altaTemaLista);
+        contenido.setLocation(50,50);
         altaTemaLista.setVisible(true);
     }//GEN-LAST:event_altaTemaListabtnActionPerformed
 
@@ -343,6 +344,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         PublicarLista publicarLista = new PublicarLista();
+       
         contenido.add(publicarLista);
         publicarLista.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed

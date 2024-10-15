@@ -22,18 +22,20 @@ import models.Genero;
 import persistence.ArtistaJpaController;
 import persistence.ClienteJpaController;
 import persistence.GeneroJpaController;
+
 /**
  *
  * @author Machichu
  */
 public class AlbumController implements IAlbumController {
-   private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
-  
+
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+
     private ArtistaJpaController art_ctr;
     private ClienteJpaController auxCliente;
     private AlbumJpaController auxAL;
     private GeneroJpaController auxG;
-   
+
     public AlbumController() {
         Fabrica fabrica = Fabrica.getInstance();
         this.art_ctr = fabrica.getArtistaJpaController();
@@ -41,8 +43,6 @@ public class AlbumController implements IAlbumController {
         this.auxAL = fabrica.getAlbumJpaController();
         this.auxG = fabrica.getGeneroJpaController();
     }
-    
-
 
     public AlbumController(EntityManagerFactory emf) {
         this.emf = emf;
@@ -56,70 +56,64 @@ public class AlbumController implements IAlbumController {
     public boolean buscarArtista(String nombreA) {
         EntityManager em = getEntityManager();
         try {
-            
+
             TypedQuery<Artista> query = em.createQuery("SELECT a FROM Artista a WHERE a.nick = :nick", Artista.class);
             query.setParameter("nick", nombreA);
-            
-            
+
             List<Artista> resultados = query.getResultList();
-            
-            
+
             return !resultados.isEmpty();
         } finally {
             em.close();
         }
     }
 
+    public boolean buscarAlbum(String nombreAl) {
+        EntityManager em = getEntityManager();
+        try {
 
-public boolean buscarAlbum(String nombreAl) {
-    EntityManager em = getEntityManager();
-    try {
-       
-        TypedQuery<Album> query = em.createQuery("SELECT a FROM Album a WHERE a.nombre = :nombre", Album.class);
-        query.setParameter("nombre", nombreAl);
-        
-      
-        List<Album> resultados = query.getResultList();
-        return !resultados.isEmpty();  
-    } catch (Exception e) {
-        System.out.println("Error al buscar el álbum: " + e.getMessage());
-        return false;  
-    } finally {
-        em.close();
+            TypedQuery<Album> query = em.createQuery("SELECT a FROM Album a WHERE a.nombre = :nombre", Album.class);
+            query.setParameter("nombre", nombreAl);
+
+            List<Album> resultados = query.getResultList();
+            return !resultados.isEmpty();
+        } catch (Exception e) {
+            System.out.println("Error al buscar el álbum: " + e.getMessage());
+            return false;
+        } finally {
+            em.close();
+        }
     }
-}
 
-
-public boolean registrarAlbum(String nombre, int anio,List<Genero> generos) {
+    public boolean registrarAlbum(String nombre, int anio, List<Genero> generos) {
         Album al = new Album();
         al.setNombre(nombre);
         al.setAnioo(anio);
         al.setGeneros(generos);
-    
+
         try {
             auxAL.create(al);
             return true;
         } catch (Exception ex) {
-         
+
             return false;
         }
     }
 
-public List<String> obtenerNombresAlbums() {
-    List<Album> albums = auxAL.findAlbumEntities();
-    return albums.stream()
-                 .map(album ->album.getId() +" - "+ album.getNombre())
-                 .collect(Collectors.toList());
-}
+    public List<String> obtenerNombresAlbums() {
+        List<Album> albums = auxAL.findAlbumEntities();
+        return albums.stream()
+                .map(album -> album.getId() + " - " + album.getNombre())
+                .collect(Collectors.toList());
+    }
 
-    public void CrearAlbum(String text, int parseInt, String strArtista, String Direccion_imagen,  Object[][] cancionesOBJ, List<String> generos) {
+    public void CrearAlbum(String text, int parseInt, String strArtista, String Direccion_imagen, Object[][] cancionesOBJ, List<String> generos) {
         List<Cancion> canciones = new ArrayList<>();
         for (Object[] fila : cancionesOBJ) {
             Cancion cancion = new Cancion();
             cancion.setNombre((String) fila[1]);  // Nombre
             cancion.setDuracion((Integer) fila[2]);  // Duración
             cancion.setDireccion_archivo_de_audio((String) fila[3]);  // Ruta MP3
-            //cancion.setDireccion_imagen((String) fila[4]);  // Imagen
             cancion.setGenero(auxG.findGenero((String) fila[4]));
             canciones.add(cancion);  // Agregar la canción a la lista
         }
@@ -137,88 +131,126 @@ public List<String> obtenerNombresAlbums() {
     }
 
     public List<String> obtenerNombresAlbumsFavoritos(String clienteNick) {
-    // Busca al cliente por su nick
-    Cliente cliente = auxCliente.findCliente(clienteNick);
+        // Busca al cliente por su nick
+        Cliente cliente = auxCliente.findCliente(clienteNick);
 
-    // Si no se encuentra el cliente, retorna una lista vacía
-    if (cliente == null) {
-        return new ArrayList<>();
-    }
-
-    // Obtener los álbumes favoritos del cliente
-    List<Album> albumesFavoritos = cliente.getAlbumesFavoritos();
-
-    // Mapear los álbumes favoritos a una lista de nombres
-    return albumesFavoritos.stream()
-            .map(album -> album.getId() + " - " + album.getNombre())
-            .collect(Collectors.toList());
-}
-
-public List<Album> BuscarAlbumGenero(String nombreGenero) {
-    EntityManager em = getEntityManager();
-    try {
-        return em.createQuery("SELECT a FROM Album a WHERE a.genero.nombre = :nombreGenero", Album.class)
-                 .setParameter("nombreGenero", nombreGenero)
-                 .getResultList();
-    } finally {
-        em.close();
-    }
-}  
-  public List<Album> obtenerAlbumesPorGenero(String nombreGenero) {
-    EntityManager em = emf.createEntityManager();
-    try {
-        
-        return em.createQuery(
-                "SELECT a FROM Album a JOIN a.generos g WHERE g.nombre = :nombreGenero", Album.class)
-                .setParameter("nombreGenero", nombreGenero)
-                .getResultList();
-    } finally {
-        em.close();
-    }
-}  
- public List<Album> obtenerAlbumArtista(String nickArtista) {
-     EntityManager em = emf.createEntityManager();
-    try {
-        
-        return em.createQuery(
-                "SELECT a FROM Album a JOIN a.artista art WHERE art.nick = :nickArtista", Album.class)
-                .setParameter("nickArtista", nickArtista)
-                .getResultList();
-    } finally {
-        em.close();
-    }
-}
-  
- public Object[][] obtenerDatosAlbum(String nombre) {
-    EntityManager em = emf.createEntityManager();
-    try {
-        List<Album> albumes = em.createQuery("SELECT a FROM Album a WHERE a.nombre = :nombre", Album.class).setParameter("nombre", nombre).getResultList();
-        Object[][] data = new Object[albumes.size()][6];
-
-        for (int i = 0; i < albumes.size(); i++) {
-            Album album = albumes.get(i);  
-             data[i][0] = album.getId();
-            data[i][1] = album.getNombre();     
-            data[i][2] = album.getAnioo();
-            data[i][3] = album.getArtista().getNombre();
-            data[i][4] = album.getGeneros().stream()
-                                .map(Genero::getNombre)
-                                .collect(Collectors.joining(", "));;
-            data[i][5] = album.getCanciones().stream()
-                                .map(Cancion::getNombre)
-                                .collect(Collectors.joining(", "));;
-            
+        // Si no se encuentra el cliente, retorna una lista vacía
+        if (cliente == null) {
+            return new ArrayList<>();
         }
-        return data;
 
-    } finally {
-        em.close();
+        // Obtener los álbumes favoritos del cliente
+        List<Album> albumesFavoritos = cliente.getAlbumesFavoritos();
+
+        // Mapear los álbumes favoritos a una lista de nombres
+        return albumesFavoritos.stream()
+                .map(album -> album.getId() + " - " + album.getNombre())
+                .collect(Collectors.toList());
     }
-}
- 
- 
- 
 
-    
-    
+    public List<Album> BuscarAlbumGenero(String nombreGenero) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT a FROM Album a WHERE a.genero.nombre = :nombreGenero", Album.class)
+                    .setParameter("nombreGenero", nombreGenero)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Album> obtenerAlbumesPorGenero(String nombreGenero) {
+        EntityManager em = emf.createEntityManager();
+        try {
+
+            return em.createQuery(
+                    "SELECT a FROM Album a JOIN a.generos g WHERE g.nombre = :nombreGenero", Album.class)
+                    .setParameter("nombreGenero", nombreGenero)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Album> obtenerAlbumArtista(String nickArtista) {
+        EntityManager em = emf.createEntityManager();
+        try {
+
+            return em.createQuery(
+                    "SELECT a FROM Album a JOIN a.artista art WHERE art.nick = :nickArtista", Album.class)
+                    .setParameter("nickArtista", nickArtista)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Object[][] obtenerDatosAlbum(int id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            List<Album> albumes = em.createQuery("SELECT a FROM Album a WHERE a.id = :nombre", Album.class).setParameter("nombre", id).getResultList();
+            Object[][] data = new Object[albumes.size()][7];
+
+            for (int i = 0; i < albumes.size(); i++) {
+                Album album = albumes.get(i);
+                data[i][0] = album.getDireccion_imagen();
+                data[i][1] = album.getId();
+                data[i][2] = album.getNombre();
+                data[i][3] = album.getAnioo();
+                data[i][4] = album.getArtista().getNick();
+                data[i][5] = album.getGeneros().stream()
+                        .map(Genero::getNombre)
+                        .collect(Collectors.joining(", "));;
+                data[i][6] = album.getCanciones().stream()
+                        .map(Cancion::getNombre)
+                        .collect(Collectors.joining(", "));;
+
+            }
+            return data;
+
+        } finally {
+            em.close();
+        }
+    }
+
+    public Object[][] obtenerAlbumArtistaObj(String artistaSeleccionado) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            List<Album> albumes = em.createQuery("SELECT a FROM Album a JOIN a.artista art WHERE art.nick = :artistaSeleccionado", Album.class).setParameter("artistaSeleccionado", artistaSeleccionado).getResultList();
+            Object[][] data = new Object[albumes.size()][7];
+
+            for (int i = 0; i < albumes.size(); i++) {
+                Album album = albumes.get(i);
+                data[i][0] = album.getId();
+                data[i][1] = album.getNombre();
+               
+            }
+            return data;
+
+        } finally {
+            em.close();
+        }
+    }
+
+    ;
+   public Object[][] obtenerAlbumesPorGeneroObj(String generoSeleccionado) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            List<Album> albumes = em.createQuery("SELECT a FROM Album a JOIN a.generos g WHERE g.nombre = :generoSeleccionado", Album.class).setParameter("generoSeleccionado", generoSeleccionado).getResultList();
+            Object[][] data = new Object[albumes.size()][7];
+
+            for (int i = 0; i < albumes.size(); i++) {
+                Album album = albumes.get(i);
+               data[i][0] = album.getId();
+               data[i][1] = album.getNombre();
+
+            }
+            return data;
+
+        } finally {
+            em.close();
+        }
+    }
+;
+
 }

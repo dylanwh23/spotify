@@ -9,6 +9,7 @@ import controllers.IAlbumController;
 import controllers.ICancionController;
 import controllers.IGeneroController;
 import controllers.IUsuarioController;
+import java.awt.Font;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import models.Album;
@@ -24,7 +25,7 @@ IGeneroController genController = fabrica.getIGeneroController();
 IUsuarioController UController = fabrica.getIUsuarioController();
 IAlbumController AController = fabrica.getIAlbumController();
 ICancionController CController= fabrica.getICancionController();
-
+DefaultTableModel sinNada = new DefaultTableModel();
 
     /**
      * Creates new form ConsultarAlbum
@@ -74,9 +75,6 @@ class NonEditableTableModel extends DefaultTableModel {
         jFrame1 = new javax.swing.JFrame();
         jScrollPane2 = new javax.swing.JScrollPane();
         DatosAlbum = new javax.swing.JTable();
-        jFrame2 = new javax.swing.JFrame();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        DatosCancion = new javax.swing.JTable();
         ComboBoxFiltro = new javax.swing.JComboBox<>();
         ComboBoxGenero = new javax.swing.JComboBox<>();
         ComboBoxArtista = new javax.swing.JComboBox<>();
@@ -85,9 +83,8 @@ class NonEditableTableModel extends DefaultTableModel {
         GeneroL = new javax.swing.JLabel();
         ArtistaL = new javax.swing.JLabel();
 
-        jFrame1.setMinimumSize(new java.awt.Dimension(800, 400));
-        jFrame1.setPreferredSize(new java.awt.Dimension(800, 400));
-        jFrame1.setLocationRelativeTo(null);
+        jFrame1.setTitle("Consulta Album");
+        jFrame1.setMinimumSize(new java.awt.Dimension(1000, 500));
 
         DatosAlbum.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,47 +108,19 @@ class NonEditableTableModel extends DefaultTableModel {
         jFrame1.getContentPane().setLayout(jFrame1Layout);
         jFrame1Layout.setHorizontalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGap(0, 850, Short.MAX_VALUE)
             .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE))
+                .addGroup(jFrame1Layout.createSequentialGroup()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+                    .addGap(0, 0, 0)))
         );
         jFrame1Layout.setVerticalGroup(
             jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGap(0, 504, Short.MAX_VALUE)
             .addGroup(jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
-        );
-
-        jFrame2.setMinimumSize(new java.awt.Dimension(800, 400));
-        jFrame2.setPreferredSize(new java.awt.Dimension(800, 400));
-        jFrame2.setLocationRelativeTo(null);
-
-        DatosCancion.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(DatosCancion);
-
-        javax.swing.GroupLayout jFrame2Layout = new javax.swing.GroupLayout(jFrame2.getContentPane());
-        jFrame2.getContentPane().setLayout(jFrame2Layout);
-        jFrame2Layout.setHorizontalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGroup(jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-        );
-        jFrame2Layout.setVerticalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 305, Short.MAX_VALUE)
-            .addGroup(jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
+                .addGroup(jFrame1Layout.createSequentialGroup()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .addGap(0, 0, 0)))
         );
 
         setClosable(true);
@@ -214,41 +183,40 @@ class NonEditableTableModel extends DefaultTableModel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ComboBoxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(ComboBoxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(GeneroL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ComboBoxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ArtistaL)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ComboBoxArtista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(GeneroL)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                                .addComponent(ComboBoxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(59, 59, 59)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
+                        .addComponent(ArtistaL)
+                        .addGap(18, 18, 18)
+                        .addComponent(ComboBoxArtista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(ComboBoxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ComboBoxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GeneroL))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ComboBoxArtista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ArtistaL))
-                .addContainerGap(302, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(ComboBoxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(GeneroL)
+                            .addComponent(ComboBoxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ArtistaL)
+                            .addComponent(ComboBoxArtista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -257,34 +225,34 @@ class NonEditableTableModel extends DefaultTableModel {
     private void ComboBoxFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxFiltroActionPerformed
         // TODO add your handling code here:
         if ("Artista".equals(ComboBoxFiltro.getSelectedItem())){
+           TablaAlbum.setModel(sinNada);
            ComboBoxArtista.setVisible(true);
-            ArtistaL.setVisible(true);
-             GeneroL.setVisible(false);
+           ArtistaL.setVisible(true);
+           GeneroL.setVisible(false);
            ComboBoxGenero.setVisible(false);
+           
         }else if("Genero".equals(ComboBoxFiltro.getSelectedItem())){
+            TablaAlbum.setModel(sinNada);
             ComboBoxGenero.setVisible(true);
-             GeneroL.setVisible(true);
-              ArtistaL.setVisible(false);
+            GeneroL.setVisible(true);
+            ArtistaL.setVisible(false);
             ComboBoxArtista.setVisible(false);
             
+        }else{
+        TablaAlbum.setModel(sinNada);
+           ComboBoxGenero.setVisible(false);
+            GeneroL.setVisible(false);
+            ArtistaL.setVisible(false);
+            ComboBoxArtista.setVisible(false);
         }
     }//GEN-LAST:event_ComboBoxFiltroActionPerformed
 
     private void ComboBoxGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxGeneroActionPerformed
         // TODO add your handling code here:
-       String generoSeleccionado = ComboBoxGenero.getSelectedItem().toString();
+    String generoSeleccionado = ComboBoxGenero.getSelectedItem().toString();
+    String[] columnNames = {"ID","Álbum"};
+    Object[][] data = AController.obtenerAlbumesPorGeneroObj(generoSeleccionado);
     
-   
-    List<Album> albumes = AController.obtenerAlbumesPorGenero(generoSeleccionado);
-    
-   
-    String[] columnNames = {"Álbum"};
-    Object[][] data = new Object[albumes.size()][1];
-    for (int i = 0; i < albumes.size(); i++) {
-        data[i][0] = albumes.get(i).getNombre();  
-    }
-    
-
     NonEditableTableModel modelo= new NonEditableTableModel(data,columnNames);
     TablaAlbum.setModel(modelo);
         
@@ -295,18 +263,9 @@ class NonEditableTableModel extends DefaultTableModel {
 
     private void ComboBoxArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxArtistaActionPerformed
         // TODO add your handling code here:
-         String artistaSeleccionado = ComboBoxArtista.getSelectedItem().toString();
-    
-   
-    List<Album> albumes = AController.obtenerAlbumArtista(artistaSeleccionado);
-    
-  
-    String[] columnNames = {"Álbum"};
-    Object[][] data = new Object[albumes.size()][1];
-    for (int i = 0; i < albumes.size(); i++) {
-        data[i][0] = albumes.get(i).getNombre();  
-    }
-    
+    String artistaSeleccionado = ComboBoxArtista.getSelectedItem().toString();
+    String[] columnNames = {"ID","Álbum"};
+    Object[][] data = AController.obtenerAlbumArtistaObj(artistaSeleccionado);
     
      NonEditableTableModel modelo= new NonEditableTableModel(data,columnNames);
     TablaAlbum.setModel(modelo);
@@ -318,38 +277,38 @@ class NonEditableTableModel extends DefaultTableModel {
         if (evt.getClickCount() == 2) { // Detectar clic simple
             int row = TablaAlbum.rowAtPoint(evt.getPoint());
             if (row >= 0) {
+                int id = (Integer) TablaAlbum.getValueAt(row, 0); 
+                Object[][] datos = AController.obtenerDatosAlbum(id);
+                jFrameAlbum jframe = new jFrameAlbum(datos); 
+                jframe.setVisible(true);
                 
-               
+                /*DatosAlbum.setRowHeight(140);
+                DatosAlbum.setFont(new Font("Arial", Font.PLAIN, 16));
+                DatosAlbum.setShowGrid(true);
                 String id = (String) TablaAlbum.getValueAt(row, 0); 
                 jFrame1.setVisible(true);
-                
                 Object[][] datos = AController.obtenerDatosAlbum(id);
-                String[] columnNames = {"ID" , "NOMBRE", "AÑO", "ARTISTA", "GENEROS", "CANCIONES"};
+                String[] columnNames = {"IMAGEN","ID" , "NOMBRE", "AÑO" ,"ARTISTA", "GENEROS", "CANCIONES"};
                 NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
                 DatosAlbum.setModel(tableModel);
-                
+                DatosAlbum.getColumnModel().getColumn(0).setCellRenderer(new ImageRenderer());
+                */
             }
         }
     }//GEN-LAST:event_TablaAlbumMouseClicked
 
     private void DatosAlbumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DatosAlbumMouseClicked
-        // TODO add your handling code here:
-        
+       /*
         if (evt.getClickCount() == 2) { // Detectar clic simple
             int row = DatosAlbum.rowAtPoint(evt.getPoint());
             if (row >= 0) {
-                
-                
-                int id = (int) DatosAlbum.getValueAt(row, 0); // Cambia 1 al índice de la columna deseada
-                jFrame2.setVisible(true);
-                
+                int id = (int) DatosAlbum.getValueAt(row, 1); // Cambia 1 al índice de la columna deseada
                 Object[][] datos = CController.obtenerDatosCancion(id);
-                String[] columnNames = {"ID ", "NOMBRE", "DURACION", "ARCHIVO DE AUDIO", "IMAGEN"};
-                NonEditableTableModel tableModel = new NonEditableTableModel(datos, columnNames);
-                DatosCancion.setModel(tableModel);
-                DatosCancion.getColumnModel().getColumn(4).setCellRenderer(new ImageRenderer());
+                jFrameCanciones jFrameC = new jFrameCanciones(datos);
+                jFrameC.setVisible(true);
+                
             }
-        }
+        }*/
     }//GEN-LAST:event_DatosAlbumMouseClicked
 
 
@@ -359,13 +318,10 @@ class NonEditableTableModel extends DefaultTableModel {
     private javax.swing.JComboBox<String> ComboBoxFiltro;
     private javax.swing.JComboBox<String> ComboBoxGenero;
     private javax.swing.JTable DatosAlbum;
-    private javax.swing.JTable DatosCancion;
     private javax.swing.JLabel GeneroL;
     private javax.swing.JTable TablaAlbum;
     private javax.swing.JFrame jFrame1;
-    private javax.swing.JFrame jFrame2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

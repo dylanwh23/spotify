@@ -30,7 +30,7 @@ public class ImageRenderer extends DefaultTableCellRenderer {
                 if (imageFile.exists()) {
                     // Cargar la imagen desde la ruta especificada
                     ImageIcon icon = new ImageIcon(ImageIO.read(imageFile));
-                    Image img = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Ajustar tamaño
+                    Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH); // Ajustar tamaño
                     label.setIcon(new ImageIcon(img));
                 } else {
                     // Si la imagen no existe, mostrar la imagen predeterminada

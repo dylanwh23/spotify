@@ -79,6 +79,7 @@ public class Cancion implements Serializable {
     public int getDuracion() {
         return duracion;
     }
+    
 
     public String getDireccion_archivo_de_audio() {
         return direccion_archivo_de_audio;

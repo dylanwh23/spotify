@@ -72,6 +72,10 @@ public class Album implements Serializable {
     public Album() {
        
     }
+
+    public String getDireccion_imagen() {
+        return direccion_imagen;
+    }
     
     public int getId() {
         return id;

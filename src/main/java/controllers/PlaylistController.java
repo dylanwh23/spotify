@@ -30,6 +30,7 @@ import persistence.ClienteJpaController;
  * @author Machichu
  */
 public class PlaylistController implements IPlaylistController{
+    private CancionController canCon = new CancionController() ;
     private PlaylistJpaController auxPlay;
     private GeneroJpaController auxGen;
     private CancionJpaController auxCan;
@@ -79,7 +80,7 @@ public class PlaylistController implements IPlaylistController{
 
     public Object[][] obtenerPlaylistLista() {
         List<Playlist> playlists = auxPlay.findPlaylistEntities();
-        Object[][] data = new Object[playlists.size()][6]; 
+        Object[][] data = new Object[playlists.size()][7]; 
 
         for (int i = 0; i < playlists.size(); i++) {
             Playlist playlist = playlists.get(i);
@@ -87,28 +88,28 @@ public class PlaylistController implements IPlaylistController{
             // Si Playlist tiene subclases, puedes hacer un check del tipo
             if (playlist instanceof PlaylistPorDefecto) {
                 PlaylistPorDefecto PlaylistPorDefecto = (PlaylistPorDefecto) playlist;
-                data[i][0] = PlaylistPorDefecto.getId();
-                data[i][1] = PlaylistPorDefecto.getNombre();
-                data[i][2] = PlaylistPorDefecto.getRutaImagen();
+                 data[i][0] = PlaylistPorDefecto.getRutaImagen();
+                data[i][1] = PlaylistPorDefecto.getId();
+                data[i][2] = PlaylistPorDefecto.getNombre();
                 data[i][3] = "Por Defecto";
                 data[i][4] = "";
-                data[i][5] = (PlaylistPorDefecto.getGenero().getNombre());
-                
+                data[i][5] = PlaylistPorDefecto.getGenero().getNombre().toString();
+
             } else if (playlist instanceof PlaylistParticular) {
-                PlaylistParticular PlaylistParticular = (PlaylistParticular) playlist;     
-                data[i][0] = PlaylistParticular.getId();
-                data[i][1] = PlaylistParticular.getNombre();
-                data[i][2] = PlaylistParticular.getRutaImagen();
+                PlaylistParticular PlaylistParticular = (PlaylistParticular) playlist;
+                data[i][0] = PlaylistParticular.getRutaImagen();
+                data[i][1] = PlaylistParticular.getId();
+                data[i][2] = PlaylistParticular.getNombre();
                 data[i][3] = "Particular";
                 data[i][4] = PlaylistParticular.getPrivada();
-		data[i][5] = PlaylistParticular.getPropietario();
+                data[i][5] = "";
+                data[i][6] = PlaylistParticular.getPropietario().getNick();
             } else {
-                
-                data[i][0] = playlist.getId();
-                data[i][1] = playlist.getNombre();
-                data[i][2] = playlist.getRutaImagen();
+                data[i][0] = playlist.getRutaImagen();
+                data[i][1] = playlist.getId();
+                data[i][2] = playlist.getNombre();
                 data[i][3] = "???";
-                
+
             }
         }
 
@@ -126,11 +127,11 @@ public class PlaylistController implements IPlaylistController{
                 // Si Playlist tiene subclases, puedes hacer un check del tipo
                 if (playlist instanceof PlaylistPorDefecto) {
                     PlaylistPorDefecto PlaylistPorDefecto = (PlaylistPorDefecto) playlist;
-                    data[i][0] = PlaylistPorDefecto.getId();
-                    data[i][1] = PlaylistPorDefecto.getNombre();
-                    data[i][2] = PlaylistPorDefecto.getRutaImagen();
+                    data[i][1] = PlaylistPorDefecto.getId();
+                    data[i][2] = PlaylistPorDefecto.getNombre();
+                    data[i][0] = PlaylistPorDefecto.getRutaImagen();
                     data[i][3] = "Por Defecto";
-                    data[i][4] = (PlaylistPorDefecto.getGenero().getNombre());
+                    data[i][4] = (PlaylistPorDefecto.getGenero().getNombre().toString());
                 }
             }
             return data;
@@ -148,12 +149,12 @@ public class PlaylistController implements IPlaylistController{
                 Playlist playlist = playlists.get(i);
                 if (playlist instanceof PlaylistParticular) {
                     PlaylistParticular PlaylistParticular = (PlaylistParticular) playlist;
-                    data[i][0] = PlaylistParticular.getId();
-                    data[i][1] = PlaylistParticular.getNombre();
-                    data[i][2] = PlaylistParticular.getRutaImagen();
+                    data[i][1] = PlaylistParticular.getId();
+                    data[i][2] = PlaylistParticular.getNombre();
+                    data[i][0] = PlaylistParticular.getRutaImagen();
                     data[i][3] = "Particular";
                     data[i][4] = PlaylistParticular.getPrivada();
-		    data[i][5] = PlaylistParticular.getPropietario();
+		    data[i][5] = PlaylistParticular.getPropietario().getNick();
                 }
             }
             return data;
@@ -180,9 +181,9 @@ public class PlaylistController implements IPlaylistController{
             Cancion cancion = canciones.get(i);
             datos[i][0] = cancion.getId();
             datos[i][1] = cancion.getNombre();
-            datos[i][2] = "BUSCAR FOTO DE ALBUM";
+            datos[i][4] = canCon.obtenerFoto(cancion.getId());
             datos[i][3] = cancion.getDireccion_archivo_de_audio();
-            datos[i][4] = cancion.getDuracion();
+            datos[i][2] = cancion.getDuracion();
             if(cancion.getGenero()!=null){
             datos[i][5] = cancion.getGenero().toString();
             }else{
