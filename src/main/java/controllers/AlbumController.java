@@ -26,6 +26,7 @@ import persistence.GeneroJpaController;
 /**
  *
  * @author Machichu
+ * probando si anda
  */
 public class AlbumController implements IAlbumController {
 
