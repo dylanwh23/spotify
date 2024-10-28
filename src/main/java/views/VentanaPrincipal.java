@@ -49,6 +49,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jMenu3 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
         contenido = new javax.swing.JPanel();
         jMenuBar2 = new javax.swing.JMenuBar();
         registrosBtn = new javax.swing.JMenu();
@@ -60,6 +61,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         altaAlbumBtn = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         consultarClientesBtn = new javax.swing.JMenuItem();
         consultarPlaylistBtn = new javax.swing.JMenuItem();
@@ -70,6 +72,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         jMenu2.setText("jMenu2");
+
+        jMenuItem4.setText("jMenuItem4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administración");
@@ -165,6 +169,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         registrosBtn.add(jMenuItem3);
+
+        jMenuItem5.setText("Actualizar Subscripcion");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        registrosBtn.add(jMenuItem5);
 
         jMenuBar2.add(registrosBtn);
 
@@ -348,6 +360,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contenido.add(publicarLista);
         publicarLista.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        ActualizarSubscripcion actualizarSubscripcion = new ActualizarSubscripcion();
+       
+        contenido.add(actualizarSubscripcion);
+        actualizarSubscripcion.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -403,6 +423,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenu registrosBtn;
     // End of variables declaration//GEN-END:variables
 }

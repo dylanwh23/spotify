@@ -35,5 +35,6 @@ public interface IUsuarioController {
     //encriptado contraseñas
     public abstract String hashPassword(String password);
     public abstract boolean checkPassword(String password, String hashedPassword);
+    public abstract void CambiarEstadosubscripcion(String nick, String estado, Integer tipo, LocalDate fecha) throws Exception;
 
 }

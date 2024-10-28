@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import static java.lang.System.out;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
@@ -45,6 +46,7 @@ public class UsuarioController implements IUsuarioController {
     private AlbumJpaController auxAlbum;
     private CancionJpaController auxCan;
     private ClienteJpaController auxCliente;
+    private UsuarioJpaController usrController;
 
     // Constructor que obtiene las dependencias desde la fábrica
     public UsuarioController() {
@@ -55,6 +57,7 @@ public class UsuarioController implements IUsuarioController {
         this.auxAlbum = fabrica.getAlbumJpaController();
         this.auxCan = fabrica.getCancionJpaController();
         this.auxCliente = fabrica.getClienteJpaController(); // Asumiendo que ClienteJpaController es similar a UsuarioJpaController
+        this.usrController = fabrica.getUsuarioJpaController();
     }
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
@@ -79,7 +82,7 @@ public class UsuarioController implements IUsuarioController {
         EntityManager em = emf.createEntityManager();
         try {
             List<Cliente> clientes = em.createQuery("SELECT c FROM Cliente c WHERE c.nick = :nick", Cliente.class).setParameter("nick", nick).getResultList();
-            Object[][] data = new Object[clientes.size()][7];
+            Object[][] data = new Object[clientes.size()][8];
 
             for (int i = 0; i < clientes.size(); i++) {
                 Cliente cliente = clientes.get(i);  // Obtener el cliente individual
@@ -91,6 +94,7 @@ public class UsuarioController implements IUsuarioController {
                 data[i][4] = cliente.getFecNac();
                 data[i][5] = cliente.getImagen();
                 data[i][6] = cliente.getContraseña();
+                data[i][7] = cliente.getEstado().toString();
             }
             return data;
 
@@ -391,4 +395,39 @@ public class UsuarioController implements IUsuarioController {
             return false;
         }
     }
+    
+    
+    
+ public void CambiarEstadosubscripcion(String nick, String estado, Integer tipo, LocalDate fecha) throws Exception {
+    // 1. Busca al cliente por su nick
+    Cliente cliente = (Cliente) usrController.findUsuario(nick);
+    
+    if (cliente == null) {
+        throw new Exception("Cliente no encontrado con nick: " + nick);
+    }
+
+    boolean cambios = false;
+
+    // 2. Actualiza los campos solo si hay cambios
+    if (estado != null && !estado.equals(cliente.getEstado())) {
+        cliente.setEstado(estado);
+        cambios = true;
+    }
+    if (tipo != null && !tipo.equals(cliente.getTipo())) {
+        cliente.setTipo(tipo);
+        cambios = true;
+    }
+    if (fecha != null) {
+        cliente.setFecSub(fecha);
+        cambios = true;
+    }
+
+    // 3. Solo persiste si hubo cambios
+    if (cambios) {
+       usrController.edit(cliente);  // Verifica que este método use merge() correctamente.
+    }
+}
+    
+    
+    
 }
