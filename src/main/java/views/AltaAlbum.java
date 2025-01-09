@@ -161,12 +161,10 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
         fileMP3 = new javax.swing.JTextField();
         btnMP3 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        DatosGenero = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaCanciones = new javax.swing.JTable();
         AceptarCancion = new javax.swing.JButton();
         Finalizar = new javax.swing.JButton();
-        jLabel17 = new javax.swing.JLabel();
         PanelAlbum = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -242,13 +240,6 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
 
         jLabel16.setText("Ruta MP3");
 
-        DatosGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Genero" }));
-        DatosGenero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DatosGeneroActionPerformed(evt);
-            }
-        });
-
         TablaCanciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -276,8 +267,6 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel17.setText("Genero Cancion");
-
         javax.swing.GroupLayout agregarCancionPanelLayout = new javax.swing.GroupLayout(agregarCancionPanel);
         agregarCancionPanel.setLayout(agregarCancionPanelLayout);
         agregarCancionPanelLayout.setHorizontalGroup(
@@ -297,21 +286,15 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8)
                             .addGroup(agregarCancionPanelLayout.createSequentialGroup()
                                 .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(agregarCancionPanelLayout.createSequentialGroup()
-                                        .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel16))
-                                        .addGap(42, 42, 42))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, agregarCancionPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addGap(18, 18, 18)))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel16))
+                                .addGap(47, 47, 47)
                                 .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(duracion, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nombreC, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(DatosGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(agregarCancionPanelLayout.createSequentialGroup()
                                         .addComponent(fileMP3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -341,11 +324,7 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
                     .addComponent(fileMP3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMP3)
                     .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(DatosGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addGap(47, 47, 47)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(agregarCancionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -547,7 +526,7 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
         
         for (String nombreG : generos) {
             
-            DatosGenero.addItem(nombreG);
+           
             
         }
     }
@@ -626,11 +605,11 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
 
     private void AceptarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarCancionActionPerformed
 
-        if (!(nombreC.getText().isEmpty() || duracion.getText().isEmpty() || fileMP3.getText().isEmpty() ||DatosGenero.getSelectedItem().toString().equals("Seleccione Genero"))) {
+        if (!(nombreC.getText().isEmpty() || duracion.getText().isEmpty() || fileMP3.getText().isEmpty() )){
             jScrollPane2.setVisible(true);
             int duracionnum = Integer.parseInt(duracion.getText());
 
-            model.addRow(new Object[]{pos.getText(),nombreC.getText(), duracionnum, fileMP3.getText(),DatosGenero.getSelectedItem().toString(), "Eliminar"});
+            model.addRow(new Object[]{pos.getText(),nombreC.getText(), duracionnum, fileMP3.getText(), "Eliminar"});
             TablaCanciones.setModel(model);
             
 
@@ -670,7 +649,7 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
         } else {
             try {
 
-                AController.CrearAlbum(NombreAlbum.getText(), Integer.parseInt(anioAlbum.getText()), comboBoxArtista.getSelectedItem().toString(), fileImg.getText(),datosCancion, generosSeleccionados);
+                AController.CrearAlbumAdmin(NombreAlbum.getText(), Integer.parseInt(anioAlbum.getText()), comboBoxArtista.getSelectedItem().toString(), fileImg.getText(),datosCancion, generosSeleccionados);
                 JOptionPane.showMessageDialog(this, "Alta de Album creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (Exception e) {
@@ -704,7 +683,7 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
 
     private void AceptarAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarAlbumActionPerformed
         List<String> generosSeleccionados = ObtenerGenerosSeleccionados();
-        DatosGenero.removeAllItems();
+        
         cargarGeneros();
         if(NombreAlbum.getText().isEmpty() || anioAlbum.getText().isEmpty()||generosSeleccionados.size()<1){
             JOptionPane.showMessageDialog(this,"Ocurrió un error: Se ingresaron campos vacios" ,"Error",JOptionPane.ERROR_MESSAGE);
@@ -726,16 +705,11 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
 //        }
     }//GEN-LAST:event_AceptarArtistaActionPerformed
 
-    private void DatosGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DatosGeneroActionPerformed
-
-    }//GEN-LAST:event_DatosGeneroActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AceptarAlbum;
     private javax.swing.JButton AceptarArtista;
     private javax.swing.JButton AceptarCancion;
-    private javax.swing.JComboBox<String> DatosGenero;
     private javax.swing.JButton Finalizar;
     private javax.swing.JTextField NombreAlbum;
     private javax.swing.JPanel PanelAlbum;
@@ -752,7 +726,6 @@ public class AltaAlbum extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

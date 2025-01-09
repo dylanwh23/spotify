@@ -14,6 +14,7 @@ import persistence.GeneroJpaController;
 import persistence.PlaylistJpaController;
 import persistence.UsuarioJpaController;
 
+
 /**
  *
  * @author dylan
@@ -21,12 +22,14 @@ import persistence.UsuarioJpaController;
 public class Fabrica {
 
     private static Fabrica instancia;
-    private EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
     private Fabrica() {
         this.emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
     };
     
-    
+    public static String safeToString(Object obj) {
+        return obj != null ? obj.toString() : "null";
+    }
 
     public static Fabrica getInstance() {
         if (instancia == null) {

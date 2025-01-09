@@ -115,7 +115,7 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Tipo:");
 
-        tipoSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "Artista" }));
+        tipoSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "cliente", "artista" }));
         tipoSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipoSelectActionPerformed(evt);
@@ -322,7 +322,7 @@ public class AltaUsuario extends javax.swing.JInternalFrame {
 
     private void tipoSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoSelectActionPerformed
         // TODO add your handling code here:
-        if ("Artista".equals(tipoSelect.getSelectedItem())) {
+        if ("artista".equals(tipoSelect.getSelectedItem())) {
             jPanel1.setVisible(true);
         } else {
             jPanel1.setVisible(false);

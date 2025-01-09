@@ -5,6 +5,7 @@
 package models;
 
 import java.time.LocalDate;
+import javax.jws.WebService;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Column;
@@ -16,9 +17,9 @@ import javax.persistence.DiscriminatorValue;
  * @author dylan
  */
 @Entity
-@Table(name="Artista")
+@Table(name="artista")
 @DiscriminatorValue("artista")
-
+@WebService
 public class Artista extends Usuario {
 	@Column(name="biografia",length = 1200)
     private String biografia;
@@ -32,7 +33,7 @@ public class Artista extends Usuario {
         this.apellido = apellido;
         this.contraseñaHash = contraseña;
         this.mail = mail;
-        this.fecNac = FecNac;
+        this.fecNacimiento = FecNac;
         this.biografia = biografia;
         this.DireccionWeb = link;
         this.imagen = imagen;
@@ -71,7 +72,7 @@ public class Artista extends Usuario {
     }
 
     public LocalDate getFecNac() {
-       return fecNac;
+       return fecNacimiento;
     }
 
     public String getImagen() {

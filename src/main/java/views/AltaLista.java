@@ -279,7 +279,7 @@ public class AltaLista extends javax.swing.JInternalFrame {
                 controladorPlaylist.crearPlaylistPorDefecto(NombreLista.getText(),GeneroBox.getSelectedItem().toString(),txtFile.getText());
                 JOptionPane.showMessageDialog(this,"Playlist por defecto creada exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
             } else if ("Particular".equals(TipoLista.getSelectedItem())&(!NombreLista.getText().isEmpty() & !"Seleccione cliente".equals(ClienteBox.getSelectedItem().toString())& !txtFile.getText().isEmpty())) {
-                controladorPlaylist.crearPlaylistParticular(NombreLista.getText(),txtFile.getText(),ClienteBox.getSelectedItem().toString());
+                controladorPlaylist.crearPlaylistParticular(NombreLista.getText(),txtFile.getText(),ClienteBox.getSelectedItem().toString(), true);
                 JOptionPane.showMessageDialog(this,"Playlist particular creada exitosamente.","Éxito",JOptionPane.INFORMATION_MESSAGE);
             }
             else{

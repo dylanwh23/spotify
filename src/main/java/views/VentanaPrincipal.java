@@ -67,6 +67,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         consultarPlaylistBtn = new javax.swing.JMenuItem();
         Consultarartista = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
 
         jMenu3.setText("jMenu3");
@@ -213,6 +214,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem1);
+
+        jMenuItem6.setText("Consultar Acceso");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem6);
 
         jMenuBar2.add(jMenu5);
 
@@ -368,6 +377,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         contenido.add(actualizarSubscripcion);
         actualizarSubscripcion.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        RegistroAcceso registroAcceso= new RegistroAcceso();
+        contenido.add(registroAcceso);
+        registroAcceso.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -425,6 +441,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenu registrosBtn;
     // End of variables declaration//GEN-END:variables
 }

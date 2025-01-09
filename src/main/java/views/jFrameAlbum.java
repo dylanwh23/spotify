@@ -24,13 +24,21 @@ public class jFrameAlbum extends javax.swing.JFrame {
     ICancionController CController= fabrica.getICancionController();
     
     public jFrameAlbum(Object[][] datos) {
+        
+        System.out.println(datos[0][0]);
+        System.out.println(datos[0][1]);
+        System.out.println(datos[0][2]);
+        System.out.println(datos[0][3]);
+        System.out.println(datos[0][4]);
+        System.out.println(datos[0][5]);
+       
         initComponents(); 
-        id.setText(String.valueOf((Integer) datos[0][1]));
-        nombre.setText((String)datos[0][2]);
-        artista.setText((String)datos[0][4]);
-        año.setText(String.valueOf((Integer)datos[0][3]));
-        generos.setText((String)datos[0][5]);
-       String rutaImagen = (String) datos[0][0];
+        id.setText(String.valueOf( (Integer)datos[0][0]));
+        nombre.setText((String)datos[0][1]);
+        artista.setText((String)datos[0][3]);
+        año.setText(String.valueOf((Integer)datos[0][2]));
+        generos.setText((String)datos[0][4]);
+       String rutaImagen = (String) datos[0][6];
         if (rutaImagen == null || rutaImagen.isEmpty()) {
             rutaImagen = "src/main/java/includes/cruz.png"; // Ruta predeterminada
         }
@@ -42,7 +50,7 @@ public class jFrameAlbum extends javax.swing.JFrame {
         if (imagen != null) {
             imagen.setIcon(iconoEscalado);
         }
-        Object[][] datosCan = CController.obtenerDatosCancion((Integer) datos[0][1]);
+        Object[][] datosCan = CController.obtenerDatosCancionSwing((Integer) datos[0][0]);
         for (Object[] fila : datosCan) {
             jPanelCanciones panel = new jPanelCanciones(fila);
             panelCan.add(panel);

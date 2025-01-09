@@ -7,6 +7,7 @@ package models;
 import java.io.Serializable;
 
 import java.util.List;
+import javax.jws.WebService;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,10 +26,11 @@ import javax.persistence.JoinTable;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="Playlist")
+@Table(name="playlist")
+@WebService
 public class Playlist implements Serializable {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	    protected int id;
     

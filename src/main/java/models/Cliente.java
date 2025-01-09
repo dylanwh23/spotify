@@ -14,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.OneToMany;
 
 import java.util.LinkedList;
+import javax.jws.WebService;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -24,12 +25,12 @@ import javax.persistence.ManyToMany;
  * @author dylan
  */
 @Entity
-@Table(name="Cliente")
+@Table(name="cliente")
 @DiscriminatorValue("cliente")
 
 
 
-
+@WebService
 public class Cliente extends Usuario {
 
     @Column(name = "fecSub")
@@ -100,12 +101,12 @@ public class Cliente extends Usuario {
         this.usuariosSeguidos = usuariosSeguidos;
     }
     
-    public LocalDate getFecSub() {
+    public LocalDate getFechaSub() {
         return fecSub;
     }
 
-    public void setFecSub(LocalDate fecSub) {
-        this.fecSub = fecSub;
+    public void setFecSub(LocalDate fecCont) {
+        this.fecSub = fecCont;
     }
 
     public String getEstado() {
@@ -171,11 +172,11 @@ public class Cliente extends Usuario {
     }
 
     public LocalDate getFecNac() {
-        return fecNac;
+        return fecNacimiento;
     }
 
     public void setFecNac(LocalDate fecNac) {
-        this.fecNac = fecNac;
+        this.fecNacimiento = fecNac;
     }
     
     public Cliente(String nick, String nombre, String apellido, String mail, LocalDate FecNac, String imagen, String contraseña){
@@ -185,7 +186,7 @@ public class Cliente extends Usuario {
         this.apellido = apellido;
         this.contraseñaHash = contraseña;
         this.mail = mail;
-        this.fecNac = FecNac;
+        this.fecNacimiento = FecNac;
         this.imagen = imagen;
     }
     

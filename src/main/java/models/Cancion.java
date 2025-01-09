@@ -5,6 +5,7 @@
 package models;
 
 import java.io.Serializable;
+import javax.jws.WebService;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,8 @@ import javax.persistence.Table;
  * @author dylan
  */
 @Entity
-@Table(name="Cancion")
+@Table(name="cancion")
+@WebService
 public class Cancion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +36,10 @@ public class Cancion implements Serializable {
     private int duracion;
     @Column(name = "direccion_archivo_de_audio")
     private String direccion_archivo_de_audio;
-    
+      @Column(name = "descargas")
+    private int descargas = 0;
+    @Column(name = "reproducciones")
+    private int reprodrucciones = 0;
 
     @ManyToOne
     @JoinColumn(name = "genero")
@@ -48,6 +53,22 @@ public class Cancion implements Serializable {
         
     }
 
+    public int getDescargas() {
+        return descargas;
+    }
+
+    public void setDescargas(int descargas) {
+        this.descargas = descargas;
+    }
+
+    public int getReprodrucciones() {
+        return reprodrucciones;
+    }
+
+    public void setReprodrucciones(int reprodrucciones) {
+        this.reprodrucciones = reprodrucciones;
+    }
+    
     public Cancion() {
         
     }

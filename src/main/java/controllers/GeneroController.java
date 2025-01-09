@@ -8,23 +8,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.jws.WebService;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import models.Genero;
 import persistence.GeneroJpaController;
 /**
  *
  * @author Machichu
  */
+@WebService
 public class GeneroController implements IGeneroController {
-     private GeneroJpaController aux;
-
-    // Constructor que obtiene las dependencias desde la fábrica
-    public GeneroController() {
-        // Obtener la instancia de la fábrica
-        Fabrica fabrica = Fabrica.getInstance();
-
-        // Obtener el controlador JPA de géneros desde la fábrica
-        this.aux = fabrica.getGeneroJpaController();
-    }
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
+    GeneroJpaController aux = new GeneroJpaController(emf);
     
     public boolean registrarGenero(String nombre, Genero padre) {
         Genero gen = new Genero();

@@ -5,7 +5,6 @@
 package persistence;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,17 +13,15 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import models.LogSesion;
-import models.Usuario;
 import persistence.exceptions.NonexistentEntityException;
-import persistence.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author dylan
+ * @author diego
  */
-public class UsuarioJpaController implements Serializable {
+public class LogSesionJpaController implements Serializable {
 
-    public UsuarioJpaController(EntityManagerFactory emf) {
+    public LogSesionJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -33,18 +30,13 @@ public class UsuarioJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Usuario usuario) throws PreexistingEntityException, Exception {
+    public void create(LogSesion logSesion) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(usuario);
+            em.persist(logSesion);
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findUsuario(usuario.getNick()) != null) {
-                throw new PreexistingEntityException("Usuario " + usuario + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -52,19 +44,19 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public void edit(Usuario usuario) throws NonexistentEntityException, Exception {
+    public void edit(LogSesion logSesion) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            usuario = em.merge(usuario);
+            logSesion = em.merge(logSesion);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = usuario.getNick();
-                if (findUsuario(id) == null) {
-                    throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.");
+                Long id = logSesion.getId();
+                if (findLogSesion(id) == null) {
+                    throw new NonexistentEntityException("The logSesion with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -75,19 +67,19 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Usuario usuario;
+            LogSesion logSesion;
             try {
-                usuario = em.getReference(Usuario.class, id);
-                usuario.getNick();
+                logSesion = em.getReference(LogSesion.class, id);
+                logSesion.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The logSesion with id " + id + " no longer exists.", enfe);
             }
-            em.remove(usuario);
+            em.remove(logSesion);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -96,19 +88,19 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public List<Usuario> findUsuarioEntities() {
-        return findUsuarioEntities(true, -1, -1);
+    public List<LogSesion> findLogSesionEntities() {
+        return findLogSesionEntities(true, -1, -1);
     }
 
-    public List<Usuario> findUsuarioEntities(int maxResults, int firstResult) {
-        return findUsuarioEntities(false, maxResults, firstResult);
+    public List<LogSesion> findLogSesionEntities(int maxResults, int firstResult) {
+        return findLogSesionEntities(false, maxResults, firstResult);
     }
 
-    private List<Usuario> findUsuarioEntities(boolean all, int maxResults, int firstResult) {
+    private List<LogSesion> findLogSesionEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Usuario.class));
+            cq.select(cq.from(LogSesion.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -120,20 +112,20 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public Usuario findUsuario(String id) {
+    public LogSesion findLogSesion(Long id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Usuario.class, id);
+            return em.find(LogSesion.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getUsuarioCount() {
+    public int getLogSesionCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Usuario> rt = cq.from(Usuario.class);
+            Root<LogSesion> rt = cq.from(LogSesion.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -141,7 +133,5 @@ public class UsuarioJpaController implements Serializable {
             em.close();
         }
     }
-    
-   
     
 }

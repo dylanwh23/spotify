@@ -6,6 +6,7 @@ package models;
  */
 import java.util.LinkedList;
 import java.util.List;
+import javax.jws.WebService;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,7 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 
 @Entity
-@Table(name="PlaylistPorDefecto")
+@Table(name="playlistpordefecto")
+@WebService
 public class PlaylistPorDefecto extends Playlist {
     
     @ManyToOne

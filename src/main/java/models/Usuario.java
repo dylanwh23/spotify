@@ -6,6 +6,7 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.jws.WebService;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -14,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
@@ -22,7 +25,8 @@ import javax.persistence.DiscriminatorType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "tipo_usuario", discriminatorType = DiscriminatorType.STRING)
-@Table(name="Usuario")
+@Table(name="usuario")
+@WebService
 public class Usuario implements Serializable {
     
     @Id
@@ -37,7 +41,8 @@ public class Usuario implements Serializable {
 	@Column(name="imagen")
 	    protected String imagen;
 	@Column(name="fecNac")
-	    protected LocalDate fecNac;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+	    protected LocalDate fecNacimiento;
         @Column(name="password", nullable = false)
 	    protected String contraseñaHash;
     
@@ -46,10 +51,58 @@ public class Usuario implements Serializable {
         return nick;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public LocalDate getFechaNacimiento() {     
+        return fecNacimiento;
+    }
+    public void setFecNac(LocalDate fecNac) {
+        this.fecNacimiento = fecNac;
+    }
+    public String getContraseñaHash() {
+        return contraseñaHash;
+    }
+
+    public void setContraseñaHash(String contraseñaHash) {
+        this.contraseñaHash = contraseñaHash;
+    }
+
     public void setNick(String nick) {
         this.nick = nick;
     }
     
+      
+ 
     public String getContraseña() {
         return contraseñaHash;
     }

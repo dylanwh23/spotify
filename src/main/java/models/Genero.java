@@ -6,6 +6,7 @@ package models;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.jws.WebService;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,10 +23,11 @@ import javax.persistence.Table;
  * @author diego
  */
 @Entity
-@Table(name = "Genero")
+@Table(name = "genero")
 @NamedQueries({
     @NamedQuery(name = "Genero.findAll", query = "SELECT g FROM Genero g"),
     @NamedQuery(name = "Genero.findByNombre", query = "SELECT g FROM Genero g WHERE g.nombre = :nombre")})
+@WebService
 public class Genero implements Serializable {
 
     private static final long serialVersionUID = 1L;

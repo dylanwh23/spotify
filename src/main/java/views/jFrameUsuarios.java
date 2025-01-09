@@ -31,8 +31,8 @@ public class jFrameUsuarios extends javax.swing.JFrame {
         nombre.setText((String)datos[0][1]);
         apellido.setText((String)datos[0][2]);
         mail.setText((String)datos[0][3]);
-        LocalDate fecha = (LocalDate) datos[0][4]; 
-        fechanac.setText(fecha.toString());
+        
+        fechanac.setText(datos[0][4].toString());
       
         String rutaImagen = (String) datos[0][5];
         if (rutaImagen == null || rutaImagen.isEmpty()) {
@@ -51,7 +51,7 @@ public class jFrameUsuarios extends javax.swing.JFrame {
             imagen.setIcon(iconoEscalado);
         }
 
-        contraseña.setText((String) datos[0][6]);
+        contraseña.setText((String) datos[0][8]);
         List<String> listaSeguidores = usrController.obtenerNicknamesseguidores((String) datos[0][0]);
         cantseguidores.setText(String.valueOf(listaSeguidores.size()));
         DefaultListModel<String> modeloSeguidores = new DefaultListModel<>();
@@ -74,7 +74,7 @@ public class jFrameUsuarios extends javax.swing.JFrame {
             artclie.setText("ARTISTA");
             panelArtista.setVisible(true);
             panelSigue.setVisible(false);
-            biografia.setText((String) datos[0][8]);
+            biografia.setText((String) datos[0][6]);
             jLabel5.setText((String) datos[0][7]);
         }
     }

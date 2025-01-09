@@ -31,7 +31,7 @@ public class ActualizarSubscripcion extends javax.swing.JInternalFrame {
         List<String> nombresClientes = usrController.obtenerNombresClientes();
         for (String nombreC : nombresClientes) {
             Object[][] cli = usrController.obtenerDatosCliente(nombreC);
-            if (cli.length > 0 && "Pendiente".equals(cli[0][7])) {
+            if (cli.length > 0 && "Pendiente".equals(cli[0][6])) {
                 clientesBox.addItem(nombreC);
             }
         }
@@ -74,7 +74,7 @@ public class ActualizarSubscripcion extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Estado:");
 
-        estadoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cancelada", "Vigente" }));
+        estadoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cancelado", "Vigente" }));
 
         jButton1.setText("Actualizar Subscripcion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +138,7 @@ public class ActualizarSubscripcion extends javax.swing.JInternalFrame {
         LocalDate fecha = LocalDate.now();
         out.println(fecha);
         try {
-            usrController.CambiarEstadosubscripcion(cliente, estado, null, fecha);
+            usrController.CambiarEstadosubscripcion(cliente, estado, null);
             JOptionPane.showMessageDialog(this, "Estado de subscripcion actualizado:" + estado, "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Ocurrió un error: Cliente null" + ex, "Error", JOptionPane.ERROR_MESSAGE);

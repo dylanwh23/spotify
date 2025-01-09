@@ -6,6 +6,7 @@ package models;
 
 import java.util.LinkedList;
 import java.util.List;
+import javax.jws.WebService;
 import javax.persistence.Entity;
 
 import javax.persistence.Inheritance;
@@ -19,7 +20,8 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="PlaylistParticular")
+@Table(name="playlistparticular")
+@WebService
 public class PlaylistParticular extends Playlist {
 
 	@Column(name="privada")
@@ -80,7 +82,7 @@ public class PlaylistParticular extends Playlist {
         return canciones;
     }
 
-    public void setCanciones(LinkedList<Cancion> canciones) {
+    public void setCancionesParticular(LinkedList<Cancion> canciones) {
         this.canciones = canciones;
     }
     

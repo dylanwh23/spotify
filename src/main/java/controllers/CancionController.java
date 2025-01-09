@@ -6,7 +6,10 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.jws.WebService;
 import javax.persistence.EntityManager;
 
 import javax.persistence.EntityManagerFactory;
@@ -24,6 +27,7 @@ import persistence.UsuarioJpaController;
  *
  * @author Machichu
  */
+@WebService
 public class CancionController implements ICancionController  {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("grupo6_Spotify");
     private CancionJpaController cancionJpaController;
@@ -77,8 +81,43 @@ public class CancionController implements ICancionController  {
                 .map(cancion -> cancion.getId() + " - " + cancion.getNombre())
                 .collect(Collectors.toList());
     }
+    
+    
+    
+    
+    public List<Integer> obtenerIdsCancionesFavoritas(String clienteNick) {
 
-    public Object[][] obtenerDatosCancion(int id) {
+    Cliente cliente = (Cliente) auxCliente.findUsuario(clienteNick);
+
+    if (cliente == null) {
+        return new ArrayList<>();
+    }
+
+    List<Cancion> cancionesFavoritas = cliente.getCancionesFavoritas();
+
+    return cancionesFavoritas.stream()
+            .map(Cancion::getId) // Aquí extraemos solo el ID
+            .collect(Collectors.toList());
+}
+
+    public Object[] obtenerDatosCancion(int id) {
+        Cancion aux = cancionJpaController.findCancion(id);
+        Object[] datos = new Object[7];
+        datos[0] = aux.getId();
+        datos[1] = aux.getNombre();
+        datos[4] = obtenerFoto(aux.getId());
+        datos[3] = aux.getDireccion_archivo_de_audio();
+        datos[2] = aux.getDuracion();
+        if (aux.getGenero() != null) {
+            datos[5] = aux.getGenero().toString();
+        } else {
+            datos[5] = "Sin Genero asociado";
+        }
+        datos[6] = obtenerArtista(id);
+        return datos;
+    }
+    
+     public Object[][] obtenerDatosCancionSwing(int id) {
         Album album = auxAl.findAlbum(id);
         if (album == null) {
             return new Object[0][0];
@@ -94,19 +133,57 @@ public class CancionController implements ICancionController  {
             datos[i][4] = obtenerFoto(cancion.getId());
             datos[i][3] = cancion.getDireccion_archivo_de_audio();
             datos[i][2] = cancion.getDuracion();
-            if(cancion.getGenero()!=null){
-            datos[i][5] = cancion.getGenero().toString();
-            }else{
-            datos[i][5] ="Sin Genero asociado";
+            if (cancion.getGenero() != null) {
+                datos[i][5] = cancion.getGenero().toString();
+            } else {
+                datos[i][5] = "Sin Genero asociado";
             }
-            
+
         }
         return datos;
     }
 
     public String obtenerFoto(int id) {
+
         EntityManager em = emf.createEntityManager();
-        return em.createQuery("SELECT a.direccion_imagen FROM Album a JOIN a.canciones c WHERE c.id = :cancionId",String.class).setParameter("cancionId", id).getSingleResult();
+        return (String) em.createNativeQuery(
+                "Select direccion_imagen from album where id=(SELECT album_id FROM album_canciones where cancion_id =" + id + ")").getSingleResult();
+    }
+
+    public String obtenerArtista(int id) {
+
+        EntityManager em = emf.createEntityManager();
+        return (String) em.createNativeQuery(
+                "select CONCAT(nombre,' ',apellido) from usuario where nick=(Select artista from album where id=(SELECT album_id FROM album_canciones where cancion_id =" + id + "));").getSingleResult();
+    }
+
+    public int obtenerIdAlbum(int id) {
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("SELECT a.id FROM Album a JOIN a.canciones c WHERE c.id = :cancionId", int.class).setParameter("cancionId", id).getSingleResult();
+    }
+
+    public void aumentoDescarga(int id) {
+        Cancion can = cancionJpaController.findCancion(id);
+        int num = can.getDescargas();
+
+        can.setDescargas(num + 1);
+        try {
+            cancionJpaController.edit(can);
+        } catch (Exception ex) {
+            Logger.getLogger(CancionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void aumentoContador(int id) {
+        Cancion can = cancionJpaController.findCancion(id);
+        int num = can.getReprodrucciones();
+        can.setReprodrucciones(num + 1);
+
+        try {
+            cancionJpaController.edit(can);
+        } catch (Exception ex) {
+            Logger.getLogger(CancionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
