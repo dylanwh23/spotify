@@ -22,9 +22,12 @@ El proyecto **Spotify** es un servidor de servicios web que incluye una interfaz
    - Diseñada para gestionar usuarios, playlists, y datos relacionados.
 2. **Servidor de servicios web SOAP:**
    - Provee servicios para que otras aplicaciones (como SpotifyWeb) interactúen con el sistema.
-   - Manejo eficiente de peticiones y respuestas en formato XML.
+   - Manejo  de peticiones y respuestas en formato XML.
 3. **Sincronización de datos:**
    - Permite mantener actualizados los datos entre el servidor y las aplicaciones conectadas.
+   
+## Capturas de pantalla 📸
+![1](https://diegopozzi.com/proyectospotify/15.png)
 
 ## Instalación ⚙️
 
